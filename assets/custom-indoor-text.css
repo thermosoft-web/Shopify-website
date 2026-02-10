@@ -1,0 +1,34 @@
+.indoor-text-inner { display: flex; gap: 80px; flex-wrap: wrap; }
+.indoor-text-left { width: 100%; flex: 1 1 calc(40.9% - 40px); }
+.indoor-text-right { width: 100%; flex: 1 1 calc(59.1% - 40px); }
+.indoor-text-right .rte p:last-child {margin-bottom: 0;}
+.Driveway .indoor-text-right .metafield-rich_text_field p {
+    margin-bottom: 0;
+}
+.indoor-text-left h2.h2 {margin-bottom: 0;letter-spacing: -0.4px;}
+.indoor-content-wrapper.is-collapsed {
+    max-height: 100%;
+    display: block;
+    position: relative;
+}
+.rtm__toggle {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 4px 0;
+    text-decoration: underline;
+    font: inherit;
+    font-weight: 700;
+}
+@media screen and (max-width: 768px) {
+  .indoor-text-inner {gap: 20px;}
+  .indoor-text-left { width: 100%; flex: 1 1 100%; }
+  .indoor-text-right { width: 100%; flex: 1 1 100%; }
+}
+@media screen and (min-width: 768px) {
+    .custom-indoor-text .rtm__toggle {display: none;}
+}
+@media screen and (max-width: 768px) {
+    .custom-indoor-text .rte.body-regular.indoor-content-wrapper.is-expanded {max-height: 100%;}
+    .custom-indoor-text .indoor-content-wrapper.is-collapsed {max-height: 180px;overflow: hidden;}
+}

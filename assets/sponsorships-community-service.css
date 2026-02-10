@@ -1,0 +1,30 @@
+.sponsor-community-srvc.sponsor-community-srvc--transparent-false {background: var(--color-bg, var(--bg-body, #f5f5f5));color: var(--color-text, var(--color-body, #2c2d2e));box-shadow: inset 44px 39px 58px #dbd8d217, 11px 10px 32px #dbd8d21a;}
+.sponsor-community-srvc h2.heading-has-gradient {background-image: var(--color-heading);-webkit-background-clip: text;background-clip: text;color: transparent;}
+.sponsor-community-srvc h2.heading-has-gradient span {background-image: var(--color-heading);-webkit-background-clip: text;background-clip: text;color: transparent;}
+.sponsor-community-srvc .service-block {margin-top: 60px;}
+.sponsor-community-srvc .service-block:first-child {margin-top: 0;}
+.sponsor-community-srvc .service-block .service-heading {margin-bottom: 10px;}
+.sponsor-community-srvc .service-block .service-description {margin-bottom: 40px;}
+.sponsor-community-srvc .service-block .gallery-group {padding: 16px;background: #fff;margin-top: 20px;}
+.sponsor-community-srvc .service-block .gallery-images {overflow: hidden;}
+.sponsor-community-srvc .service-block .gallery-group .gallery-heading {margin-bottom: 12px;}
+.sponsor-community-srvc .service-block .gallery-images-2 .flickity-page-dots {display: none;}
+.sponsor-community-srvc .service-block .gallery-images-1 .flickity-page-dots {display: none;}
+.service-block .gallery-image, .service-block .gallery-image img {width: 100%;}
+.sponsor-community-srvc .service-block .gallery-images-3,
+.sponsor-community-srvc .service-block .gallery-images-4,
+.sponsor-community-srvc .service-block .gallery-images-5 {padding-bottom: 20px;}
+.sponsor-community-srvc .service-block .gallery-images .flickity-page-dots {bottom: 0px;}
+
+@media only screen and (min-width: 768px) {
+  .sponsor-community-srvc .service-block .gallery-images-3,
+  .sponsor-community-srvc .service-block .gallery-images-4 {padding-bottom: 0;}
+  .sponsor-community-srvc .service-block .gallery-images-3 .flickity-page-dots,
+  .sponsor-community-srvc .service-block .gallery-images-4 .flickity-page-dots {display: none;}
+}
+
+@media only screen and (min-width: 1068px) {
+  .sponsor-community-srvc .service-block .gallery-images-4,
+  .sponsor-community-srvc .service-block .gallery-images-5 {padding-bottom: 0;}
+  .sponsor-community-srvc .service-block .gallery-images-5 .flickity-page-dots {display: none;}
+}

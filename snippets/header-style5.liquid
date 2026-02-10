@@ -1,0 +1,215 @@
+{%- liquid
+	assign cart_icon = header_settings.cart_icon | default: 'cart'
+-%}
+
+{% render 'header-logo', header_settings: header_settings %}
+
+<div class="contact-info-bar">
+  <div class="contact-left desc-block">
+    <span class="phone-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+		<rect x="1.21875" y="1.21875" width="23.5625" height="23.5625" rx="11.7812" stroke="#900000" stroke-width="2.4375"/>
+		<path d="M9.81543 7.02298C9.25762 6.56269 8.47079 6.65184 8.08594 7.18509L8.08496 7.18607C7.94902 7.37347 7.7968 7.59362 7.55762 7.90677L7.28711 8.25345C6.79309 8.87813 6.52446 9.65133 6.52539 10.4478C6.5264 11.2449 6.79757 12.0184 7.29395 12.6421C8.15276 13.7077 9.04359 14.7697 10.0361 15.7622C11.0282 16.7543 12.0915 17.6456 13.1572 18.5064C13.7802 19.0021 14.5525 19.2729 15.3486 19.274C16.1454 19.275 16.9195 19.0061 17.5439 18.5113H17.543C18.08 18.082 18.3922 17.8724 18.6475 17.687C19.1635 17.312 19.2555 16.5632 18.8271 16.0327V16.0318C18.2872 15.3619 17.6718 14.7258 17.0615 14.0816C16.9516 13.9682 16.8023 13.9005 16.6445 13.8931C16.4868 13.8857 16.3319 13.9389 16.2119 14.0415V14.0425C15.9311 14.282 15.7194 14.4537 15.2275 14.9156L14.9551 15.1714L14.6338 14.98C12.8975 13.949 11.8295 12.8685 10.8164 11.1646L10.626 10.8433L10.8818 10.5699C11.3466 10.0751 11.5187 9.86399 11.7598 9.5806L11.7617 9.57767C11.8634 9.45936 11.9157 9.30675 11.9082 9.15091C11.9025 9.03375 11.8639 8.92104 11.7969 8.82669L11.7207 8.7388C11.0906 8.14993 10.4657 7.55908 9.81543 7.02298Z" fill="#900000" stroke="#900000" stroke-width="0.994124"/>
+	</svg>
+    </span>
+    <div class="contact-details">
+      <a href="tel:+1800-308-8057" class="phone-number h6">800.308.8057</a>
+      <p class="contact-hours body-extra-small">8am–10pm CT, 7 days a week</p>
+    </div>
+  </div>
+  <div class="homeowners-pro">
+	{% if template.suffix == 'professional' %}
+	{% else %}	
+		<a href="https://thermosoftonline.myshopify.com/pages/professional" class="header-cl-btn thermo-pro">Thermosoft Pro</a>
+	{% endif %}
+  </div>
+  {% comment %} <div class="contact-left mob-block">
+    <span class="phone-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+		<rect x="1.21875" y="1.21875" width="23.5625" height="23.5625" rx="11.7812" stroke="#900000" stroke-width="2.4375"/>
+		<path d="M9.81543 7.02298C9.25762 6.56269 8.47079 6.65184 8.08594 7.18509L8.08496 7.18607C7.94902 7.37347 7.7968 7.59362 7.55762 7.90677L7.28711 8.25345C6.79309 8.87813 6.52446 9.65133 6.52539 10.4478C6.5264 11.2449 6.79757 12.0184 7.29395 12.6421C8.15276 13.7077 9.04359 14.7697 10.0361 15.7622C11.0282 16.7543 12.0915 17.6456 13.1572 18.5064C13.7802 19.0021 14.5525 19.2729 15.3486 19.274C16.1454 19.275 16.9195 19.0061 17.5439 18.5113H17.543C18.08 18.082 18.3922 17.8724 18.6475 17.687C19.1635 17.312 19.2555 16.5632 18.8271 16.0327V16.0318C18.2872 15.3619 17.6718 14.7258 17.0615 14.0816C16.9516 13.9682 16.8023 13.9005 16.6445 13.8931C16.4868 13.8857 16.3319 13.9389 16.2119 14.0415V14.0425C15.9311 14.282 15.7194 14.4537 15.2275 14.9156L14.9551 15.1714L14.6338 14.98C12.8975 13.949 11.8295 12.8685 10.8164 11.1646L10.626 10.8433L10.8818 10.5699C11.3466 10.0751 11.5187 9.86399 11.7598 9.5806L11.7617 9.57767C11.8634 9.45936 11.9157 9.30675 11.9082 9.15091C11.9025 9.03375 11.8639 8.92104 11.7969 8.82669L11.7207 8.7388C11.0906 8.14993 10.4657 7.55908 9.81543 7.02298Z" fill="#900000" stroke="#900000" stroke-width="0.994124"/>
+	</svg>
+	<a href="tel:+1800-308-8057" class="phone-number h6">800-308-8057</a>
+    </span>
+    <div class="contact-details">
+      <p class="contact-hours body-extra-small">8am–10pm CT, 7 days a week</p>
+    </div>
+  </div> {% endcomment %}
+
+  {% comment %} <div class="accessibility-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+	<g clip-path="url(#clip0_7867_23725)">
+		<path d="M34 17C34 7.61116 26.3888 0 17 0C7.61116 0 0 7.61116 0 17C0 26.3888 7.61116 34 17 34C26.3888 34 34 26.3888 34 17Z" fill="#151616"/>
+		<path d="M16.9993 2.50992C25.0021 2.50992 31.4897 8.99753 31.4897 17.0005C31.4897 25.0032 25.0021 31.4908 16.9993 31.4908C8.9964 31.4908 2.50879 25.0032 2.50879 17.0005C2.50879 8.99753 8.9964 2.50992 16.9993 2.50992ZM16.9993 3.64325C9.62233 3.64325 3.64212 9.62346 3.64212 17.0005C3.64212 24.3773 9.62233 30.3575 16.9993 30.3575C24.3762 30.3575 30.3564 24.3773 30.3564 17.0005C30.3564 9.62346 24.3762 3.64325 16.9993 3.64325ZM12.8386 15.6552L12.8391 17.205C11.685 17.8451 10.9044 19.0726 10.9044 20.4814C10.9044 22.5504 12.5883 24.2286 14.6665 24.2286C16.2926 24.2286 17.6771 23.2014 18.2027 21.7633L19.6778 21.7632C19.1063 23.9917 17.079 25.6389 14.6665 25.6389C11.8105 25.6389 9.49416 23.3303 9.49416 20.4814C9.49416 18.2743 10.8843 16.3916 12.8386 15.6552ZM15.8848 11.9814C16.1519 11.9814 16.4039 12.0456 16.6262 12.1594C16.6583 12.1743 16.6899 12.1915 16.7204 12.2113C16.8145 12.268 16.9023 12.3336 16.9828 12.4071L19.3703 14.212H21.7061C22.0711 14.212 22.3713 14.4896 22.4075 14.8451L22.4111 14.9173C22.4111 15.3067 22.0955 15.6223 21.7061 15.6223H19.1337C18.9803 15.6223 18.8309 15.5723 18.7085 15.4797L17.5091 14.5729V18.012L20.8738 18.5715C21.0874 18.607 21.2729 18.7386 21.3768 18.9285L23.8135 23.381C24.0004 23.7225 23.875 24.1509 23.5334 24.3379C23.4423 24.3878 23.345 24.4154 23.2478 24.4228L23.175 24.4244C22.933 24.4173 22.701 24.2857 22.5763 24.058L20.4765 20.2211L16.151 20.4597C16.0951 20.4689 16.0381 20.4753 15.9803 20.4787L15.8848 20.4814C14.9878 20.4814 14.2604 19.7564 14.2604 18.8622V13.6004C14.2604 12.7063 14.9878 11.9814 15.8848 11.9814ZM24.5466 13.9753C24.7455 14.0751 24.8259 14.3172 24.7261 14.5161L23.3688 17.2216C23.3005 17.3577 23.1611 17.4437 23.0087 17.4437H20.1659C19.9435 17.4437 19.763 17.2634 19.763 17.0408C19.763 16.8183 19.9435 16.6379 20.1659 16.6379L22.7601 16.6378L24.0057 14.1548C24.1056 13.9559 24.3477 13.8755 24.5466 13.9753ZM16.6972 7.93374C17.5942 7.93374 18.3215 8.65866 18.3215 9.55278C18.3215 10.4469 17.5942 11.1718 16.6972 11.1718C15.8 11.1718 15.0727 10.4469 15.0727 9.55278C15.0727 8.65866 15.8 7.93374 16.6972 7.93374Z" fill="white"/>
+	</g>
+	<defs>
+		<clipPath id="clip0_7867_23725">
+		<rect width="34" height="34" fill="white"/>
+		</clipPath>
+	</defs>
+	</svg>
+  </div> {% endcomment %}
+  	<a class="thb-secondary-area-item thb-quick-search mob-block{% unless header_settings.minimized_search %} thb-quick-search--mobile-only{%- endunless -%}" href="{{ routes.search_url }}" title="{{ 'sections.header.search' | t }}">{%- render 'svg-icons' with 'search' -%}</a>
+	<a class="thb-secondary-area-item thb-secondary-cart mob-block" href="{{ routes.cart_url }}" id="cart-drawer-toggle-mobile"><div class="thb-secondary-item-icon {% if cart.item_count > 99 %}item_count_more{% endif %}">{% render 'svg-icons' with cart_icon %} <span class="thb-item-count">{{ cart.item_count }}</span></div></a>
+	<div class="thb-header-mobile-left">
+		{% render 'header-mobile-toggle', header_settings: header_settings, blocks: blocks %}
+	</div>
+</div>
+
+{% render 'header-full-menu', menu: header_settings.menu, blocks: blocks, header_settings: header_settings %}
+
+<style>
+.contact-info-bar {
+	display: flex;
+	align-items: center;
+	gap: 22px;
+}
+.contact-left {
+	display: flex;
+	align-items: start;
+	gap: 12px;
+}
+.contact-hours {
+    margin: 0;
+    font-weight: 500 !important;
+    color: #000;
+}
+.contact-info-bar {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    justify-content: end;
+}
+.mob-block {
+    display: none;
+}
+.mob-header-search {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #E1E3E3;
+    border-bottom: 1px solid #E1E3E3;
+}
+.mob-header-search .searchform {
+    display: block;
+}
+.mob-header-search .searchform {
+    width: calc(100% - 118px);
+    margin: 0;
+}
+.mob-header-search a.request-quote-btn {
+    border-radius: 0;
+    padding: 4px 12px 4px 15px;
+    font-weight: 500;
+}
+.header .mob-header-search .searchform--form .search-field {
+    height: 28px;
+    padding: 4px 15px;
+    font-size: 12px;
+    border-radius: 0;
+    background: transparent;
+}
+.header .mob-header-search .searchform--form .search-field::placeholder {
+    color: #7F766E;
+}
+mob-full-menu .contact-left {
+    align-items: center;
+    justify-content: center;
+}
+.contact-hours::marker {
+    color: #900000;
+}
+.mobile-menu a.request-quote-btn {
+    padding: 8px 16px;
+    height: 36px;
+    display: inline-block;
+}
+.thb-quick-search {
+    line-height: 0;
+}
+.accessibility-icon {
+    line-height: 0;
+}
+@media screen and (max-width: 1067px) {
+	.desc-block {
+		display: none;
+	}
+	.mob-block {
+		display: block;
+	}
+	.contact-info-bar .thb-secondary-cart span {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		font-size: .625rem;
+		font-weight: var(--font-body-bold-weight, 600);
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: var(--color-accent);
+		color: var(--color-header-bg, #fff);
+		position: absolute;
+		top: -5px;
+		right: -5px;
+	}
+	.thb-secondary-area-item.thb-secondary-cart {
+		padding: 0;
+	}
+	.contact-info-bar {
+		gap: 10px;
+	}
+	.accessibility-icon svg {
+		width: 28px;
+		height: 28px;
+	}
+	.thb-secondary-area-item.thb-secondary-cart svg {
+		width: 28px;
+		height: 28px;
+	}
+	.phone-icon {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+	.phone-icon svg {
+		width: 20px;
+		height: 20px;
+	}
+	.phone-icon a {
+		margin: 0;
+		font-size: 14px;
+		font-weight: 700 !important;
+		font-variation-settings: normal;
+	}
+	.contact-hours {
+		font-size: 14px;
+		line-height: 20px;
+		font-weight: 400 !important;
+		list-style: disc;
+		margin-left: 18px;
+	}
+	mob-full-menu {
+		background: #E9E9E9;
+		padding: 8px 15px;
+		margin: 0 -50px;
+	}
+	.mobile-menu a.request-quote-btn {
+		margin-top: 20px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	mob-full-menu {
+		margin: 0 -15px;
+	}
+}
+@media screen and (max-width: 420px) {
+	.contact-left {
+	    gap: 10px;
+	}
+	.contact-hours {
+	    margin-left: 10px;
+	}
+}
+
+</style>

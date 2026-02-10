@@ -1,0 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product-compare": {
+      "type": "main-product-compare",
+      "blocks": {
+        "metafield_KkMrUC": {
+          "type": "metafield",
+          "settings": {
+            "heading": "Primary Function",
+            "content": "custom.compare_primary_function"
+          }
+        },
+        "metafield_fBPrhJ": {
+          "type": "metafield",
+          "settings": {
+            "heading": "Recommended For",
+            "content": "custom.compare_recommended_for"
+          }
+        },
+        "metafield_dnMdPC": {
+          "type": "metafield",
+          "settings": {
+            "heading": "Coverage Area",
+            "content": "custom.compare_coverage_area"
+          }
+        },
+        "metafield_iC7jtU": {
+          "type": "metafield",
+          "settings": {
+            "heading": "Compatibility",
+            "content": "custom.compare_compatibility"
+          }
+        },
+        "metafield_KgRDde": {
+          "type": "metafield",
+          "settings": {
+            "heading": "Installation Type",
+            "content": "custom.compare_installation_type"
+          }
+        }
+      },
+      "block_order": [
+        "metafield_KkMrUC",
+        "metafield_fBPrhJ",
+        "metafield_dnMdPC",
+        "metafield_iC7jtU",
+        "metafield_KgRDde"
+      ],
+      "settings": {
+        "empty_field_label": "N/A"
+      }
+    }
+  },
+  "order": [
+    "main-product-compare"
+  ]
+}

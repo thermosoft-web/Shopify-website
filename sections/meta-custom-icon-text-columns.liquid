@@ -1,0 +1,341 @@
+{{- 'icon-text-columns.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+	assign section_heading = section.settings.heading
+	assign marker_style = section.settings.marker_style
+	assign section_description = section.settings.description
+	assign heading_size = section.settings.heading_size
+
+	assign color_heading = section.settings.color_heading
+	assign marker_color = section.settings.marker_color
+	assign color_text = section.settings.color_text
+	assign color_links = section.settings.color_links
+	assign image_bg = section.settings.image_bg
+	assign image_inner_bg = section.settings.image_inner_bg
+
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+  assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+  assign mobile_spacing_top = section.settings.mobile_spacing_top
+  assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+
+-%}
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+  --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+  --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+  --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+}
+{% endstyle %}
+
+<div class="icon-text-columns section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}" style="--color-heading: {{ color_heading }}; --color-text: {{ color_text }}; --color-accent: {{ color_links }}; --color-accent-rgb: {{ color_links.rgb | replace: ' ' , ',' }}; --image-bg: {{ image_bg }}; --image-inner-bg: {{ image_inner_bg }};">
+	<div class="row">
+		<div class="small-12 columns icon-text-columns_wrapper">
+			{% comment %} {% render 'section-header', section_heading: section_heading, section_description: section_description, marker_color: marker_color, marker_style: marker_style %} {% endcomment %}
+      <div class="icon-text-columns-left">
+        {% assign heading = page.metafields.custom.custom_icon_text_column_heading.value %}
+        {% assign description = page.metafields.custom.custom_icon_text_column_description %}
+        {% if section.settings.subtitle != blank %} <p class="subtitle">{{ section.settings.subtitle }}</p> {% endif %}
+        {% if heading != blank %} <h2 class="h2 icon-text-columns-title">{{ heading }}</h2> {% endif %}
+        {% if description != blank %}
+          <div class="rte body-regular content-wrapper">{{ description | metafield_tag }}</div>
+          <button class="read-more-btn">Read more</button> 
+        {% endif %}
+      </div>
+      <div class="icon-text-columns__inner">
+        {%- for block in page.metafields.custom.custom_icon_text_column.value -%}
+          <div class="icon-text-columns__column" {{ block.shopify_attributes }}>
+            {% if block.image != blank %}
+              {%- liquid
+                assign ratio = 1
+              -%}
+              <div class="icon-text-columns__image_bg">
+                <figure class="icon-text-columns__image">
+                  <div class="icon-text-columns__image--inner aspect-ratio aspect-ratio--square" style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;">
+                    <img src="{{ block.image | img_url: 'master' }}" alt="{{ block.title | escape }}">
+                  </div>
+                </figure>
+              </div>
+            {% endif %}
+            <div class="icon-text-columns__content">
+              {% if block.title != blank %}
+                <p class="icon-text-columns__content_heading {{ heading_size }}">{{ block.title | newline_to_br }}</p>
+              {% endif %}
+              {% if block.text != blank %}
+                <div class="rte" {{ block.shopify_attributes }}>{{ block.text | metafield_tag }}</div>
+              {% endif %}
+              {% if block.link_label != blank %}
+                {% render 'text-button', url: block.link, title: block.link_label %}
+              {% endif %}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% javascript %}
+  document.addEventListener("DOMContentLoaded", function() {
+    const content = document.querySelector(".icon-text-columns-left .content-wrapper");
+    const btn = document.querySelector(".icon-text-columns-left .read-more-btn");
+    
+    if (!content || !btn) return;
+        
+    btn.addEventListener("click", function() {
+    if (content.classList.contains("expanded")) {
+      content.classList.remove("expanded");      
+      btn.textContent = "Read more";
+    } else {
+      content.classList.add("expanded");      
+      btn.textContent = "Read less";
+    }
+  });
+});
+
+{% endjavascript %}
+
+{% schema %}
+  {
+    "name": "Meta icon text columns",
+		"class": "section-icon-text-columns",
+    "settings": [
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+			{
+        "type": "textarea",
+        "id": "heading",
+        "label": "Heading",
+				"info": "Wrap your text between | to add animated markers. For example: Animated |marker| will underline marker text."
+      },
+			{
+				"type": "select",
+				"id": "marker_style",
+				"options": [
+					{
+						"value": "style1",
+						"label": "Basic"
+					},
+					{
+						"value": "style2",
+						"label": "Double"
+					},
+					{
+						"value": "style3",
+						"label": "Squiggle"
+					},
+					{
+						"value": "style4",
+						"label": "Zigzag"
+					}
+				],
+				"default": "style1",
+				"label": "Marker"
+			},
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+      },
+			{
+				"type": "select",
+				"id": "heading_size",
+				"label": "Content heading size",
+				"options": [
+					{
+						"value": "body-large",
+						"label": "Extra Large"
+					},
+					{
+						"value": "body-regular",
+						"label": "Large"
+					},
+					{
+						"value": "body-small",
+						"label": "Medium"
+					},
+					{
+						"value": "body-extra-small",
+						"label": "Small"
+					}
+				],
+				"default": "body-regular"
+			},
+			{
+	      "type": "header",
+	      "content": "Colors"
+	    },
+			{
+        "type": "color",
+        "id": "color_heading",
+        "label": "Heading",
+        "default": "#1a1c1d"
+      },
+			{
+				"type": "color",
+				"id": "marker_color",
+				"label": "Marker",
+				"default": "#FD6262"
+			},
+
+			{
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#2c2d2e"
+      },
+			{
+        "type": "color",
+        "id": "color_links",
+        "label": "Links",
+        "default": "#2c2d2e"
+      },
+			{
+        "type": "color",
+        "id": "image_bg",
+        "label": "Image background",
+        "default": "#2c2d2e"
+      },
+      {
+        "type": "color",
+        "id": "image_inner_bg",
+        "label": "Image inner background",
+        "default": "#FFFFFF"
+      },
+			{
+        "type": "header",
+        "content": "Spacing"
+      },
+      {
+        "type": "checkbox",
+        "id": "disable_top_spacing",
+        "default": false,
+        "label": "Remove top spacing"
+      },
+      {
+        "type": "checkbox",
+        "id": "disable_bottom_spacing",
+        "default": false,
+        "label": "Remove bottom spacing"
+      },
+      {
+        "type": "header",
+        "content": "Desktop spacing"
+      },
+      {
+        "type": "range",
+        "id": "desktop_spacing_top",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Desktop spacing top",
+        "default": 30,
+        "info": "Changes the section top spacing in desktop screens."
+      },
+      {
+        "type": "range",
+        "id": "desktop_spacing_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Desktop spacing bottom",
+        "default": 30,
+        "info": "Changes the section bottom spacing in desktop screens."
+      },
+      {
+        "type": "header",
+        "content": "Mobile spacing"
+      },
+      {
+        "type": "range",
+        "id": "mobile_spacing_top",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Mobile spacing top",
+        "default": 15,
+        "info": "Changes the section top spacing in mobile screens."
+      },
+      {
+        "type": "range",
+        "id": "mobile_spacing_bottom",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Mobile spacing bottom",
+        "default": 15,
+        "info": "Changes the section bottom spacing in mobile screens."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "column",
+        "name": "Column",
+        "settings": [
+					{
+						"type": "image_picker",
+						"id": "image",
+						"label": "Image",
+						"info": "80 x 80 .svg recommended."
+					},
+					{
+						"type": "text",
+						"id": "title",
+						"default": "Column",
+						"label": "Heading"
+					},
+					{
+						"type": "richtext",
+						"id": "text",
+						"default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+						"label": "Description"
+					},
+	        {
+	          "type": "text",
+	          "id": "link_label",
+	          "label": "Link label"
+	        },
+	        {
+	          "type": "url",
+	          "id": "link",
+	          "label": "Link"
+	        }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Meta icon text columns",
+				"blocks": [
+	        {
+	          "type": "column"
+	        },
+	        {
+	          "type": "column"
+	        },
+	        {
+	          "type": "column"
+	        },
+	        {
+	          "type": "column"
+	        }
+	      ]
+      }
+    ],
+		"enabled_on": {
+			"templates": ["*"],
+			"groups": [
+				"header", "footer"
+			]
+		}
+  }
+{% endschema %}

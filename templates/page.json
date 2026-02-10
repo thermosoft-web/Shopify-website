@@ -1,0 +1,118 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "logo_list_bRicF6": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_GaK4gp": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-1.png",
+            "link": "https://thermosoftonline.myshopify.com/pages/about-us"
+          }
+        },
+        "logo_nmgNYy": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-2.png",
+            "link": "#"
+          }
+        },
+        "logo_yT9VYq": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-3.svg",
+            "link": "https://thermosoftonline.myshopify.com/pages/manual-documents"
+          }
+        },
+        "logo_PdbnTe": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-4.svg",
+            "link": "https://nwfa.org/"
+          }
+        },
+        "logo_fKrPJY": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-5.svg",
+            "link": "https://thermosoftonline.myshopify.com/pages/manual-documents"
+          }
+        },
+        "logo_CRrx9Y": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-6.svg",
+            "link": "https://vod-progressive-ak.vimeocdn.com/exp=1764013263~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F669%2F16%2F403347433%2F1724826815.mp4~hmac=5afa7a96fd9eae5c53ce8a681a14d01142a7f47e8309a7e36c2ba93fc4fda1b8/vimeo-prod-skyfire-std-us/01/669/16/403347433/1724826815.mp4"
+          }
+        },
+        "logo_kRtKwm": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-7.svg",
+            "link": "https://www.tile-assn.com/members/?id=31992715"
+          }
+        },
+        "logo_bbXR9H": {
+          "type": "logo",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/brand-8.png",
+            "link": "#"
+          }
+        },
+        "logo_xjNL9R": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-9.svg",
+            "link": "https://player.vimeo.com/external/403347212.sd.mp4?s=ec5a7024023773d966d68f21fcba2c0d9b78a747&profile_id=165"
+          }
+        }
+      },
+      "block_order": [
+        "logo_GaK4gp",
+        "logo_nmgNYy",
+        "logo_yT9VYq",
+        "logo_PdbnTe",
+        "logo_fKrPJY",
+        "logo_CRrx9Y",
+        "logo_kRtKwm",
+        "logo_bbXR9H",
+        "logo_xjNL9R"
+      ],
+      "name": "Logo list",
+      "settings": {
+        "heading": "",
+        "marker_style": "style1",
+        "description": "",
+        "columns": 9,
+        "mobile_swipe": true,
+        "center_align": true,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 24,
+        "desktop_spacing_bottom": 24,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15,
+        "color_logo_bg": "rgba(0,0,0,0)",
+        "marker_color": "#fd6262"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "logo_list_bRicF6"
+  ]
+}

@@ -1,0 +1,130 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product-quick-view": {
+      "type": "main-product-quick-view",
+      "blocks": {
+        "sku_ye9JeX": {
+          "type": "sku",
+          "settings": {
+            "sku_style": "style_vendor"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "show_products_rating": false,
+            "show_products_rating_average": false,
+            "show_custom_badges": false
+          }
+        },
+        "e196b5f8-d86c-4dcd-8840-980aac4eb6de": {
+          "type": "description",
+          "settings": {
+            "seo_text_max_height": 1000,
+            "seo_text_read_more": "Read more",
+            "seo_text_read_less": "Read less"
+          }
+        },
+        "price_TB9FbQ": {
+          "type": "price",
+          "settings": {}
+        },
+        "modal_power_ebWddz": {
+          "type": "modal-power",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "color_picker": true,
+            "color_picker_size": "regular",
+            "color_picker_use_variants": false,
+            "variant_is_disabled": true
+          }
+        },
+        "quantity_XRUWAK": {
+          "type": "quantity",
+          "settings": {}
+        },
+        "product_tabs_fE7FPi": {
+          "type": "product-tabs",
+          "settings": {}
+        },
+        "tab_za7tXT": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Glue Down Installation",
+            "full_width": false,
+            "video_banner": "shopify://shop_images/6313098be30af434eb9ef4423ac6eb13be6d8cbc.png",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_hosted": "shopify://files/videos/43954d5c-c814566e.mp4",
+            "video_autoplay": true,
+            "aspect_ratio": "16-9"
+          }
+        },
+        "step_zhTFww": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561.png",
+            "title": "Make sure you have the right amount of material.",
+            "description": "<ul><li>The mats should cover the entire floor space.</li><li>Follow heating mat spacing from walls and studs according to the manual.</li><li>Heating elements should be in areas where you can walk, stand, or want to heat. See your manual for areas to avoid heating.</li><li>Contact support if you have any questions prior to your installation.</li></ul>"
+          }
+        },
+        "step_NxkMjf": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_1.png",
+            "title": "Prepare conduits and electrical boxes for thermostat installation later.",
+            "description": "<ul><li>Complete electrical rough-in.</li><li>This step may be done after cable is laid but is more difficult to do later as location of thermostat may change location of heating system.</li></ul>"
+          }
+        },
+        "step_TM9ywA": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_2.png",
+            "title": "Spread adhesive onto subfloor.",
+            "description": "<ul><li>See your WarmStep manual for recommended trowel and approved adhesives.</li><li>For cement subfloors, additional waterproofing may be necessary.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "sku_ye9JeX",
+        "title",
+        "e196b5f8-d86c-4dcd-8840-980aac4eb6de",
+        "price_TB9FbQ",
+        "modal_power_ebWddz",
+        "variant_picker",
+        "quantity_XRUWAK",
+        "product_tabs_fE7FPi",
+        "tab_za7tXT",
+        "step_zhTFww",
+        "step_NxkMjf",
+        "step_TM9ywA"
+      ],
+      "settings": {
+        "show_taxes_included": true,
+        "thumbnail_position": "left",
+        "media_aspect_ratio": "adapt",
+        "hide_variants": false,
+        "media_fullwidth_mobile": true,
+        "media_show_prevnext_mobile": true
+      }
+    }
+  },
+  "order": [
+    "main-product-quick-view"
+  ]
+}

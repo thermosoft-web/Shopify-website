@@ -1,0 +1,222 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1661619382b4020fa2": {
+      "type": "rich-text",
+      "blocks": {
+        "166161938159ca8988-1": {
+          "type": "heading",
+          "settings": {
+            "text": "Contact us",
+            "marker_style": "style1",
+            "size": "h1",
+            "marker_color": "#fd6262"
+          }
+        },
+        "166161938159ca8988-2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our US based heating experts will get back to you within 24 hours.</p>",
+            "custom_liquid": "",
+            "size": "text-size-regular"
+          }
+        }
+      },
+      "block_order": [
+        "166161938159ca8988-1",
+        "166161938159ca8988-2"
+      ],
+      "settings": {
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "center",
+        "color_bg": "rgba(0,0,0,0)",
+        "color_heading": "#1a1c1d",
+        "color_text": "#151515",
+        "color_links": "#151515",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": true,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 40,
+        "mobile_spacing_top": 65,
+        "mobile_spacing_bottom": 35
+      }
+    },
+    "custom_contact_form_VtGeB7": {
+      "type": "custom-contact-form",
+      "blocks": {
+        "sales_form_gh8KmA": {
+          "type": "sales_form",
+          "settings": {
+            "tab_label": "Sales",
+            "description": "<p>Contact our sales department if you are interested in connecting to one of our product experts.</p>"
+          }
+        },
+        "project_planning_form_A8pM6T": {
+          "type": "project_planning_form",
+          "settings": {
+            "tab_label": "Project Planning",
+            "description": "<p>Get in touch with one of our project experts to help you plan your projects.</p>"
+          }
+        },
+        "support_form_KPjP6e": {
+          "type": "support_form",
+          "settings": {
+            "tab_label": "Support",
+            "description": "<p>For technical assistance, please provide your information below:</p>"
+          }
+        },
+        "billing_form_xakjqL": {
+          "type": "billing_form",
+          "settings": {
+            "tab_label": "Billing/Shipping",
+            "description": "<p>For billing/shipping assistance, please provide your information below:</p>"
+          }
+        },
+        "solutions_form_JQVGYH": {
+          "type": "solutions_form",
+          "settings": {
+            "tab_label": "Custom Solutions",
+            "description": "<p>For projects that require custom-made solutions, please provide your information below:</p>"
+          }
+        },
+        "special_pricing_form_KYTpDM": {
+          "type": "special_pricing_form",
+          "settings": {
+            "tab_label": "Special Pricing",
+            "description": "<p>To inquire if your project qualifies for special pricing, please provide your information below:</p>"
+          }
+        },
+        "other_form_kbPp9d": {
+          "type": "other_form",
+          "settings": {
+            "tab_label": "Other",
+            "description": "<p>For any topic not listed, please provide your information below:</p>"
+          }
+        }
+      },
+      "block_order": [
+        "sales_form_gh8KmA",
+        "project_planning_form_A8pM6T",
+        "support_form_KPjP6e",
+        "billing_form_xakjqL",
+        "solutions_form_JQVGYH",
+        "special_pricing_form_KYTpDM",
+        "other_form_kbPp9d"
+      ],
+      "disabled": true,
+      "name": "Custom contact form",
+      "settings": {
+        "tab_alignment": "left",
+        "text_alignment": "center",
+        "show_phone_number": true,
+        "color_tabs": "#ffffff",
+        "color_text": "#2c2d2e",
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": false
+      }
+    },
+    "support_contact_form_KiPEge": {
+      "type": "support-contact-form",
+      "blocks": {
+        "text_field_ek3hFU": {
+          "type": "text_field",
+          "settings": {
+            "title": "Company",
+            "use_long_text": false,
+            "is_required": false
+          }
+        },
+        "dropdown_field_WDCyrA": {
+          "type": "dropdown_field",
+          "settings": {
+            "title": "Project Type",
+            "values": "Indoor, Outdoor, Indoor & Outdoor"
+          }
+        },
+        "text_field_h8gthY": {
+          "type": "text_field",
+          "settings": {
+            "title": "Comments",
+            "use_long_text": true,
+            "is_required": false
+          }
+        }
+      },
+      "block_order": [
+        "text_field_ek3hFU",
+        "dropdown_field_WDCyrA",
+        "text_field_h8gthY"
+      ],
+      "name": "Support contact form",
+      "settings": {
+        "company": false,
+        "zip": false,
+        "plan": true,
+        "input_req": true,
+        "heading": "",
+        "marker_style": "style1",
+        "description": "",
+        "contact": "",
+        "chat": "",
+        "show_phone_number": true,
+        "marker_color": "#fd6262",
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 30,
+        "desktop_spacing_bottom": 30,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "map_wXm3aL": {
+      "type": "map",
+      "blocks": {
+        "pin_wK386J": {
+          "type": "pin",
+          "settings": {
+            "pin_retina": true,
+            "pin_lat": "33.9787261",
+            "pin_long": "-118.4197832",
+            "pin_title": "Call Us: 8am - 10pm CST (7 Days a Week)",
+            "pin_contact": "<p><a href=\"tel:847-279-3800\" title=\"tel:847-279-3800\">847-279-3800</a></p><p><strong>ADA Helpline:</strong> <a href=\"tel:866-913-7883\" title=\"tel:866-913-7883\">866-913-7883</a></p>",
+            "pin_email": "<a href=\"mailto:info@thermosoft.com\" title=\"mailto:info@thermosoft.com\">info@thermosoft.com</a>",
+            "pin_address": "701 Corporate Woods Pkwy, Vernon Hills, IL 60061",
+            "pin_desc": ""
+          }
+        }
+      },
+      "block_order": [
+        "pin_wK386J"
+      ],
+      "name": "Map",
+      "settings": {
+        "googlemaps_api_key": "",
+        "image": "shopify://shop_images/image_12047.png",
+        "mobile_image": "shopify://shop_images/image_12047_240243e2-b93d-4201-85b4-543a4a625725.png",
+        "full_width": true,
+        "desktop_height": "desktop-height-600",
+        "mobile_height": "mobile-height-600",
+        "map_type": "roadmap",
+        "map_style_select": "default",
+        "map_zoom": 0,
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true
+      }
+    }
+  },
+  "order": [
+    "1661619382b4020fa2",
+    "custom_contact_form_VtGeB7",
+    "support_contact_form_KiPEge",
+    "map_wXm3aL"
+  ]
+}

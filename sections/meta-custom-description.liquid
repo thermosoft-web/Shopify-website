@@ -1,0 +1,163 @@
+{% comment %}
+  Rich text with Read More / Read Less
+  - Uses classes only (no section.id)
+  - No inline CSS; pair with CSS below in theme stylesheet
+{% endcomment %}
+
+{% liquid
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+  assign desktop_spacing_top = section.settings.desktop_spacing_top
+  assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+  assign mobile_spacing_top = section.settings.mobile_spacing_top
+  assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+%}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+    --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+    --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+    --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+  }
+{% endstyle %}
+
+{% if page.metafields.custom.rich_text_read_more.value != blank %}
+  {% assign richtext = page.metafields.custom.rich_text_read_more.value %}
+  <section
+    class="rtm rtm--readmore section-spacing {% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}"
+    role="region"
+  >
+    <div class="row">
+      <div class="columns">
+        {% if richtext.heading != blank %}<h2 class="h2">{{ richtext.heading }}</h2>{% endif %}
+        <div class="rtm__content is-collapsed" aria-expanded="false">
+          {{ richtext.description | metafield_tag }}
+        </div>
+
+        <button class="rtm__toggle" type="button" aria-expanded="false">
+          <span class="rtm__more">Read more</span>
+          <span class="rtm__less" hidden>Read less</span>
+        </button>
+      </div>
+    </div>
+  </section>
+{% endif %}  
+
+
+{% style %}
+
+
+  .rtm__content p {
+    margin: 0 0 10px;
+    line-height: 1.6;
+  }
+  .rtm__content.is-collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    position: relative;
+  }
+  .template-page-driveway-walkway-heating .rtm__content.is-collapsed {
+    -webkit-line-clamp: 5;
+  }
+
+
+  .rtm__toggle {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 4px 0;
+    text-decoration: underline;
+    font: inherit;
+    font-weight: 700;
+  }
+
+  @media screen and (max-width: 767px) {
+    .rtm--readmore {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+    .rtm__content.is-collapsed {
+      -webkit-line-clamp: 5;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Meta Richtext – Readmore",
+  "class": "meta-richtext-readmore",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_top_spacing",
+      "default": false,
+      "label": "Remove top spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_bottom_spacing",
+      "default": false,
+      "label": "Remove bottom spacing"
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing top",
+      "default": 30,
+      "info": "Changes the section top spacing in desktop screens."
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing bottom",
+      "default": 30,
+      "info": "Changes the section bottom spacing in desktop screens."
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_top",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing top",
+      "default": 15,
+      "info": "Changes the section top spacing in mobile screens."
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing bottom",
+      "default": 15,
+      "info": "Changes the section bottom spacing in mobile screens."
+    }
+  ],
+  "presets": [{ "name": "Meta Richtext – Readmore" }]
+}
+{% endschema %}

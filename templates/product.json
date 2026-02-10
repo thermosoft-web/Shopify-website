@@ -1,0 +1,439 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {}
+    },
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "sku_eEAAfJ": {
+          "type": "sku",
+          "settings": {
+            "sku_style": "style_vendor"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "show_products_rating": false,
+            "show_products_rating_average": false,
+            "show_custom_badges": false
+          }
+        },
+        "0b3e272b-c86a-4dba-946c-c6912251371c": {
+          "type": "description",
+          "settings": {
+            "seo_text_max_height": 1000,
+            "seo_text_read_more": "Read more",
+            "seo_text_read_less": "Read less"
+          }
+        },
+        "price_PA7UzJ": {
+          "type": "price",
+          "settings": {}
+        },
+        "modal_power_hmNAWM": {
+          "type": "modal-power",
+          "settings": {}
+        },
+        "project_plan_bcEGnz": {
+          "type": "project-plan",
+          "disabled": true,
+          "settings": {
+            "link": ""
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "color_picker": true,
+            "color_picker_size": "regular",
+            "color_picker_use_variants": false,
+            "variant_is_disabled": true,
+            "sizing_guide_variant": "Size",
+            "sizing_guide_text": "Sizing guide",
+            "sizing_guide_icon": "ruler",
+            "sizing_guide_page": ""
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {}
+        },
+        "warranty_options_r6Ycdk": {
+          "type": "warranty-options",
+          "settings": {
+            "title": "Choose a warranty coverage",
+            "sub-title": "Only one option can be selected at a time.",
+            "bg_color": "#900000"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "product_tabs_UbCDkX": {
+          "type": "product-tabs",
+          "settings": {}
+        },
+        "tab_tirqDh": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Glue Down Installation",
+            "full_width": false,
+            "video_banner": "shopify://shop_images/6313098be30af434eb9ef4423ac6eb13be6d8cbc.png",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_hosted": "shopify://files/videos/43954d5c-c814566e.mp4",
+            "video_autoplay": false,
+            "aspect_ratio": "16-9"
+          }
+        },
+        "step_fRJUrn": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561.png",
+            "title": "Make sure you have the right amount of material.",
+            "description": "<ul><li>The mats should cover the entire floor space.</li><li>Follow heating mat spacing from walls and studs according to the manual.</li><li>Heating elements should be in areas where you can walk, stand, or want to heat. See your manual for areas to avoid heating.</li><li>Contact support if you have any questions prior to your installation.</li></ul>"
+          }
+        },
+        "step_HYKFKp": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_1.png",
+            "title": "Prepare conduits and electrical boxes for thermostat installation later.",
+            "description": "<ul><li>Complete electrical rough-in.</li><li>This step may be done after cable is laid but is more difficult to do later as location of thermostat may change location of heating system.</li></ul>"
+          }
+        },
+        "step_acwzmz": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_2.png",
+            "title": "Spread adhesive onto subfloor.",
+            "description": "<ul><li>See your WarmStep manual for recommended trowel and approved adhesives.</li><li>For cement subfloors, additional waterproofing may be necessary.</li></ul>"
+          }
+        },
+        "step_jChLKp": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_3.png",
+            "title": "Lay mats.",
+            "description": "<ul><li>Lay out mats and unfurl from the wall.</li><li>Make sure to unroll mats with lead wires closest to the thermostat.</li><li>Pro tip: Lay flooring over bottom half of mats to keep in place, then roll up once adhesive is spread.</li></ul>"
+          }
+        },
+        "step_7GQQJL": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_4.png",
+            "title": "Position sensors.",
+            "description": "<ul><li>Notch the bottom of the flooring plank to ensure the sensor stays in place between heating elements.</li><li>Highly recommended to install a backup sensor.</li><li>Position sensor evenly between 2 heating cables.</li><li>Do not cross the heating cable.</li></ul>"
+          }
+        },
+        "step_WzeCYa": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_5.png",
+            "title": "Spread approved adhesive on mats.",
+            "description": "<ul><li>Work in sections, covering entire membrane so you can continue installing membrane whether it's wet or dry.</li><li>Make sure not to use a sharp metal trowel which could nick or damage the heating cable.</li></ul>"
+          }
+        },
+        "step_6hmTcz": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_6.png",
+            "title": "Lay solid or engineered wood flooring.",
+            "description": "<ul><li>Refer to the flooring manufacturer for suggested adhesive.</li><li>Lay glue in increments, immediately laying down flooring so not to waste adhesive.</li></ul>"
+          }
+        },
+        "tab_BPDVbC": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Nail Down Installation",
+            "full_width": false,
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_autoplay": true,
+            "aspect_ratio": "16-9"
+          }
+        },
+        "step_zf9KH8": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Nail Down Installation",
+            "image": "shopify://shop_images/step1.jpg",
+            "title": "Make sure you have the right amount of material.",
+            "description": "<ul><li>The mats should cover the entire floor space.</li><li>Follow heating mat spacing from walls and studs according to the manual.</li><li>Heating elements should be in areas where you can walk, stand, or want to heat. See your manual for areas to avoid heating.</li><li>Contact support if you have any questions prior to your installation.</li></ul>"
+          }
+        },
+        "step_ewgw7y": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Nail Down Installation",
+            "image": "shopify://shop_images/step2.jpg",
+            "title": "Prepare conduits and electrical boxes for thermostat installation later.",
+            "description": "<ul><li>Complete electrical rough-in</li><li>This step may be done after cable is laid but is more difficult to do later as location of thermostat may change location of heating system.</li></ul>"
+          }
+        },
+        "step_Wr9xpc": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Nail Down Installation",
+            "image": "shopify://shop_images/step3.jpg",
+            "title": "Position mats throughout the room.",
+            "description": "<ul><li>It is very important that your mats are positioned perpendicular to the direction of the floorboards.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "sku_eEAAfJ",
+        "title",
+        "0b3e272b-c86a-4dba-946c-c6912251371c",
+        "price_PA7UzJ",
+        "modal_power_hmNAWM",
+        "project_plan_bcEGnz",
+        "variant_picker",
+        "quantity",
+        "warranty_options_r6Ycdk",
+        "buy_buttons",
+        "product_tabs_UbCDkX",
+        "tab_tirqDh",
+        "step_fRJUrn",
+        "step_HYKFKp",
+        "step_acwzmz",
+        "step_jChLKp",
+        "step_7GQQJL",
+        "step_WzeCYa",
+        "step_6hmTcz",
+        "tab_BPDVbC",
+        "step_zf9KH8",
+        "step_ewgw7y",
+        "step_Wr9xpc"
+      ],
+      "settings": {
+        "enable_sticky_add_to_cart": true,
+        "show_taxes_included": false,
+        "thumbnail_position": "bottom",
+        "media_aspect_ratio": "adapt",
+        "display_captions": true,
+        "hide_variants": false,
+        "lightbox": true,
+        "enable_video_looping": false,
+        "media_fullwidth_mobile": true,
+        "media_show_prevnext_mobile": true,
+        "instalation-heading": "How To Install WarmStep Heating Mats",
+        "instalation-subheading": "<p><strong>This overview does not substitute for a full reading of the Installation Manual.</strong><br/><br/>The below steps will take you from beginning to end simply, but please also refer to the Installation Manual or call us to go over a more detailed installation plan.<br/><br/>WarmStep is designed around enabling nailed or glued hardwood floors as the below instructions address. For floating floors, see our Quick Install Guide for directions!<br/><br/>Before beginning your installation:<br/></p><ul><li>Ensure that you have a structurally sound subfloor.</li><li>Confirm that your mat layout is compatible with your floor installation plans (see steps below).</li><li>Lay out the heating mats throughout the room to confirm that they adequately fit the space before beginning installation.</li></ul>",
+        "instalation-step-heading": "Choose Your Installation Method"
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "heading": "You may also like",
+        "description": "<p>Combine your style with these products</p>",
+        "mobile_swipe": true,
+        "product_limit": 4,
+        "columns_desktop": 4,
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": false
+      }
+    },
+    "custom_icon_text_columns_dtDndy": {
+      "type": "custom-icon-text-columns",
+      "blocks": {
+        "column_KyyFQw": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Real_People.svg",
+            "title": "Real People, Real Support",
+            "text": "<p>Behind every system is a US-Based team that listens, solves, and supports—because great products deserve even better service backed by the highest level of quality control possible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_9CyE7E": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Our_Mission.svg",
+            "title": "Our Mission is Your Comfort",
+            "text": "<p>We’re here to make your home feel amazing. Every system we build is designed to deliver joy, warmth, and lasting satisfaction while also offering an unsurpassed best-in-class safety record.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_9bibwi": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Unmatched_Value.svg",
+            "title": "Unmatched Value, USA Based Manufacturer",
+            "text": "<p>Using only premium materials, patented technology, and superior engineering—all at a price that makes luxury heating and accessible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_PfGnyk": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Innovation.svg",
+            "title": "Innovation You Can Trust",
+            "text": "<p>We don’t follow trends—we set them. With proprietary tech like FiberThermics®, our systems have been installed and delivering reliable electric radiant heat to homeowners for 30 years.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_cqCGtR": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Designed_Around_You.svg",
+            "title": "Designed Around You",
+            "text": "<p>We listen first to your needs, then guide. Whether it’s a single room or a full-home project, we tailor solutions to your needs and budgets.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_M9wEjV": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Integrity.svg",
+            "title": "Integrity in Every Detail",
+            "text": "<p>We’ve earned our reputation by keeping promises. From product quality to customer care, we stand behind everything we do.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_KyyFQw",
+        "column_9CyE7E",
+        "column_9bibwi",
+        "column_PfGnyk",
+        "column_cqCGtR",
+        "column_M9wEjV"
+      ],
+      "name": "Custom icon text columns",
+      "settings": {
+        "subtitle": "Thermosoft",
+        "heading": "Cozy, Affordable and Reliable Electric Radiant Heating—<span>Inside and Out</span>",
+        "marker_style": "style1",
+        "description": "<p>At ThermoSoft, electric radiant heating is about more than just warmth—it’s about comfort, safety, and peace of mind throughout your home. Indoors, our systems integrate seamlessly wherever you need them—bathrooms, kitchens, basements, or your entire living space. Outdoors, we empower you to be fully in control, keeping driveways and walkways clear, roofs and gutters snow and ice-free, and exposed pipes protected. Across every corner of your property, ThermoSoft’s electric radiant heating delivers consistent, energy-efficient performance—right where it matters most.<br/><br/>For over 30 years, homeowners have trusted ThermoSoft for safe, dependable indoor and outdoor heating solutions. With patented technologies like FiberThermics®, our systems offer unmatched performance, proven durability, minimal EMF emissions, and fast, even heat distribution on demand.<br/><br/>As a US based manufacturer proudly based in Vernon Hills, Illinois, our systems ensure faster heat delivery, easier maintenance, and long-term reliability. From floor heating under any floor type— including tile, laminate, vinyl, and wood—to deicing and snow-melting systems for concrete, asphalt, and pavers, as well as roof, gutter, and water pipe protection solutions, we provide systems that are built to last and backed by expert support.<br/><br/>Join the millions of homeowners who trust ThermoSoft to bring warmth to every step, inside and out.</p>",
+        "heading_size": "body-large",
+        "color_heading": "#3b352b",
+        "marker_color": "#fd6262",
+        "color_text": "#896f57",
+        "color_links": "#252626",
+        "image_bg": "#eeeade",
+        "image_inner_bg": "#ffffff",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 40,
+        "mobile_spacing_bottom": 40
+      }
+    },
+    "testimonials_HWMr83": {
+      "type": "testimonials",
+      "blocks": {
+        "quote_6KXhqM": {
+          "type": "quote",
+          "settings": {
+            "image": "shopify://shop_images/header.svg",
+            "stars": "",
+            "text": "Nothing like a warm tile floor in my new house, I love it. Great product, easy to install and use.",
+            "author": "- Geno Forsythe, Alta, WY"
+          }
+        },
+        "quote_UeMa4M": {
+          "type": "quote",
+          "settings": {
+            "image": "shopify://shop_images/header.svg",
+            "stars": "",
+            "text": "Add your customer or client quote here to showcase them.",
+            "author": "Testimonial author"
+          }
+        },
+        "quote_fUWbQa": {
+          "type": "quote",
+          "settings": {
+            "image": "shopify://shop_images/header.svg",
+            "stars": "",
+            "text": "Add your customer or client quote here to showcase them.",
+            "author": "Testimonial author"
+          }
+        }
+      },
+      "block_order": [
+        "quote_6KXhqM",
+        "quote_UeMa4M",
+        "quote_fUWbQa"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "heading": "",
+        "full_width": true,
+        "text_size": "large",
+        "font_family": "heading",
+        "pagination": "dots",
+        "autoplay": true,
+        "autoplay_length": 5,
+        "color_bg": "#f1eee4",
+        "color_text": "#252626",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 40,
+        "mobile_spacing_bottom": 40
+      }
+    },
+    "176902984358e12b2d": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_iCBzKP": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_iCBzKP"
+      ],
+      "settings": {
+        "section_width": "grid",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "main-product",
+    "product-recommendations",
+    "176902984358e12b2d",
+    "custom_icon_text_columns_dtDndy",
+    "testimonials_HWMr83"
+  ]
+}

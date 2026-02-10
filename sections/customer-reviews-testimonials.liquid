@@ -1,0 +1,472 @@
+{{- 'customer-reviews-testimonials.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+	assign section_heading = section.settings.heading
+	assign marker_style = section.settings.marker_style
+	assign section_description = section.settings.description
+
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+	assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+	assign mobile_spacing_top = section.settings.mobile_spacing_top
+	assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+-%}
+
+{% style %}
+	#shopify-section-{{ section.id }} {
+		--section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+		--section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+		--section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+		--section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+	}
+  .background-video__iframe video {width: 100%;}
+{% endstyle %}
+
+<div class="row">
+	<div class="small-12 columns">
+    <div class="section-reviews-testimonials-wrapp section-spacing {% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+      {%- if section_heading != blank or section_description != blank -%}
+        <div class="section-header">
+          <div class="section-header--content">
+            {%- if section_heading -%}
+              <h3 class="section-header--title {{section.settings.head-size}}">
+                {% render 'animated-marker-heading', heading: section_heading, style: marker_style, color: marker_color %}
+              </h3>
+            {%- endif -%}
+            {%- if section_description != blank -%}
+              <div class="section-header--description rte {{ section.settings.body-size }}">
+                {{ section_description }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+      <div class="reviews-testimonials-content">
+        <div class="reviews-testimonials-lists columns_desktop_show_{{section.settings.columns_desktop}} columns_mobile_show_{{section.settings.columns_mobile}}">
+          {%- for block in section.blocks -%}
+            {%- if block.type == "element-item" -%}
+              <div class="reviews-testimonials-item {% if forloop.index > 4 %}hide-desktop{% endif %}">
+                {%- if block.settings.image != blank -%}
+                  <modal-opener class="" data-modal="#ProductPopup-contact-video-{{ block.id }}">
+                  <button class="" type="button" aria-haspopup="dialog">
+                  <div class="reviews-testimonials-item-img">
+                    {%- liquid
+                      assign image = block.settings.image
+                      assign width = image.src.width | append: 'x' | append: image.src.height
+                    -%}
+                    {%- render 'responsive-image', image: image, sizes: width, class: 'slideshow-image--mobile', priority: priority -%}
+                    <div class="reviews-testimonials-play">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="62" height="62" viewBox="0 0 62 62" fill="none">
+                        <g opacity="0.4">
+                          <path d="M30.9994 5.16602C25.89 5.16602 20.8954 6.68111 16.6471 9.51972C12.3989 12.3583 9.08774 16.3929 7.13247 21.1134C5.17721 25.8338 4.66562 31.028 5.66241 36.0392C6.65919 41.0504 9.11958 45.6534 12.7324 49.2663C16.3453 52.8791 20.9484 55.3395 25.9595 56.3363C30.9707 57.3331 36.1649 56.8215 40.8853 54.8662C45.6058 52.911 49.6404 49.5999 52.479 45.3516C55.3176 41.1033 56.8327 36.1087 56.8327 30.9994C56.8327 27.6069 56.1645 24.2476 54.8662 21.1134C53.568 17.9791 51.6651 15.1313 49.2663 12.7324C46.8674 10.3336 44.0196 8.43071 40.8853 7.13246C37.7511 5.83421 34.3918 5.16602 30.9994 5.16602ZM25.8327 42.6244V19.3743L41.3327 30.9994L25.8327 42.6244Z" fill="white"/>
+                        </g>
+                      </svg>
+                  </div>
+                  </div>
+                  </button>
+                </modal-opener> 
+                {%- endif -%}
+                <div class="reviews-testimonials-contwrapp">
+                  <div class="reviews-testimonials-head">
+                    {%- if block.settings.title != blank -%}
+                      <h6 class="reviews-testimonials-name">{{ block.settings.title }}</h6>
+                    {%- endif -%}
+                    {%- if block.settings.loaction != blank -%}
+                      <p class="reviews-testimonials-loaction body-small">{{ block.settings.loaction }}</p>
+                    {%- endif -%}
+                  </div>
+                  <div class="reviews-testimonials-time">
+                    {%- if block.settings.duration != blank -%}
+                      <p class="reviews-testimonials-duration body-small">{{ block.settings.duration }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- assign gridcount = 0 -%}
+        {%- for block in section.blocks -%}
+            {%- if block.type == "element-item" -%}
+              {%- assign gridcount = gridcount | plus: 1 -%}
+            {%- endif -%}
+        {%- endfor -%}
+        {%- if gridcount > 4 -%}
+          <div class="load-more-grid"><div class="load-more-btn">Load More</div></div>
+        {%- endif -%}
+      </div>
+      {%- assign btncount = 0 -%}
+      {%- for block in section.blocks -%}
+            {%- if block.type == "element-btns" -%}
+              {%- assign btncount = btncount | plus:1 -%}
+            {%- endif -%}
+      {%- endfor -%}
+      {%- if btncount > 0 -%}
+        <div class="reviews-testimonials-btns">
+          {%- for block in section.blocks -%}
+              {%- if block.type == "element-btns" -%}
+                {%- if block.settings.btn-text != blank -%}
+                  <div class="reviews-testimonials-btn">
+                    <a href="{{ block.settings.btn-link }}" class="button accent" title="{{ block.settings.btn-text }}">{{ block.settings.btn-text }}</a>
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+	</div>
+</div>
+
+{%- for block in section.blocks -%}  
+  {% assign custom_video = block.settings.custom_video %}
+  {% assign youtube_video = block.settings.video %}
+  <modal-dialog id="ProductPopup-contact-video-{{ block.id }}" class="product-popup-modal">
+      <div role="dialog" aria-label="{{ block.settings.title }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+        <button id="ModalClose-desktop-{{ block.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+        <scroll-shadow>
+          <div class="product-popup-modal__content-info">										
+            <div class="talk-us">
+              <div class="talk-contact-full">
+                <div class="background-video__iframe">
+                  {%- if custom_video != blank -%}
+                    {{ custom_video | video_tag:
+                      autoplay: false,
+                      loop: false,
+                      controls: true,
+                      muted: false,
+                      class: 'custom-video',
+                      preload: 'metadata'
+                    }}
+                  {%- else -%}
+                    {% assign youtube_id = youtube_video
+                      | replace: 'https://youtu.be/', ''
+                      | replace: 'https://www.youtube.com/watch?v=', ''
+                      | split: '?' | first %}
+
+                    {%- if youtube_id != blank -%}
+                      <iframe
+                        class="youtube-video"
+                        src="https://www.youtube.com/embed/{{ youtube_id }}?enablejsapi=1&controls=1&playsinline=1"
+                        frameborder="0"
+                        allow="autoplay; encrypted-media"
+                        style="width:100%;min-height:400px;">
+                      </iframe>
+                    {%- endif -%}
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        </scroll-shadow>
+      </div>
+    </modal-dialog>
+  {%- endfor -%}  
+
+    <script src="{{ 'modal-dialog.js' | asset_url }}" defer="defer"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".product-popup-modal").forEach(modal => {
+
+    const closeBtn = modal.querySelector(".product-popup-modal__toggle");
+    const iframe = modal.querySelector("iframe.youtube-video");
+    const htmlVideo = modal.querySelector("video");
+    const modalContent = modal.querySelector(".product-popup-modal__content");
+
+    function stopVideo() {
+      // Stop YouTube iframe
+      if (iframe) {
+        const src = iframe.src;
+        iframe.src = "";
+        setTimeout(() => iframe.src = src, 100);
+      }
+
+      // Stop custom uploaded video
+      if (htmlVideo) {
+        htmlVideo.pause();
+        htmlVideo.currentTime = 0;
+      }
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", stopVideo);
+    }
+
+    modal.addEventListener("click", function (e) {
+      if (!modalContent.contains(e.target)) {
+        stopVideo();
+      }
+    });
+
+  });
+
+});
+
+
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const loadMoreBtn = document.querySelector('.load-more-btn');
+    const reviewItems = document.querySelectorAll('.reviews-testimonials-item.hide-desktop');
+
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', function () {
+        reviewItems.forEach(item => item.classList.remove('hide-desktop'));
+        loadMoreBtn.parentElement.classList.add('hidden'); // or use 'hide' depending on your theme
+      });
+    }
+  });
+</script>
+{% schema %}
+  {
+    "name": "Reviews Testimonials",
+    "class": "section-reviews-testimonials",
+    "settings": [
+			{
+				"type": "text",
+				"id": "heading",
+				"label": "Heading",
+				"default": "Toggle boxes",
+				"info": "Wrap your text between | to add animated markers. For example: Animated |marker| will underline marker text."
+			},
+			{
+				"type": "select",
+				"id": "marker_style",
+				"options": [
+					{
+						"value": "style1",
+						"label": "Basic"
+					},
+					{
+						"value": "style2",
+						"label": "Double"
+					},
+					{
+						"value": "style3",
+						"label": "Squiggle"
+					},
+					{
+						"value": "style4",
+						"label": "Zigzag"
+					}
+				],
+				"default": "style1",
+				"label": "Marker"
+			},
+      {
+        "type": "select",
+        "id": "head-size",
+        "label": "Size",
+        "options": [
+          {
+            "value": "h1",
+            "label": "Extra Large"
+          },
+                {
+            "value": "h2",
+            "label": "Large"
+          },
+                {
+            "value": "h3",
+            "label": "Medium"
+          },
+                {
+            "value": "h4",
+            "label": "Small"
+          }
+        ],
+        "default": "h1"
+      },
+      {
+        "type": "select",
+        "id": "body-size",
+        "label": "Size",
+        "options": [
+              {
+          "value": "body-large",
+          "label": "Large"
+        },
+        {
+          "value": "body-regular",
+          "label": "Medium"
+        },
+        {
+          "value": "body-small",
+          "label": "Small"
+        },
+        {
+          "value": "body-extra-small",
+          "label": "XSmall"
+        }
+        ],
+        "default": "body-large"
+      },
+      {
+        "type": "range",
+        "id": "columns_desktop",
+        "min": 2,
+        "max": 5,
+        "step": 1,
+        "default": 5,
+        "label": "Number of columns on desktop"
+      },
+      {
+        "type": "select",
+        "id": "columns_mobile",
+        "options": [
+          {
+            "value": "1",
+            "label": "One"
+          },
+          {
+            "value": "2",
+            "label": "Two"
+          }
+        ],
+        "default": "1",
+        "label": "Number of columns on mobile"
+      },
+      {
+	      "type": "header",
+	      "content": "Spacing"
+	    },
+			{
+				"type": "checkbox",
+				"id": "disable_top_spacing",
+				"default": false,
+				"label": "Remove top spacing"
+			},
+			{
+				"type": "checkbox",
+				"id": "disable_bottom_spacing",
+				"default": false,
+				"label": "Remove bottom spacing"
+			},
+      {
+				"type": "header",
+				"content": "Desktop spacing"
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_top",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Desktop spacing top",
+				"default": 100,
+				"info": "Changes the section top spacing in desktop screens."
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_bottom",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Desktop spacing bottom",
+				"default": 100,
+				"info": "Changes the section bottom spacing in desktop screens."
+			},
+			{
+				"type": "header",
+				"content": "Mobile spacing"
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_top",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing top",
+				"default": 50,
+				"info": "Changes the section top spacing in mobile screens."
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_bottom",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing bottom",
+				"default": 50,
+				"info": "Changes the section bottom spacing in mobile screens."
+			}
+    ],
+		"blocks": [
+      {
+        "type": "element-item",
+        "name": "Element",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "305 x 220 .jpg recommended for layouts."
+          },
+          {
+            "type": "video",
+            "id": "custom_video",
+            "label": "Custom Video"
+          },
+          {
+            "type": "video_url",
+            "id": "video",
+            "label": "Video URL",
+            "accept": ["youtube", "vimeo"],
+            "placeholder": "Use a YouTube or Vimeo URL",
+            "default": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "info": "Video plays in a lightbox."
+          },
+          {
+            "type": "text",
+            "id": "duration",
+            "label": "Video Duration (e.g. 2:03 min)"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Name"
+          },
+          {
+            "type": "text",
+            "id": "loaction",
+            "label": "Location"
+          }
+        ]
+      },
+      {
+        "type": "element-btns",
+        "name": "Button",
+        "settings": [
+          {
+            "type": "url",
+            "id": "btn-link",
+            "label": "Button Link"
+          },
+          {
+            "type": "text",
+            "id": "btn-text",
+            "label": "Button Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+			{
+				"name": "Customer Reviews Testimonials",
+				"blocks": [
+				]
+			}
+		],
+		"enabled_on": {
+			"templates": ["*"],
+			"groups": [
+				"header", "footer"
+			]
+		}
+  }
+{% endschema %}

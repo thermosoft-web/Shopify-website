@@ -1,0 +1,169 @@
+.choose-your-heating-system-wrapper { max-width: 920px; margin: 0 auto; width: 100%; }
+.choose-your-heating-system .carousel__slide { max-width: 33.33%;}
+.choose-your-heating-system .carousel__slide .heating-system_inner {width:100%; border-radius:  8px; background: #FFF; box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08);padding: 0 12px 12px 12px;border: 3px solid #90000000;}
+.choose-your-heating-system .carousel__slide .heating-system_inner.preferred_choice {border-radius: 6px;border: 3px solid #900000;background: #FFF;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08);position: relative;}
+.section_bottom_text.text-center.rte {margin-top: 24px;}
+.section_bottom_text.text-center.rte p {margin: 0;}
+.section-heading-wrapper {margin-bottom: 30px;}
+.section-heading-wrapper h2 {margin-bottom: 20px;}
+.choose-your-heating-system-wrapper figure.image_wrapper {position: relative;padding-bottom: 71.65%;}
+.choose-your-heating-system-wrapper figure.image_wrapper img {position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;}
+.heating-system_content {padding-top: 20px;}
+.heating-system_content .h6 {font-weight: 500; margin-bottom: 16px; min-height: 52px;font-variation-settings: normal;display: block;}
+.product-card-spacing-medium .choose-your-heating-system-wrapper .products.row {max-width: 100%;margin:0;}
+.product_info_column { padding: 12px 0; border-top: 1px solid #D6D6D6; }
+.product_info_column:last-child {border-bottom: 1px solid #D6D6D6;}
+.choose-your-heating-system-wrapper .product_info {margin-bottom: 16px;margin-top: 16px;}
+.choose-your-heating-system-wrapper .flickity-viewport {overflow: visible;}
+.choose-your-heating-system {overflow: hidden;}
+.button.outline { width: 100%; border-radius: 4px; border: 1px solid #900000; background: transparent; color: #252626; }
+.button.outline:hover {background: #900000;color: #FFF;transition: all .3s ease-in-out;}
+.product_info_label {padding: 2px 8px;}
+.product_info_value { padding: 0 8px; font-weight: 700; }
+.heating-system-badge { position: absolute; left: 50%; transform: translateX(-50%); top: -14px; padding: 2px 7px; border-radius: 4px; background: #900000; color: #fff; width: max-content;}
+.product-card-spacing-medium .choose-your-heating-system-wrapper .products.row .columns {padding: 5px 5px;min-width: 199px;}
+.section_bottom_text.text-center.rte p em {
+    font-style: normal;
+    font-size: 12px;
+    display: none;
+}
+.section_bottom_text.text-center.rte p br {
+    display: none;
+}
+.Engineered .section_bottom_text.text-center.rte p em, .Vinyl .section_bottom_text.text-center.rte p em {
+    display: block;
+}
+.Engineered .section_bottom_text.text-center.rte p br, .Vinyl .section_bottom_text.text-center.rte p br {
+    display: block;
+}
+.Engineered .section_bottom_text.text-center.rte p br:nth-child(2), .Vinyl .section_bottom_text.text-center.rte p br:nth-child(2) {
+    display: none;
+}
+.template-page-driveway-walkway-heating .choose-your-heating-system .section-heading-wrapper .rte {
+    display: none;
+}
+.section_bottom_text.text-center.rte p a:nth-child(4) {
+    margin-right: 5px;
+}
+.section-heading-wrapper modal-opener button:hover {
+    color: #900000;
+}
+.new-choose-heating-system .carousel__slide .product_info_column .product_info_value.best {
+    background: rgba(0, 128, 0, 0.10);
+    color: #008000;
+}
+.new-choose-heating-system .carousel__slide .product_info_column .product_info_value.better {
+    background: rgba(253, 207, 44, 0.10);
+    color: #8E6F00;
+}
+.new-choose-heating-system .carousel__slide .product_info_column .product_info_value.good {
+    background: rgba(68, 138, 237, 0.10);
+    color: #448AED;
+}
+.new-choose-heating-system .product_info_column .product_info_value {
+    border-radius: 4px;
+    padding: 4px 8px;
+    text-align: center;
+}
+.new-choose-heating-system.choose-your-heating-system .carousel__slide.carousel__slide-first .product_info_column .product_info_value {
+    text-align: left;
+}
+.choose-your-heating-system .carousel__slide.carousel__slide-first .heating-system_inner {
+    background: transparent;
+    box-shadow: none;
+}
+.new-choose-heating-system .carousel__slide-first .product_info .product_info_value {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 0 8px;
+    cursor: auto;
+    position:relative;
+}
+.new-choose-heating-system .carousel__slide-first .product_info .product_info_value svg {
+    margin: 0 0 0 3px;
+    width: 12px;
+    height: 12px;
+    object-fit: cover;
+}
+.new-choose-heating-system .carousel__slide-first .product_info .product_info_value p {
+    position: absolute;
+    background: #464747;
+    color: #FFF;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 8px;
+    bottom: 9px;
+    display: none;
+}
+.new-choose-heating-system .carousel__slide-first .product_info .product_info_value svg:hover~p {
+    display: block;
+}
+.new-choose-heating-system .carousel__slide-first .product_info .product_info_value p::after {
+    position: absolute;
+    content: '';
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M4.5 6L9 0H0L4.5 6Z" fill="%23464747"/></svg>');
+    width: 9px;
+    height: 6px;
+    bottom: -6px;
+    right: 19px;
+}
+.new-choose-heating-system .choose-your-heating-system-wrapper {
+    max-width: 1280px;
+}
+.new-choose-heating-system.choose-your-heating-system .carousel__slide {
+    max-width: 25%;
+}
+.choose-your-heating-system-wrapper .carousel__slide-first figure.image_wrapper p em {
+    display: none;
+}
+.choose-your-heating-system-wrapper .carousel__slide-first figure.image_wrapper p br {
+    display: none;
+}
+.choose-your-heating-system-wrapper .carousel__slide-first figure.image_wrapper img {
+    position: unset;
+    height: 212px;
+    object-fit: cover;
+}
+.choose-your-heating-system-wrapper .carousel__slide-first figure.image_wrapper {
+    height: 200px;
+    padding: unset;
+}
+.choose-your-heating-system-wrapper .carousel__slide-first figure.image_wrapper p a {
+    border-bottom: 1px solid;
+}
+.choose-your-heating-system-wrapper .carousel__slide-first figure.image_wrapper p {
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+/* .product-card-spacing-medium .choose-your-heating-system-wrapper .products.row .columns {height: 100%;min-height: 100%;} */
+@media screen and (min-width: 768px) {
+  .choose-your-heating-system-wrapper .flickity-page-dots {display: none;}
+  .section-heading-wrapper {margin-bottom: 40px;}
+  .section-heading-wrapper h2 {margin-bottom: 12px;}
+}
+@media screen and (max-width: 768px) {
+  .choose-your-heating-system .carousel__slide {max-width: 50%;}  
+  .section-heading-wrapper .rte {text-align: center;}
+  .section-heading-wrapper .rte a {display: inline-block;}
+  .choose-your-heating-system-wrapper .section-heading-wrapper {margin-bottom: 30px;}
+  .choose-your-heating-system-wrapper figure.image_wrapper {position: relative;padding-bottom: 181px;}
+  .button.outline {padding: 13px 15px;}
+  .choose-your-heating-system-wrapper .flickity-page-dots {bottom: -32px; display: none;}
+  .choose-your-heating-system-wrapper .flickity-page-dots:has(li[aria-label="Page dot 2"]) {display: flex;}
+  .Vinyl .choose-your-heating-system-wrapper .flickity-page-dots {bottom: -52px;}
+  .section_bottom_text.text-center.rte {margin-top: 48px;}
+  .choose-your-heating-system .row .columns {padding: 0;}
+  .choose-your-heating-system-wrapper .carousel__slide-first figure.image_wrapper {height: 181px;}
+  .choose-your-heating-system-wrapper .carousel__slide-first figure.image_wrapper img {height: 190px;}
+}
+@media screen and (max-width: 610px) {
+  .section_bottom_text.text-center.rte {max-width: 325px;margin: 48px auto 0;}
+  .product-card-spacing-medium .choose-your-heating-system-wrapper .products.row .carousel__slide.carousel__slide-first.columns { min-width: 140px; }
+}
+
+.product_info_column.product_info_column_blank {border-top: 0;}
+.template-page-driveway-walkway-heating .heating-system_content .h6 {margin-bottom: 10px;}
+.new-choose-heating-system.choose-your-heating-system .carousel__slide.carousel__slide-first .product_info_column {display: flex;align-items: center;}
+.product_info.first_column_product_info {padding-top: 66px;}

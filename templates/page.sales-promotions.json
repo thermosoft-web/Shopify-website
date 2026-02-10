@@ -1,0 +1,112 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {}
+    },
+    "template-header": {
+      "type": "template-header",
+      "settings": {
+        "size": "h1",
+        "show_collection_image": false,
+        "collection_image_ratio": "adapt",
+        "collection_image_width": "standard",
+        "show_collection_description": true,
+        "seo_text_read_more": "Read more",
+        "seo_text_read_less": "Read less",
+        "seo_text_max_height": 150,
+        "show_subcollections": true,
+        "color_subcollection_bg": "#ffffff",
+        "color_subcollection_text": "#2c2d2e",
+        "display_description": true
+      }
+    },
+    "multi_image_with_text_CFmNNU": {
+      "type": "multi-image-with-text",
+      "blocks": {
+        "imgae_with_text_TgC34q": {
+          "type": "imgae-with-text",
+          "settings": {
+            "image": "shopify://shop_images/Explore_Indoor_Solutions.png",
+            "mobile_image": "shopify://shop_images/Web_Work-11.png",
+            "subheading": "",
+            "heading": "SAVE UP TO 10% ON INDOOR FLOOR HEATING SYSTEMS",
+            "marker_style": "style1",
+            "heading_size": "h2",
+            "text": "<p>Our radiant heating systems are the safest and most reliable on the market. Take advantage of this sale while it lasts and experience unparallel comfort and luxury. </p><p>Explore our full line of indoor heating systems perfect for any room or floor covering</p><p></p>",
+            "button_text_1": "Explore Indoor Floor Heating",
+            "button_link_1": "shopify://pages/floor-heating-indoor-solution",
+            "button_color_1": "accent",
+            "button_text_2": "",
+            "button_link_2": "shopify://pages/snow-melting-outdoor-solutions",
+            "button_color_2": "accent",
+            "button_text_3": "",
+            "button_link_3": "https://thermosoftonline.myshopify.com/collections",
+            "button_color_3": "accent",
+            "layout": "text_first",
+            "color_bg": "#f2efe7",
+            "color_heading": "#252626",
+            "color_text": "#252626",
+            "color_links": "#900000",
+            "marker_color": "#fd6262"
+          }
+        },
+        "imgae_with_text_DhYrQM": {
+          "type": "imgae-with-text",
+          "settings": {
+            "image": "shopify://shop_images/Row_2_1.png",
+            "subheading": "",
+            "heading": "FREE GROUND SHIPPING TO 48 CONTIGUOUS US STATES ON ORDERS OVER $299",
+            "marker_style": "style2",
+            "heading_size": "h2",
+            "text": "<p>ThermoSoft provides all customers with FREE* Ground Shipping on orders $299 or more shipped to the 48 contiguous United States. Shipments to Canada are provided at highly discounted, door-to-door, hassle-free rates with NO brokerage fees. The Expedited Shipping along with shipping to Alaska and Hawaii are also provided at highly discounted rates.</p><p><strong>*You may be contacted by one of our customer service representatives for further clarification.</strong></p>",
+            "button_text_1": "More Info",
+            "button_link_1": "https://thermosoftonline.myshopify.com/pages/shipping-and-returns",
+            "button_color_1": "accent",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "accent",
+            "button_text_3": "",
+            "button_link_3": "",
+            "button_color_3": "accent",
+            "layout": "image_first",
+            "color_bg": "#f2efe7",
+            "color_heading": "#252626",
+            "color_text": "#252626",
+            "color_links": "#900000",
+            "marker_color": "#fd6262"
+          }
+        }
+      },
+      "block_order": [
+        "imgae_with_text_TgC34q",
+        "imgae_with_text_DhYrQM"
+      ],
+      "name": "Multi image with text",
+      "settings": {
+        "desktop_image_width": "small",
+        "column_spacing": "large",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 0,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 0,
+        "mobile_spacing_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "template-header",
+    "multi_image_with_text_CFmNNU"
+  ]
+}

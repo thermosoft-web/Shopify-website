@@ -1,0 +1,31 @@
+.section-manual-documents-wrapp .section-header {padding:0;margin-bottom:16px;}
+.section-manual-documents-wrapp .section-header .section-header--description.body-large > * {line-height: 28px;}
+.manual-documents-content .manual-documents-lists {display: flex;gap: 16px 12px;flex-wrap: wrap;}
+.manual-documents-content .manual-documents-lists.columns_desktop_show_2 .manual-documents-item {width: calc(50% - 12px * 1/2);}
+.manual-documents-content .manual-documents-lists.columns_desktop_show_3 .manual-documents-item {width: calc(33.33% - 12px * 2/3);}
+.manual-documents-content .manual-documents-lists.columns_desktop_show_4 .manual-documents-item {width: calc(25% - 12px * 3/4);}
+.manual-documents-content .manual-documents-lists.columns_desktop_show_5 .manual-documents-item {width: calc(20% - 12px * 4/5);}
+.manual-documents-content .manual-documents-lists .manual-documents-item {padding: 12px 4px 16px;box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08);border-bottom: 4px solid var(--Brand-Primary, #900000);border-radius: 6px;background: #fff;}
+.manual-documents-content .manual-documents-lists .manual-documents-item > * {padding-left: 8px;padding-right: 8px; font-variation-settings: normal;}
+.manual-documents-item .manual-documents-item-img {margin-bottom: 12px;border-radius: 8px;overflow: hidden;position: relative;padding-bottom: 64.656%;}
+.manual-documents-item .manual-documents-item-img img {width: 100%;height: 100%;position: absolute;left: 0;top: 0;object-fit: contain;}
+.manual-documents-item-desk.body-small ul {list-style: square;}
+
+.manual-documents-item-head {font-weight: var(--font-body-medium-weight, 500);margin-bottom: 12px;}
+.manual-documents-wrapper .manual-doc-list {list-style: none;margin: 0;}
+.manual-documents-wrapper .manual-doc-list .manual-doc-link {display: flex;gap: 2px;color: var(--color-accent);font-weight: var(--font-body-medium-weight, 500);}
+.manual-documents-wrapper .manual-doc-list .manual-doc-link span {text-decoration: underline;text-underline-offset: 2px;}
+.manual-documents-item-desk.body-small > * {line-height: 20px;}
+.manual-documents-item-desk.body-small > *:last-child {margin-bottom: 0;}
+.manual-documents-wrapper .manual-doc-list .manual-doc-item {margin-bottom: 10px;}
+.manual-documents-wrapper .manual-doc-list .manual-doc-item:last-child {margin-bottom: 0;}
+
+@media only screen and (max-width: 767px) {
+  .manual-documents-content .manual-documents-lists {gap: 12px;}
+  .manual-documents-content .manual-documents-lists.columns_mobile_show_1 .manual-documents-item {width: 100%;}
+  .manual-documents-content .manual-documents-lists.columns_mobile_show_2 .manual-documents-item {width: calc(50% - 12px * 1/2);}
+  .custom-page-content .blog-post-detail .post-title {margin-top: 10px;margin-bottom: 40px;border-bottom: 1px solid #E1E3E3;}
+  .custom-page-content .blog-post-detail .post-title h1 {margin-bottom: 30px;}
+  .manual-documents-wrapper .manual-doc-list .manual-doc-link {line-height: calc(var(--font-body-line-height-scale) * calc(var(--font-body-scale) * 16px));}
+  .manual-documents-content .manual-documents-lists .manual-documents-item > * {padding-left: 4px;padding-right: 4px;font-size: 15px;line-height: 23px;}
+}

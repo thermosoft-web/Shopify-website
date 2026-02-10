@@ -1,0 +1,1 @@
+<a class="thb-secondary-item" href="{{ routes.cart_url }}" id="cart-drawer-toggle"><div class="thb-secondary-item-icon {% if cart.item_count > 99 %}item_count_more{% endif %}">{% render 'svg-icons' with 'cart' %} <span class="thb-item-count">{{ cart.item_count }}</span></div></a>

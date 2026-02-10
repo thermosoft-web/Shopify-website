@@ -1,0 +1,144 @@
+{{ 'room-grid.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+  assign desktop_spacing_top = section.settings.desktop_spacing_top
+  assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+  assign mobile_spacing_top = section.settings.mobile_spacing_top
+  assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+%}
+{% style %}
+#shopify-section-{{ section.id }} {
+  --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+  --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+  --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+  --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+}
+{% endstyle %}
+{% if page.metafields.custom.indoor_solution_menu.value != blank %}
+<section id="shop_floor_type" class="rooms-grid-wrapper section-spacing {% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="rooms-grid" style="--columns-desktop: {{ section.settings.columns_desktop }};--columns-mobile: {{ section.settings.columns_mobile }};">
+        {%- assign room_cards = page.metafields.custom.indoor_solution_menu.value -%}
+        {%- for card in room_cards -%}
+            {%- assign room = card -%}
+          <a class="room-card" href="{{ room.url }}" aria-label="{{ room.text }} " role="link">
+            <div class="room-image">
+              {%- if room.image != blank -%}
+                  <img src="{{ room.image | img_url: 'master' }}" loading="lazy" alt="{{ room.title | escape }}">
+              {%- else -%}
+                <div class="thb-placeholder">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="room-overlay"></div>
+            {% if room.text %} <div class="room-title body-small text-center">{{ room.text }}</div> {% endif %}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Meta Indoor Solution Menu",
+  "class": "room-grid",
+  "settings": [
+    {
+			"type": "range",
+			"id": "columns_desktop",
+			"min": 2,
+			"max": 6,
+			"step": 1,
+			"default": 4,
+			"label": "Number of columns on desktop"
+		},
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Number of columns on desktop",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_top_spacing",
+      "default": false,
+      "label": "Remove top spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_bottom_spacing",
+      "default": false,
+      "label": "Remove bottom spacing"
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing top",
+      "default": 30,
+      "info": "Changes the section top spacing in desktop screens."
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing bottom",
+      "default": 30,
+      "info": "Changes the section bottom spacing in desktop screens."
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_top",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing top",
+      "default": 15,
+      "info": "Changes the section top spacing in mobile screens."
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing bottom",
+      "default": 15,
+      "info": "Changes the section bottom spacing in mobile screens."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meta Indoor Solution Menu"
+    }
+  ]
+}
+{% endschema %}

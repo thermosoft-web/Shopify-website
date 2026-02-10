@@ -1,0 +1,181 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "text-1": {
+          "type": "text",
+          "settings": {
+            "icon": "none",
+            "text": "Special Financing options available*.",
+            "link": "",
+            "color_bg": "#3f72e5",
+            "color_text": "#ffffff"
+          }
+        },
+        "text-2": {
+          "type": "text",
+          "settings": {
+            "icon": "none",
+            "text": "Special Financing options available*.",
+            "link": "",
+            "color_bg": "#4327ac",
+            "color_text": "#ffffff"
+          }
+        },
+        "text-3": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "text": "Special Financing options available*.",
+            "link": "",
+            "color_bg": "#953997",
+            "color_text": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "text-1",
+        "text-2",
+        "text-3"
+      ],
+      "settings": {
+        "announcement_bar": true,
+        "announcement_bar_homepage_only": false,
+        "announcement_bar_layout": "carousel",
+        "direction": "left",
+        "speed": "20s",
+        "use_block_colors": false,
+        "autoplay": true,
+        "autoplay_length": 5
+      }
+    },
+    "header-secondary-menu": {
+      "type": "header-secondary-menu",
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "secondary_menu": "",
+        "show_language_switcher": false,
+        "show_currency_switcher": false,
+        "show_social_media": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "megamenu_8rCkqX": {
+          "type": "megamenu",
+          "settings": {
+            "position": "1",
+            "limit_columns": true,
+            "max_columns": "4",
+            "promo_1_image": "shopify://shop_images/Web_Work-11.png",
+            "promo_1_heading": "Explore Indoor Solutions",
+            "promo_1_content": "",
+            "promo_1_link": "shopify://pages/floor-heating-indoor-solution",
+            "promo_2_heading": "Promotion heading",
+            "promo_2_content": "",
+            "promo_2_link": "",
+            "promo_3_heading": "Promotion heading",
+            "promo_3_content": "",
+            "promo_3_link": "",
+            "promo_4_heading": "Promotion heading",
+            "promo_4_content": "",
+            "promo_4_link": ""
+          }
+        },
+        "megamenu_7qMTVc": {
+          "type": "megamenu",
+          "settings": {
+            "position": "2",
+            "limit_columns": false,
+            "max_columns": "4",
+            "promo_1_image": "shopify://shop_images/Web_Work-12_1.png",
+            "promo_1_heading": "Explore Outdoor Solutions",
+            "promo_1_content": "",
+            "promo_1_link": "shopify://pages/snow-melting-outdoor-solutions",
+            "promo_2_heading": "Promotion heading",
+            "promo_2_content": "",
+            "promo_2_link": "",
+            "promo_3_heading": "Promotion heading",
+            "promo_3_content": "",
+            "promo_3_link": "",
+            "promo_4_heading": "Promotion heading",
+            "promo_4_content": "",
+            "promo_4_link": ""
+          }
+        },
+        "megamenu_PxcdTr": {
+          "type": "megamenu",
+          "settings": {
+            "position": "3",
+            "limit_columns": false,
+            "max_columns": "4",
+            "promo_1_heading": "Promotion heading",
+            "promo_1_content": "",
+            "promo_1_link": "",
+            "promo_2_heading": "Promotion heading",
+            "promo_2_content": "",
+            "promo_2_link": "",
+            "promo_3_heading": "Promotion heading",
+            "promo_3_content": "",
+            "promo_3_link": "",
+            "promo_4_heading": "Promotion heading",
+            "promo_4_content": "",
+            "promo_4_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "megamenu_8rCkqX",
+        "megamenu_7qMTVc",
+        "megamenu_PxcdTr"
+      ],
+      "settings": {
+        "sticky_header": true,
+        "full_width": true,
+        "logo": "shopify://shop_images/Thermosoft_Logo.svg",
+        "pro_logo": "shopify://shop_images/ThermoSoft_FOR_PROS_Logo_SVG.svg",
+        "logo_height_range": 37,
+        "logo_height_range_mobile": 29,
+        "style": "style5",
+        "header_shadow": "header--shadow-small",
+        "menu": "new-main-menu",
+        "cart_icon": "cart",
+        "minimized_search": true,
+        "transparent_header": false,
+        "show_social_links": true,
+        "show_language_switcher": false,
+        "show_currency_switcher": false
+      }
+    },
+    "header-mobile-navigation": {
+      "type": "header-mobile-navigation",
+      "disabled": true,
+      "settings": {
+        "mobile_nav": "main-menu",
+        "color_links": "#ffffff",
+        "color_bg": "#919999"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header-secondary-menu",
+    "header",
+    "header-mobile-navigation"
+  ]
+}

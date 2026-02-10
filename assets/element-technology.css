@@ -1,0 +1,21 @@
+.section-element-technology-wrapp .section-header {justify-content: center;text-align: center;padding-bottom: 50px;border-bottom: 1px solid #E1E3E3;margin-bottom: 50px;}
+.element-technology-content .element-technology-lists {display: flex;gap: 40px 30px;flex-wrap: wrap;}
+.element-technology-content .element-technology-lists.columns_desktop_show_2 .element-technology-item {width: calc(50% - 30px * 1/2);}
+.element-technology-content .element-technology-lists.columns_desktop_show_3 .element-technology-item {width: calc(33.33% - 30px * 2/3);}
+.element-technology-content .element-technology-lists.columns_desktop_show_4 .element-technology-item {width: calc(25% - 30px * 3/4);}
+.element-technology-content .element-technology-lists.columns_desktop_show_5 .element-technology-item {width: calc(20% - 30px * 4/5);}
+.element-technology-item .element-technology-item-img {margin-bottom: 12px;border-radius: 8px;overflow: hidden;position: relative;padding-bottom: 64.656%;}
+.element-technology-item .element-technology-item-img img {width: 100%;height: 100%;position: absolute;left: 0;top: 0;object-fit: cover;}
+.element-technology-item-desk.body-small ul {list-style: square;}
+
+.element-technology-item-head {font-weight: var(--font-body-medium-weight, 500);color: var(--color-accent);margin-bottom: 8px;font-variation-settings: normal;}
+.element-technology-item-desk.body-small > * {line-height: 20px;}
+.element-technology-item-desk.body-small > *:last-child {margin-bottom: 0;}
+
+@media only screen and (max-width: 767px) {
+  .element-technology-content .element-technology-lists {gap: 30px;}
+  .element-technology-content .element-technology-lists.columns_mobile_show_1 .element-technology-item {width: 100%;}
+  .element-technology-content .element-technology-lists.columns_mobile_show_2 .element-technology-item {width: calc(50% - 30px * 1/2);}
+  .section-element-technology-wrapp .section-header {margin-bottom: 15px;padding-bottom: 15px;}
+  .section-element-technology-wrapp .section-header.border_mobile_hide {border-bottom: 0;padding: 0;margin-bottom: 30px;}
+}

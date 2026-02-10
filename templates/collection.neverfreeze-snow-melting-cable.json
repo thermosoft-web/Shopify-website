@@ -1,0 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "snow-melting-systems": {
+      "type": "snow-melting-systems",
+      "settings": {
+        "columns_desktop": 4,
+        "pagination_type": "paginated",
+        "enable_filtering": true,
+        "enable_sorting": false,
+        "show_counts": false,
+        "filter_color_swatches": false,
+        "filters_collapsed": false,
+        "facets_desktop": "sidebar",
+        "box_filter_list": "",
+        "show_collection_image": true,
+        "collection_image_ratio": "adapt",
+        "collection_image_width": "standard",
+        "show_collection_description": true,
+        "seo_text_read_more": "Read more",
+        "seo_text_read_less": "Read less",
+        "seo_text_max_height": 150,
+        "display_description": true,
+        "step_title_1": "Driveway & Walkway Heating Cable",
+        "step_title_2": "Snow Melt Controllers & Sensors",
+        "step_title_3": "",
+        "step_title_4": "",
+        "tab-title-1": "Basic",
+        "tab-title-2": "Standard",
+        "tab-title-3": "Premium"
+      }
+    }
+  },
+  "order": [
+    "snow-melting-systems"
+  ]
+}

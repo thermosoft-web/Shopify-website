@@ -1,0 +1,57 @@
+.heating-systems-inner { padding: 16px; border-radius: 12px; border-bottom: 2px solid #900000; background: #FFF; box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08);height: 100%; }
+.heating-systems-content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.heating-systems-content .rte {display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;overflow: hidden;margin-bottom: 10px;}
+.heating-systems-content .title {font-weight: 700;margin-bottom: 8px;}
+.heating-systems-button { display: flex; align-items: flex-start; justify-content: space-between; }
+.heating-systems-button button.read-more-btn { font-size: 12px; font-weight: 500; line-height: 18px;text-decoration: underline;text-underline-offset: 2px;}
+.heating-systems-button .shop_button {}
+.heating-systems-grid .products .flickity-nav {background: #900000;}
+.flickity-page-dots {
+    display: none;
+}
+.flickity-page-dots:has(li[aria-label="Page dot 2"]) {display: flex;}
+.heating-systems-grid .products .flickity-nav svg path {--color-body: #FFF;}
+.heating-systems-inner img {width: 100%;height: 100%;position: absolute; left: 0; top: 0; object-fit: cover;}
+.heating-systems-inner figure { position: relative; padding-bottom: 70.9%; }
+.heating-systems-content .rte.expanded {display: block;max-height: 72px;overflow: auto;}
+
+.heating-systems-grid .featured-collection__inner .flickity-page-dots {bottom: -40px;}
+.heating-systems-grid .featured-collection {overflow: visible;}
+.list-collections .heating-systems-inner:hover {
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.60);
+    transition: all 0.3s ease-in-out;
+}
+div#heating_system-grid {
+    scroll-margin-top: 220px;
+}
+.section-featured-collection.heating-systems-grid {
+    overflow: hidden;
+}
+/* .heating-systems-grid {overflow: hidden;} */
+@media only screen and (min-width: 768px) {
+  .product-card-spacing-medium .heating-systems-grid .products.row .columns {padding: 0 6px;}
+  .product-card-spacing-medium .heating-systems-grid .products.row {margin: 0 -6px;}
+}
+@media only screen and (max-width: 1067px) {
+  .heating-systems-grid .products .flickity-nav {display: inline-flex;}
+}
+@media only screen and (max-width: 767px) {
+  .heating-systems-inner {padding: 15px;}
+  .heating-systems-content { padding: 0; padding-top: 12px; }
+  .heating-systems-grid .featured-collection__inner .flickity-page-dots {bottom: -38px;}
+  .heating-systems-grid .products.carousel .carousel__slide {max-width: 44.727%;}
+  .template-list-collections .collection-grid .heating-systems-content .title {
+    height: fit-content !important;
+  }
+  .template-list-collections .collection-grid .heating-systems-content {
+    padding: 0;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .heating-systems-grid .products.carousel .carousel__slide {max-width: 178px;}
+}

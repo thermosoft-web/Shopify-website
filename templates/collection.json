@@ -1,0 +1,210 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {}
+    },
+    "template-header": {
+      "type": "template-header",
+      "settings": {
+        "size": "h1",
+        "show_collection_image": false,
+        "collection_image_ratio": "adapt",
+        "collection_image_width": "standard",
+        "show_collection_description": true,
+        "seo_text_read_more": "Read more",
+        "seo_text_read_less": "Read less",
+        "seo_text_max_height": 150,
+        "show_subcollections": true,
+        "color_subcollection_bg": "#ffffff",
+        "color_subcollection_text": "#303c43",
+        "display_description": true
+      }
+    },
+    "thermostat_comparison_7JYWzJ": {
+      "type": "thermostat-comparison",
+      "blocks": {
+        "product_column_YEnUU9": {
+          "type": "product_column",
+          "disabled": true,
+          "settings": {
+            "product": "manual-thermostat-with-built-in-gfci"
+          }
+        },
+        "product_column_GcxdDA": {
+          "type": "product_column",
+          "settings": {
+            "product": "aube-120-240v-manual-thermostat"
+          }
+        },
+        "product_column_zUfMkL": {
+          "type": "product_column",
+          "settings": {
+            "product": "manual-thermostat-with-built-in-gfci"
+          }
+        },
+        "product_column_TLfDwN": {
+          "type": "product_column",
+          "settings": {
+            "product": "aube-dual-voltage-programmable-thermostat-with-gfci"
+          }
+        },
+        "product_column_8kz7jz": {
+          "type": "product_column",
+          "settings": {
+            "product": "120-240-v-programmable-thermostat-with-gfci-and-air"
+          }
+        },
+        "product_column_Aw9Tcf": {
+          "type": "product_column",
+          "settings": {
+            "product": "120-240-v-programmable-touchscreen-thermostat-with-gfci-and-air"
+          }
+        },
+        "product_column_gRFdCd": {
+          "type": "product_column",
+          "settings": {
+            "product": "oj-wi-fi-enabled-touch-screen-thermostat"
+          }
+        },
+        "product_column_7BQTwF": {
+          "type": "product_column",
+          "settings": {
+            "product": "oj-thermostat-led-wifi"
+          }
+        },
+        "feature_row_4LRTae": {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Class A GFCI",
+            "col_1": true,
+            "col_2": true,
+            "col_3": true,
+            "col_4": true,
+            "col_5": true,
+            "col_6": true,
+            "col_7": true
+          }
+        },
+        "feature_row_Bdnz3C": {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Heating Schedule",
+            "col_1": false,
+            "col_2": false,
+            "col_3": false,
+            "col_4": true,
+            "col_5": true,
+            "col_6": true,
+            "col_7": true
+          }
+        },
+        "feature_row_FCR6JW": {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Energy Log",
+            "col_1": false,
+            "col_2": false,
+            "col_3": true,
+            "col_4": false,
+            "col_5": true,
+            "col_6": true,
+            "col_7": true
+          }
+        },
+        "feature_row_CPFgVG": {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Max Temp Limit (for Wood)",
+            "col_1": false,
+            "col_2": false,
+            "col_3": true,
+            "col_4": false,
+            "col_5": true,
+            "col_6": true,
+            "col_7": true
+          }
+        },
+        "feature_row_mWeJYA": {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Touch Screen",
+            "col_1": false,
+            "col_2": false,
+            "col_3": false,
+            "col_4": false,
+            "col_5": true,
+            "col_6": true,
+            "col_7": true
+          }
+        },
+        "feature_row_gCL3Tg": {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Control via phone/web",
+            "col_1": false,
+            "col_2": false,
+            "col_3": false,
+            "col_4": false,
+            "col_5": false,
+            "col_6": true,
+            "col_7": true
+          }
+        }
+      },
+      "block_order": [
+        "product_column_YEnUU9",
+        "product_column_GcxdDA",
+        "product_column_zUfMkL",
+        "product_column_TLfDwN",
+        "product_column_8kz7jz",
+        "product_column_Aw9Tcf",
+        "product_column_gRFdCd",
+        "product_column_7BQTwF",
+        "feature_row_4LRTae",
+        "feature_row_Bdnz3C",
+        "feature_row_FCR6JW",
+        "feature_row_CPFgVG",
+        "feature_row_mWeJYA",
+        "feature_row_gCL3Tg"
+      ],
+      "name": "Thermostat Comparison",
+      "settings": {
+        "heading": "Thermostats Comparison Table",
+        "featured_image": "shopify://shop_images/callmeback_07695c2d-7595-410d-9f15-4491c2e81a76.png",
+        "featured_image_url": "shopify://pages/contact",
+        "contct_link": "<p>Note Sure which is right? <a href=\"/pages/contact\" title=\"Contact\">Contact Us for Help</a></p>"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 15,
+        "columns_desktop": 5,
+        "pagination_type": "paginated",
+        "enable_filtering": false,
+        "enable_sorting": false,
+        "show_counts": false,
+        "filter_color_swatches": false,
+        "filters_collapsed": false,
+        "facets_desktop": "sidebar",
+        "box_filter_list": ""
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "template-header",
+    "thermostat_comparison_7JYWzJ",
+    "product-grid"
+  ]
+}

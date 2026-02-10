@@ -1,0 +1,200 @@
+{{ 'custom-indoor-text.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+  assign desktop_spacing_top = section.settings.desktop_spacing_top
+  assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+  assign mobile_spacing_top = section.settings.mobile_spacing_top
+  assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+%}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+    --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+    --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+    --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+  }
+{% endstyle %}
+{% assign indoor_text = page.metafields.custom.custom_indoor_text.value %}
+
+{% if indoor_text != blank %}
+<div class="custom-indoor-text section-spacing-padding{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="indoor-text-inner">
+        {% if indoor_text.heading != blank %}
+          <div class="indoor-text-left">
+            <h2 class="h2">{{ indoor_text.heading }}</h2>
+          </div>
+        {% endif %}
+        {% if indoor_text.content != blank %}
+          <div class="indoor-text-right">
+            <div class="rte body-regular is-collapsed indoor-content-wrapper" aria-expanded="false">
+              {{ indoor_text.content | metafield_tag }}
+            </div>
+            {% comment %} <button class="read-more-btn">Read more</button> {% endcomment %}
+            <button class="rtm__toggle" type="button" aria-expanded="false">
+              <span class="rtm__more">Read more</span>
+              <span class="rtm__less" hidden>Read less</span>
+            </button>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% javascript %}
+// document.addEventListener("DOMContentLoaded", function() {
+//   const content = document.querySelector(".indoor-content-wrapper");
+//   const btn = document.querySelector(".read-more-btn");
+
+//   btn.addEventListener("click", function() {
+//     if (content.classList.contains("expanded")) {
+//       content.classList.remove("expanded");
+//       btn.textContent = "Read more";
+//     } else {
+//       content.classList.add("expanded");
+//       btn.textContent = "Read less";
+//     }
+//   });
+// });
+
+  (function () {
+  var sections = document.querySelectorAll('.custom-indoor-text');
+  if (!sections.length) return;
+
+  sections.forEach(function (root) {
+    var content = root.querySelector('.indoor-content-wrapper');
+    var btn = root.querySelector('.rtm__toggle');
+    var more = root.querySelector('.rtm__more');
+    var less = root.querySelector('.rtm__less');
+    if (!content || !btn) return;
+
+    // measure
+    content.classList.add('is-expanded');
+    var realHeight = content.scrollHeight;
+    content.classList.remove('is-expanded');
+    content.classList.add('is-collapsed');
+
+    var lineHeight = parseFloat(getComputedStyle(content).lineHeight);
+    var maxHeight = lineHeight * 4;
+
+    if (realHeight <= maxHeight) {
+      btn.style.display = "none";
+      return;
+    }
+
+    btn.addEventListener('click', function () {
+      e.preventDefault();
+        e.stopImmediatePropagation();
+        console.log('444');
+      var collapsed = content.classList.contains('is-collapsed');
+      if (collapsed) {
+        content.classList.remove('is-collapsed');
+        content.classList.add('is-expanded');
+        more.hidden = true;
+        less.hidden = false;
+      } else {
+        content.classList.remove('is-expanded');
+        content.classList.add('is-collapsed');
+        more.hidden = false;
+        less.hidden = true;
+      }
+    });
+  });
+})();
+
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Meta Custom indoor text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_top_spacing",
+      "default": false,
+      "label": "Remove top spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_bottom_spacing",
+      "default": false,
+      "label": "Remove bottom spacing"
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing top",
+      "default": 30,
+      "info": "Changes the section top spacing in desktop screens."
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing bottom",
+      "default": 30,
+      "info": "Changes the section bottom spacing in desktop screens."
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_top",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing top",
+      "default": 15,
+      "info": "Changes the section top spacing in mobile screens."
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing bottom",
+      "default": 15,
+      "info": "Changes the section bottom spacing in mobile screens."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meta Custom indoor text"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,886 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "slideshow-countdown",
+      "blocks": {
+        "slide_j7fhYw": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/kitchen-1920x480.png",
+            "mobile_image": "shopify://shop_images/Homepage_Pros_-_Mobile_Hero_Banner_Image.png",
+            "slide_link": "",
+            "video_background": false,
+            "badge_text": "",
+            "subheading": "",
+            "heading": "Your Partner in Professional-Grade Heating Solutions",
+            "heading_size": "h1",
+            "content": "ThermoSoft’s radiant heating systems meet the highest industry standards and are designed for professionals who value efficiency and reliability. Get the right tools, specs, and support to finish every job with confidence.",
+            "description_size": "large",
+            "content_position": "bottom-left",
+            "text_alignment": "left",
+            "content_position_mobile": "middle-center",
+            "text_alignment_mobile": "center",
+            "content_size": "large",
+            "color_slidebg": "rgba(0,0,0,0)",
+            "color_slidebg_opacity": 0,
+            "color_slidebg_blur": 0,
+            "color_text": "#ffffff",
+            "color_badge_bg": "#3f72e5",
+            "color_badge_text": "#ffffff",
+            "overlay_color": "rgba(0,0,0,0)",
+            "overlay_opacity": 0,
+            "overlay_gradient": "",
+            "button_1_text": "Sign in to your Account",
+            "button_1_color": "accent",
+            "button_1_link": "https://thermosoftonline.myshopify.com/customer_authentication/redirect?locale=en&region_country=US",
+            "use_text_button_1": false,
+            "button_2_text": "Open A Pro Account",
+            "button_2_color": "white",
+            "button_2_link": "#sign_up",
+            "use_text_button_2": false
+          }
+        },
+        "slide_WcPdnr": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_10.png",
+            "mobile_image": "shopify://shop_images/Untitled_10.png",
+            "slide_link": "",
+            "video_background": false,
+            "badge_text": "",
+            "subheading": "",
+            "heading": "Everything You Need for Every Job.",
+            "heading_size": "h1",
+            "content": "We’ve got everything you need to get the job done from complete heating systems to individual accessories like thermostats, installation tools, and much more.",
+            "description_size": "large",
+            "content_position": "bottom-left",
+            "text_alignment": "left",
+            "content_position_mobile": "middle-center",
+            "text_alignment_mobile": "center",
+            "content_size": "large",
+            "color_slidebg": "rgba(0,0,0,0)",
+            "color_slidebg_opacity": 0,
+            "color_slidebg_blur": 0,
+            "color_text": "#ffffff",
+            "color_badge_bg": "#3f72e5",
+            "color_badge_text": "#ffffff",
+            "overlay_color": "rgba(0,0,0,0)",
+            "overlay_opacity": 0,
+            "overlay_gradient": "",
+            "button_1_text": "Explore Full Catalog",
+            "button_1_color": "accent",
+            "button_1_link": "shopify://collections",
+            "use_text_button_1": false,
+            "button_2_text": "",
+            "button_2_color": "white",
+            "button_2_link": "",
+            "use_text_button_2": false
+          }
+        },
+        "slide_djzaTU": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_11.png",
+            "mobile_image": "shopify://shop_images/Untitled_11.png",
+            "slide_link": "",
+            "video_background": false,
+            "badge_text": "",
+            "subheading": "",
+            "heading": "Looking for Specs, Manuals or Guides? <br> Find Them All Here",
+            "heading_size": "h1",
+            "content": "Access everything in one place from detailed technical guides to installation manuals and essential documents.",
+            "description_size": "large",
+            "content_position": "bottom-left",
+            "text_alignment": "left",
+            "content_position_mobile": "middle-center",
+            "text_alignment_mobile": "center",
+            "content_size": "large",
+            "color_slidebg": "rgba(0,0,0,0)",
+            "color_slidebg_opacity": 0,
+            "color_slidebg_blur": 0,
+            "color_text": "#ffffff",
+            "color_badge_bg": "#3f72e5",
+            "color_badge_text": "#ffffff",
+            "overlay_color": "rgba(0,0,0,0)",
+            "overlay_opacity": 0,
+            "overlay_gradient": "",
+            "button_1_text": "Manuals and Documents",
+            "button_1_color": "accent",
+            "button_1_link": "shopify://pages/manual-documents",
+            "use_text_button_1": false,
+            "button_2_text": "",
+            "button_2_color": "white",
+            "button_2_link": "",
+            "use_text_button_2": false
+          }
+        }
+      },
+      "block_order": [
+        "slide_j7fhYw",
+        "slide_WcPdnr",
+        "slide_djzaTU"
+      ],
+      "name": "Slideshow countdown",
+      "settings": {
+        "desktop_height": "desktop-height-550",
+        "mobile_height": "mobile-height-image",
+        "full_width": true,
+        "autoplay": true,
+        "autoplay_length": 5,
+        "transition": "zoom",
+        "controls": "arrows-with-numbers",
+        "subheading": "While Supplies Last",
+        "heading": "SAVE UP TO 10% AND GET FREE SHIPPING",
+        "heading_size": "h2",
+        "content": "SALE ENDS 2/28/2026",
+        "button_text": "",
+        "button_link": "",
+        "button_text_1": "",
+        "button_link_1": "shopify://pages/sales-and-promotions",
+        "timer_year": 2026,
+        "timer_month": "02",
+        "timer_day": "01",
+        "timer_hour": "00",
+        "timer_minute": "00",
+        "color_bg": "#8d8659",
+        "color_text": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 20,
+        "desktop_spacing_bottom": 20,
+        "mobile_spacing_top": 0,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "spacer_V7tEFV": {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": {
+        "spacer_mobile": 0,
+        "spacer_desktop": 0,
+        "border_separator": true,
+        "border_separator_full": true
+      }
+    },
+    "logo_list_BLwBxV": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_gKmLLK": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-1.png",
+            "link": "shopify://pages/about-us",
+            "video": false
+          }
+        },
+        "logo_nYyCjj": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-2.png",
+            "link": "https://www.bbb.org/us/il/vernon-hills/profile/radiant-heat/thermosoft-international-corporation-0654-88009657",
+            "video": false
+          }
+        },
+        "logo_yiqXiB": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-3.svg",
+            "link": "/pages/manual-documents#safty-certificate",
+            "video": false
+          }
+        },
+        "logo_7AEFFK": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-4.svg",
+            "link": "https://nwfa.org/",
+            "video": false
+          }
+        },
+        "logo_tHri4p": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-5.svg",
+            "link": "/pages/manual-documents#safty-certificate",
+            "video": false
+          }
+        },
+        "logo_kYaJUe": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-6.svg",
+            "link": "https://player.vimeo.com/external/403347433.sd.mp4?s=8d224db7ec88b1bef2b876e16dd855df1b8e90eb&profile_id=164",
+            "video": true
+          }
+        },
+        "logo_tgyPPL": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-7.svg",
+            "link": "https://www.tile-assn.com/members/?id=31992715",
+            "video": false
+          }
+        },
+        "logo_3nnTwK": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/judge.me_reviews_1.png",
+            "link": "https://thermosoftonline.myshopify.com/pages/all-reviews",
+            "video": false
+          }
+        },
+        "logo_zdfRNL": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-9.svg",
+            "link": "https://player.vimeo.com/external/403347212.sd.mp4?s=ec5a7024023773d966d68f21fcba2c0d9b78a747&profile_id=165",
+            "video": true
+          }
+        }
+      },
+      "block_order": [
+        "logo_gKmLLK",
+        "logo_nYyCjj",
+        "logo_yiqXiB",
+        "logo_7AEFFK",
+        "logo_tHri4p",
+        "logo_kYaJUe",
+        "logo_tgyPPL",
+        "logo_3nnTwK",
+        "logo_zdfRNL"
+      ],
+      "name": "Logo list",
+      "settings": {
+        "heading": "",
+        "marker_style": "style1",
+        "description": "",
+        "columns": 9,
+        "mobile_swipe": true,
+        "center_align": true,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 24,
+        "desktop_spacing_bottom": 24,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15,
+        "color_logo_bg": "rgba(0,0,0,0)",
+        "marker_color": "#fd6262"
+      }
+    },
+    "multicolumn_with_icons_UKXGaU": {
+      "type": "multicolumn-with-icons",
+      "blocks": {
+        "column_T7TDUB": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Group.svg",
+            "title": "Customer Referrals",
+            "text": "<p>You will be eligible to receive referrals to projects in your area. Let us save you time by bringing the business to you! We strive to match our end users with trained professionals to ensure their project goes quickly and smoothly.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_EJkMPG": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Group_eec7e180-8c9c-45ec-afd8-7a301eafe3c4.svg",
+            "title": "Discounted Pricing",
+            "text": "<p>You will receive preferred pricing on every quote. Submit bids to your clients with confidence knowing that you are offering the best overall project cost while maximizing your profits.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_aXLyCY": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Group_a64db77f-d069-4874-8524-6ccea99e5657.svg",
+            "title": "Enhanced Warranty*",
+            "text": "<p>ThermoSoft Pros are eligible to receive coverage up to the cost of a repair or replacement of the heating system including labor and materials. Learn how to take advantage of this enhanced warranty during your Certified Pro training.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_ydHF8y": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Group_c5df8147-4cae-460e-9f61-fb61a6c4cb1c.svg",
+            "title": "Exclusive Safeguard Assurance",
+            "text": "<p>You will be first in line to receive support throughout your installation. We will be in your corner to help you through any mishaps and provide the necessary guidance to ensure your installation is completed on schedule.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_zdEVz9": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Group_e0fe30dc-c17b-49ee-a04e-d462da3c4ddd.svg",
+            "title": "Pro Project Support*",
+            "text": "<p>We want to ensure the efficient and successful completion of your projects. This is why we provide a dedicated Pro support line 7 days a week to answer questions before, during, and after project completion. Schedule a time for a video call or reach out by phone.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_hWhara": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/book-pencil-training_1.svg",
+            "title": "Exclusive Education*",
+            "text": "<p>Let us help grow your sales with radiant heat by providing carefully curated training. As a ThermoSoft Pro, you are eligible to receive advanced training on indoor or outdoor heating systems. You can choose to learn more about sales, marketing, installation, or system support.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_T7TDUB",
+        "column_EJkMPG",
+        "column_aXLyCY",
+        "column_ydHF8y",
+        "column_zdEVz9",
+        "column_hWhara"
+      ],
+      "name": "Multicolumn with icons",
+      "settings": {
+        "heading": "",
+        "marker_style": "style1",
+        "description": "",
+        "columns_desktop": 3,
+        "text_alignment": "center",
+        "heading_size": "h4",
+        "color_heading": "#252626",
+        "marker_color": "#fd6262",
+        "color_text": "#252626",
+        "color_links": "#900000",
+        "image_bg": "#eeeade",
+        "image_inner_bg": "#ffffff",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 30,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "icon_text_columns_jBqtAQ": {
+      "type": "icon-text-columns",
+      "blocks": {
+        "column_9ijned": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Real_People.svg",
+            "title": "Real People, Real Support",
+            "text": "<p>Behind every system is a US-Based team that listens, solves, and supports—because great products deserve even better service backed by the highest level of quality control possible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_zFGTjf": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Our_Mission.svg",
+            "title": "Our Mission is Your Comfort",
+            "text": "<p>We’re here to make your home feel amazing. Every system we build is designed to deliver joy, warmth, and lasting satisfaction while also offering an unsurpassed best-in-class safety record.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_Q9EtgH": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Unmatched_Value.svg",
+            "title": "Unmatched Value, USA Based Manufacturer",
+            "text": "<p>Using only premium materials, patented technology, and superior engineering—all at a price that makes luxury heating and accessible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_q3kHXV": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Innovation.svg",
+            "title": "Innovation You Can Trust",
+            "text": "<p>We don’t follow trends—we set them. With proprietary tech like FiberThermics®, our systems have been installed and delivering reliable electric radiant heat to homeowners for 30 years.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_t8NGYg": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Designed_Around_You.svg",
+            "title": "Designed Around You",
+            "text": "<p>We listen first to your needs, then guide. Whether it’s a single room or a full-home project, we tailor solutions to your needs and budgets.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_NRcirj": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Integrity.svg",
+            "title": "Integrity in Every Detail",
+            "text": "<p>We’ve earned our reputation by keeping promises. From product quality to customer care, we stand behind everything we do.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_9ijned",
+        "column_zFGTjf",
+        "column_Q9EtgH",
+        "column_q3kHXV",
+        "column_t8NGYg",
+        "column_NRcirj"
+      ],
+      "name": "Icon text columns",
+      "settings": {
+        "heading": "",
+        "marker_style": "style1",
+        "description": "",
+        "heading_size": "body-large",
+        "color_heading": "#252626",
+        "marker_color": "#fd6262",
+        "color_text": "#896f57",
+        "color_links": "#900000",
+        "image_bg": "#eeeade",
+        "image_inner_bg": "#ffffff",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 30,
+        "mobile_spacing_bottom": 30
+      }
+    },
+    "sign_up_form_7ydc7e": {
+      "type": "sign-up-form",
+      "blocks": {
+        "dropdown_field_7LC9Jp": {
+          "type": "dropdown_field",
+          "settings": {
+            "title": "Experience in installing",
+            "values": "Indoor, Outdoor, Indoor & Outdoor, None"
+          }
+        },
+        "radio_field_hRH8gN": {
+          "type": "radio_field",
+          "settings": {
+            "title": "I have a current or future project that you would like help specifying.",
+            "values": "Yes, No"
+          }
+        },
+        "radio_field_bGJpTr": {
+          "type": "radio_field",
+          "settings": {
+            "title": "I have purchased from ThermoSoft before:",
+            "values": "Yes, No"
+          }
+        }
+      },
+      "block_order": [
+        "dropdown_field_7LC9Jp",
+        "radio_field_hRH8gN",
+        "radio_field_bGJpTr"
+      ],
+      "name": "Sign-up form",
+      "settings": {
+        "heading": "Pros Sign-up Form",
+        "marker_style": "style1",
+        "description": "<p>Not a member but have an urgent order? <a href=\"/pages/contact\" title=\"Contact\">Talk with us now</a></p>",
+        "show_phone_number": true,
+        "color_bg": "#390a00",
+        "color_bg_secondary": "#ffffff",
+        "color_heading": "#252626",
+        "color_text": "#252626",
+        "color_links": "#900000",
+        "marker_color": "#fd6262",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "b41c8677-3d35-4893-895f-bca590f9e711": {
+      "type": "media-grid",
+      "blocks": {
+        "template--17918041129242__b41c8677-3d35-4893-895f-bca590f9e711-1676811591c8bdc557-0": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/catalog_pic.png",
+            "mob_image": "shopify://shop_images/catalog_pic.png",
+            "slide_link": "",
+            "use_video": false,
+            "video_autoplay": true,
+            "column": 2,
+            "row": 1,
+            "subheading": "",
+            "heading": "Explore the Full ThermoSoft Product Catalog",
+            "content": "",
+            "button_text": "Product Catalog",
+            "button_link": "https://thermosoftonline.myshopify.com/collections",
+            "content_position": "top-left",
+            "text_alignment": "left",
+            "color_bg": "#877e6a",
+            "color_bg_gradient": "",
+            "color_text": "#ffffff",
+            "color_link": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "arrow_svg": true
+          }
+        },
+        "template--17918041129242__b41c8677-3d35-4893-895f-bca590f9e711-1676811591c8bdc557-1": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/a9b2acaf422121f94fa4c32d8fe5364297325bf8_1.png",
+            "mob_image": "shopify://shop_images/Untitled-3_12.png",
+            "slide_link": "",
+            "use_video": false,
+            "video_autoplay": true,
+            "column": 2,
+            "row": 1,
+            "subheading": "",
+            "heading": "Access Warranties, Manuals, and Technical Documents",
+            "content": "",
+            "button_text": "Warranties & Documents",
+            "button_link": "shopify://pages/manual-documents",
+            "content_position": "top-left",
+            "text_alignment": "left",
+            "color_bg": "#900000",
+            "color_bg_gradient": "",
+            "color_text": "#ffffff",
+            "color_link": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "arrow_svg": true
+          }
+        }
+      },
+      "block_order": [
+        "template--17918041129242__b41c8677-3d35-4893-895f-bca590f9e711-1676811591c8bdc557-0",
+        "template--17918041129242__b41c8677-3d35-4893-895f-bca590f9e711-1676811591c8bdc557-1"
+      ],
+      "settings": {
+        "heading": "The Pro’s Choice for <span>Smarter, Faster Heating</span>",
+        "description": "<p>ThermoSoft's Fiber Thermic radiant heating systems are engineered for reliability, speed, and versatility-so you can deliver comfort without compromise. With U.S.-based manufacturing and nearly all domestic components, you get dependable stock availability and direct access to our onsite engineers for fast, expert support. Plus, our team helps you grow your business with tailored solutions and marketing support that set you apart.</p>",
+        "desktop_height": 235,
+        "mobile_height": 365,
+        "column_spacing": "medium",
+        "mobile_swipe": false,
+        "color_bg": "#f1ede4",
+        "color_heading": "#3b352b",
+        "color_heading_secondary": "#7f766e",
+        "color_text": "#252626",
+        "color_links": "#252626",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 60,
+        "desktop_spacing_bottom": 100,
+        "mobile_spacing_top": 30,
+        "mobile_spacing_bottom": 30
+      }
+    },
+    "thermosoft_difference_BRN4GW": {
+      "type": "thermosoft-difference",
+      "name": "ThermoSoft Difference",
+      "settings": {
+        "subtitle": "THE THERMOSOFT DIFFERENCE",
+        "title": "Built, Shipped, and Supported <span>Under One Roof</span>",
+        "text": "<p>Unlike traditional supply chains that rely on multiple external factories, distributors, and retailers, ThermoSoft delivers a direct, simplified path from our facility to you. This streamlined approach reduces delays, minimizes errors, and ensures consistent quality, making us a more reliable partner for your business.</p><p>And because our engineers and support teams are all in the same location, we can provide fast, accurate assistance-getting you the help you need, right the first time. No handoffs, no confusion- just expert support when you need it most.</p>",
+        "brand_logo": "shopify://shop_images/Logo.svg",
+        "brand_image_main": "shopify://shop_images/div_ea43fc0a-52c5-4009-9c8f-9ae56afc52d7.png",
+        "brand_heading": "Direct from Our Factory. Right to Your Door.",
+        "brand_text": "Why pay for layers of distribution? We deliver our premium heating solutions straight from our factory floor to your door.",
+        "brand_box_image": "shopify://shop_images/image_3_956b1c91-2351-4292-81e5-d098047c0d9b.png",
+        "brand_box_bg": "#f1ede4",
+        "brand_box_heading": "#252626",
+        "brand_box_text": "#252626",
+        "brand_box_border": "#900000",
+        "other_heading": "Other Brands",
+        "other_image_main": "shopify://shop_images/div.png",
+        "other_box_heading": "#252626",
+        "other_box_text": "#252626",
+        "color_bg": "#f7f4ee",
+        "color_heading": "#3b352b",
+        "color_heading_secondary": "#7f766e",
+        "color_subtitle": "#900000",
+        "color_text": "#252626",
+        "color_links": "#900000",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 40,
+        "mobile_spacing_top": 30,
+        "mobile_spacing_bottom": 30
+      }
+    },
+    "media_collage_EbAyya": {
+      "type": "media-collage",
+      "blocks": {
+        "media_f8iQNJ": {
+          "type": "media",
+          "settings": {
+            "slide_link": "",
+            "use_video": false,
+            "video_autoplay": true,
+            "desktop_height": 165,
+            "mobile_height": 170,
+            "column": 1,
+            "row": 1,
+            "column_mobile": 1,
+            "mobile_order": 2,
+            "subheading": "News",
+            "heading": "How to Create a Floor Plan Like a Pro",
+            "heading_size": "h5",
+            "button_text": "Read now",
+            "button_link": "https://thermosoftonline.myshopify.com/blogs/news/create-a-floor-plan",
+            "button_size": "regular",
+            "button_color": "accent",
+            "use_text_button": true,
+            "content_position": "middle-left",
+            "text_alignment": "left",
+            "color_bg": "#900000",
+            "color_bg_gradient": "",
+            "color_text": "#ffffff",
+            "color_link": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "media_UW3N3c": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/d69099284a84ef6e262d3ce94db1987910c9edaf.png",
+            "slide_link": "",
+            "use_video": false,
+            "video_autoplay": true,
+            "desktop_height": 300,
+            "mobile_height": 470,
+            "column": 1,
+            "row": 3,
+            "column_mobile": 2,
+            "mobile_order": 1,
+            "subheading": "",
+            "heading": "Insights, Tips, and Tech for Heating Professionals",
+            "heading_size": "h2",
+            "button_text": "Browse all Blogs",
+            "button_link": "shopify://blogs/news",
+            "button_size": "small",
+            "button_color": "white",
+            "use_text_button": false,
+            "content_position": "middle-center",
+            "text_alignment": "center",
+            "color_bg": "#ffffff",
+            "color_bg_gradient": "",
+            "color_text": "#ffffff",
+            "color_link": "#ffffff",
+            "overlay_color": "#2b2118",
+            "overlay_opacity": 40
+          }
+        },
+        "media_jRhj8G": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/178e9c472db2085a559379db4b6dae7b3e17e8b0.png",
+            "slide_link": "",
+            "use_video": false,
+            "video_autoplay": true,
+            "desktop_height": 485,
+            "mobile_height": 265,
+            "column": 1,
+            "row": 2,
+            "column_mobile": 1,
+            "mobile_order": 3,
+            "subheading": "",
+            "heading": "",
+            "heading_size": "h3",
+            "button_text": "",
+            "button_link": "",
+            "button_size": "regular",
+            "button_color": "accent",
+            "use_text_button": false,
+            "content_position": "middle-center",
+            "text_alignment": "center",
+            "color_bg": "#ffffff",
+            "color_bg_gradient": "",
+            "color_text": "#2c2d2e",
+            "color_link": "#3f72e5",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "media_hGxjz8": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/d0f8527ba7110a5fd6606185017a2f414eb102de.png",
+            "slide_link": "",
+            "use_video": false,
+            "video_autoplay": true,
+            "desktop_height": 515,
+            "mobile_height": 310,
+            "column": 1,
+            "row": 2,
+            "column_mobile": 1,
+            "mobile_order": 4,
+            "subheading": "",
+            "heading": "",
+            "heading_size": "h3",
+            "button_text": "",
+            "button_link": "",
+            "button_size": "regular",
+            "button_color": "accent",
+            "use_text_button": false,
+            "content_position": "middle-center",
+            "text_alignment": "center",
+            "color_bg": "#ffffff",
+            "color_bg_gradient": "",
+            "color_text": "#2c2d2e",
+            "color_link": "#3f72e5",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "media_dTLrGG": {
+          "type": "media",
+          "settings": {
+            "slide_link": "",
+            "use_video": false,
+            "video_autoplay": true,
+            "desktop_height": 195,
+            "mobile_height": 215,
+            "column": 1,
+            "row": 1,
+            "column_mobile": 1,
+            "mobile_order": 5,
+            "subheading": "News",
+            "heading": "Why NeverFreeze® Ice and Snow Melting is Perfect for Senior Citizens",
+            "heading_size": "h5",
+            "button_text": "Read now",
+            "button_link": "https://thermosoftonline.myshopify.com/blogs/news/snow-melting-for-senior",
+            "button_size": "regular",
+            "button_color": "accent",
+            "use_text_button": true,
+            "content_position": "middle-left",
+            "text_alignment": "left",
+            "color_bg": "#f1eee4",
+            "color_bg_gradient": "",
+            "color_text": "#252626",
+            "color_link": "#252626",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "media_f8iQNJ",
+        "media_UW3N3c",
+        "media_jRhj8G",
+        "media_hGxjz8",
+        "media_dTLrGG"
+      ],
+      "name": "Media collage",
+      "settings": {
+        "column_spacing": "medium",
+        "mobile_swipe": false,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 0,
+        "desktop_spacing_bottom": 20,
+        "mobile_spacing_top": 0,
+        "mobile_spacing_bottom": 0
+      }
+    },
+    "spacer_7kefrr": {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": {
+        "spacer_mobile": 20,
+        "spacer_desktop": 20,
+        "border_separator": false,
+        "border_separator_full": false
+      }
+    },
+    "support_contact_form_Mq9PLW": {
+      "type": "support-contact-form",
+      "blocks": {
+        "dropdown_field_XQhELL": {
+          "type": "dropdown_field",
+          "settings": {
+            "title": "I am interested in heating...",
+            "values": "Floor Heating, Roof & Gutter Heating, Driveway & Walkway Heating, Pipe Tracing,  Soil Heating, Bathtub Heating"
+          }
+        },
+        "text_field_mCGcpD": {
+          "type": "text_field",
+          "settings": {
+            "title": "Project Description",
+            "use_long_text": true,
+            "is_required": false
+          }
+        }
+      },
+      "block_order": [
+        "dropdown_field_XQhELL",
+        "text_field_mCGcpD"
+      ],
+      "name": "Support contact form",
+      "settings": {
+        "company": true,
+        "zip": true,
+        "plan": false,
+        "input_req": true,
+        "heading": "Need Help or Have Questions? Call, Chat or Contact Us",
+        "marker_style": "style1",
+        "description": "<p>To speak with one of our qualified experts, simply fill out form or call us now.</p>",
+        "contact": "<a href=\"tel:800.308.8057\" title=\"tel:800.308.8057\">800.308.8057</a>",
+        "chat": "",
+        "show_phone_number": true,
+        "marker_color": "#fd6262",
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true,
+        "desktop_spacing_top": 30,
+        "desktop_spacing_bottom": 30,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "spacer_MtJchH": {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": {
+        "spacer_mobile": 35,
+        "spacer_desktop": 60,
+        "border_separator": false,
+        "border_separator_full": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "spacer_V7tEFV",
+    "logo_list_BLwBxV",
+    "multicolumn_with_icons_UKXGaU",
+    "icon_text_columns_jBqtAQ",
+    "sign_up_form_7ydc7e",
+    "b41c8677-3d35-4893-895f-bca590f9e711",
+    "thermosoft_difference_BRN4GW",
+    "media_collage_EbAyya",
+    "spacer_7kefrr",
+    "support_contact_form_Mq9PLW",
+    "spacer_MtJchH"
+  ]
+}

@@ -1,0 +1,66 @@
+{%- liquid
+	assign is_purchasable = false
+	if product_small.available and product_small.variants.size == 1
+		assign is_purchasable = true
+	endif
+-%}
+<product-card-small class="product-card-small quick-add-to-card--{{ is_purchasable }}" data-url="{{ product_small.url }}" data-id="{{ product_small.selected_or_first_available_variant.id }}" data-product-handle="{{ product_small.handle }}">
+	<div class="product-card-small--image">
+		<a href="{{ product_small.url }}" title="{{ product_small.title | escape }}" class="product-cart-small--image-link">
+			{% if product_small.featured_image %}
+				{%- render 'responsive-image', image: product_small.featured_image, sizes: '200x0' -%}
+			{% else %}
+				{%- render 'responsive-image', image: settings.product_default_image, sizes: '200x0' -%}
+				{% comment %} <div class="thb-placeholder" style="width: 70px; height:80px;">
+					{%-
+						liquid
+						capture index
+							cycle '1', '2', '3', '4', '5', '6'
+						endcapture
+					-%}
+					{{ 'product-' | append: index | placeholder_svg_tag }}
+				</div> {% endcomment %}
+			{% endif %}
+		</a>
+	</div>
+	<div class="product-card-small--info">
+		{%-
+			liquid
+			assign product_title = product_small.title
+			if predictive_search
+				assign product_title = product_title | highlight: predictive_search.terms
+			endif
+		-%}
+		<div class="small-title-price">
+			<a href="{{ product_small.url }}" title="{{ product_small.title | escape }}" class="product-card-small--link">{{ product_title }}</a>
+			{% render 'product-price', product: product_small %}
+		</div> 
+		<div class="product-card-small--add-to-cart">
+			{% if is_purchasable %}
+			<button class="product-card-small--add-to-cart-button" type="button">
+				{% comment %} <span class="product-card-small--add-to-cart-icon">
+					<span class="loading-overlay">
+						{% render 'svg-icons' with 'thb-loading' %}
+					</span>
+				</span>  {% endcomment %}
+				<span class="product-card-small--add-to-cart-text">
+					<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+					<path d="M14.24 8.13714H8.13714V14.24H6.10286V8.13714H0V6.10286H6.10286V0H8.13714V6.10286H14.24V8.13714Z" fill="white"/>
+					</svg>
+				</span>
+			</button>
+			{% else %}
+			<quick-view class="product-card-small--add-to-cart-button" data-product-handle="{{ product_small.handle }}"><span class="loading-overlay">{% render 'svg-icons' with 'thb-loading' %}</span>
+				<span class="product-card-small--add-to-cart-text">	
+				<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+					<path d="M14.24 8.13714H8.13714V14.24H6.10286V8.13714H0V6.10286H6.10286V0H8.13714V6.10286H14.24V8.13714Z" fill="white"/>
+				</svg>		
+				</span>
+			</quick-view>
+			{% endif %}
+		</div>
+		{%- if show_close -%}
+			<button class="compare-remove" data-product-id="{{ product_small.id }}">{%- render 'svg-icons' with 'close' -%}</button>
+		{%- endif -%}
+	</div>
+</product-card-small>

@@ -1,0 +1,336 @@
+{{ 'thermosoft-difference.css' | asset_url | stylesheet_tag }}
+{%- liquid
+	assign color_bg = section.settings.color_bg | downcase
+	assign color_heading = section.settings.color_heading
+	assign color_heading_secondary = section.settings.color_heading_secondary
+	assign color_subtitle = section.settings.color_subtitle
+	assign color_text = section.settings.color_text
+	assign color_links = section.settings.color_links
+  
+	assign brand_box_bg = section.settings.brand_box_bg | downcase
+	assign brand_box_heading = section.settings.brand_box_heading
+	assign brand_box_text = section.settings.brand_box_text
+	assign brand_box_border = section.settings.brand_box_border
+
+	assign other_box_heading = section.settings.other_box_heading
+	assign other_box_text = section.settings.other_box_text
+
+	assign color_body_bg = settings.color_body_bg | downcase
+
+	assign transparent = false
+	if color_body_bg == color_bg or color_bg == 'transparent' or color_bg == 'rgba(0,0,0,0)'
+		assign transparent = true
+	endif
+
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+	assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+	assign mobile_spacing_top = section.settings.mobile_spacing_top
+	assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+-%}
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+  --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+  --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+  --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+}
+{% endstyle %}
+
+
+<div class="thermosoft-difference thermosoft-difference--transparent-{{ transparent }} {% if transparent %}section-spacing{% else %}section-spacing-padding{% endif %}{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}" style="--color-bg: {{ color_bg }}; --color-heading: {{ color_heading }}; --color-heading-secondary: {{ color_heading_secondary }}; --color-subtitle: {{ color_subtitle }}; --color-text: {{ color_text }}; --bg-body: {{ color_bg }}; --color-accent: {{ color_links }}; --color-accent-rgb: {{ color_links.rgb | replace: ' ' , ',' }};">
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="thermosoft-difference__container">
+        <div class="thermosoft-difference__content">
+          {%- if section.settings.subtitle != blank -%}
+            <p class="subheading thermosoft-difference__subtitle">{{- section.settings.subtitle -}}</p>
+          {%- endif -%}
+          {%- if section.settings.title != blank -%}
+            <h3 class="thermosoft-difference__title">{{- section.settings.title -}}</h3>
+          {%- endif -%}
+          {%- if section.settings.text != blank -%}
+            <div class="thermosoft-difference__text rte">{{- section.settings.text -}}</div>
+          {%- endif -%}
+        </div>
+        <div class="thermosoft-difference__graphics">
+          <div class="thermosoft-difference__column thermosoft-difference__brand" style="--color-bg: {{ brand_box_bg }}; --color-heading: {{ brand_box_heading }}; --color-text: {{ brand_box_text }}; --color-border: {{ brand_box_border }}; --bg-body: {{ brand_box_bg }};">
+            <div class="thermosoft-difference__brand_header">
+              {%- if section.settings.brand_logo != blank -%}
+                {%- assign image = section.settings.brand_logo -%}
+                {%- assign master_width = image.src.width | append: 'x' | append: image.src.height -%}
+                {%- render 'responsive-image', image: image, sizes: master_width, retina: true, class: 'thermosoft-difference__logo' -%}
+              {%- endif -%}
+              {%- if section.settings.brand_image_main != blank -%}
+                {%- assign image = section.settings.brand_image_main -%}
+                {%- assign master_width = image.src.width | append: 'x' | append: image.src.height -%}
+                {%- render 'responsive-image', image: image, sizes: master_width, retina: true, class: 'thermosoft-difference__main-img' -%}
+              {%- endif -%}
+            </div>
+
+            <div class="thermosoft-difference__desc">
+              <div class="thermosoft-difference__desc_content">
+                {%- if section.settings.brand_heading != blank -%}
+                  <h6>{{- section.settings.brand_heading -}}</h6>
+                {%- endif -%}
+                {%- if section.settings.brand_text != blank -%}
+                  <p class="body-small">{{- section.settings.brand_text -}}</p>
+                {%- endif -%}
+              </div>
+              <div class="thermosoft-difference__desc_image">
+                {%- if section.settings.brand_box_image != blank -%}
+                  {%- assign image = section.settings.brand_box_image -%}
+                  {%- assign master_width = image.src.width | append: 'x' | append: image.src.height -%}
+                  {%- render 'responsive-image', image: image, sizes: master_width, retina: true, class: 'thermosoft-difference__box-img' -%}
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+          <div class="thermosoft-difference__column thermosoft-difference__other" style="--color-heading: {{ other_box_heading }}; --color-text: {{ other_box_text }};">
+            {%- if section.settings.other_heading != blank -%}
+              <h4>{{- section.settings.other_heading -}}</h4>
+            {%- endif -%}
+            {%- if section.settings.other_image_main != blank -%}
+              {%- assign image = section.settings.other_image_main -%}
+              {%- assign master_width = image.src.width | append: 'x' | append: image.src.height -%}
+              {%- render 'responsive-image', image: image, sizes: master_width, retina: true, class: 'thermosoft-difference__main-img' -%}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ThermoSoft Difference",
+  "settings": [
+    { 
+      "type": "text", 
+      "id": "subtitle", 
+      "label": "Subtitle", 
+      "default": "THE THERMOSOFT DIFFERENCE" 
+    },
+    { 
+      "type": "textarea", 
+      "id": "title", 
+      "label": "Title", 
+      "default": "Built, Shipped, and Supported Under One Roof" 
+    },
+    { 
+      "type": "richtext", 
+      "id": "text", 
+      "label": "Paragraph", 
+      "default": "<p>Unlike traditional supply chains that rely on multiple external factories, distributors, and retailers, ThermoSoft delivers a direct, simplified path from our facility to you.</p>" 
+    },
+    {
+      "type": "header",
+      "content": "Brand Content"
+    },
+    { 
+      "type": "image_picker", 
+      "id": "brand_logo", 
+      "label": "ThermoSoft Logo",
+      "info": "190 x 370 .jpg recommended."
+    },
+    { 
+      "type": "image_picker", 
+      "id": "brand_image_main", 
+      "label": "ThermoSoft Diagram Image (Full Image)",
+      "info": "170 x 280 .jpg recommended."
+    },
+    { 
+      "type": "text", 
+      "id": "brand_heading", 
+      "label": "ThermoSoft Heading", 
+      "default": "Direct from Our Factory. Right to Your Door." 
+    },
+    { 
+      "type": "inline_richtext", 
+      "id": "brand_text", 
+      "label": "ThermoSoft Description", 
+      "default": "Why pay for layers of distribution? We deliver our premium heating solutions straight from our factory floor to your door." 
+    },
+    { 
+      "type": "image_picker", 
+      "id": "brand_box_image", 
+      "label": "ThermoSoft Box Image" 
+    },
+    {
+      "type": "color",
+      "id": "brand_box_bg",
+      "label": "ThermoSoft Box Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "brand_box_heading",
+      "label": "ThermoSoft Box Heading",
+      "default": "#1a1c1d"
+    },
+    {
+      "type": "color",
+      "id": "brand_box_text",
+      "label": "ThermoSoft Box Text",
+      "default": "#2c2d2e"
+    },
+    {
+      "type": "color",
+      "id": "brand_box_border",
+      "label": "ThermoSoft Box Border",
+      "default": "#2c2d2e"
+    },
+    {
+      "type": "header",
+      "content": "Other Brand Content"
+    },
+    { 
+      "type": "text", 
+      "id": "other_heading", 
+      "label": "Other Brands Heading", 
+      "default": "Other Brands" 
+    },
+    { 
+      "type": "image_picker", 
+      "id": "other_image_main", 
+      "label": "Other Brands Diagram Image (Full Image)",
+      "info": "170 x 590 .jpg recommended." 
+    },
+    {
+      "type": "color",
+      "id": "other_box_heading",
+      "label": "Other Box Heading",
+      "default": "#1a1c1d"
+    },
+    {
+      "type": "color",
+      "id": "other_box_text",
+      "label": "Other Box Text",
+      "default": "#2c2d2e"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading",
+      "default": "#1a1c1d"
+    },
+    {
+      "type": "color",
+      "id": "color_heading_secondary",
+      "label": "Heading secondary",
+      "default": "#7F766E"
+    },
+    {
+      "type": "color",
+      "id": "color_subtitle",
+      "label": "Subtitle",
+      "default": "#1a1c1d"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text",
+      "default": "#2c2d2e"
+    },
+    {
+      "type": "color",
+      "id": "color_links",
+      "label": "Links",
+      "default": "#2c2d2e"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_top_spacing",
+      "default": false,
+      "label": "Remove top spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_bottom_spacing",
+      "default": false,
+      "label": "Remove bottom spacing"
+    },
+    
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_top",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing top",
+      "default": 100,
+      "info": "Changes the section top spacing in desktop screens."
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing bottom",
+      "default": 100,
+      "info": "Changes the section bottom spacing in desktop screens."
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_top",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing top",
+      "default": 50,
+      "info": "Changes the section top spacing in mobile screens."
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing bottom",
+      "default": 50,
+      "info": "Changes the section bottom spacing in mobile screens."
+    }
+  ],
+  "presets": [
+    {
+      "name": "ThermoSoft Difference"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"],
+    "groups": [
+      "header", "footer"
+    ]
+  }
+}
+{% endschema %}

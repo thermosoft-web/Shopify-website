@@ -1,0 +1,281 @@
+
+{% if collection.title == 'Floor Heating Thermostats' %}
+<section class="thermostat-comparison">
+<div class="row">
+    <div class="small-12 columns">
+   
+  <h2 class="comparison-title">{{ section.settings.heading }}</h2>
+
+  <div class="thermostat-comparison-content">
+  <!-- PRODUCTS ROW -->
+  <div class="comparison-products">
+    <div class="product-column table-feature">
+      <a href="{{ section.settings.featured_image_url }}">
+        <img
+                src="{{ section.settings.featured_image | image_url: width: 200 }}"
+                alt="{{ product.title }}"
+                class="product-image"
+              >
+      </a>        
+      <div class="contact_link">
+        {{ section.settings.contct_link }}
+      </div>        
+    </div>    
+    {% for block in section.blocks %}
+      {% if block.type == 'product_column' %}
+        {% assign product = block.settings.product %}
+        <div class="product-column">
+          {% if product %}
+            <a href="{{ product.url }}" title="{{ product.title }}">
+              <img
+                src="{{ product.featured_image | image_url: width: 200 }}"
+                alt="{{ product.title }}"
+                class="product-image"
+              >
+            </a>  
+            <div class="product-title">{{ product.title }}</div>
+
+            {% if product.selected_or_first_available_variant.sku != blank %}
+              <div class="product-sku">
+                {{ product.selected_or_first_available_variant.sku }}
+              </div>
+            {% endif %}
+          {% else %}
+            <div class="product-placeholder">Select product</div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="comparison-table">
+    {% for block in section.blocks %}
+      {% if block.type == 'feature_row' %}
+        <div class="table-row">
+          <div class="table-feature">
+            {{ block.settings.feature }}
+          </div>
+
+          {% for i in (1..7) %}
+            <div class="table-cell">
+
+              {% assign is_checked = false %}
+              {% case i %}
+                {% when 1 %}{% assign is_checked = block.settings.col_1 %}
+                {% when 2 %}{% assign is_checked = block.settings.col_2 %}
+                {% when 3 %}{% assign is_checked = block.settings.col_3 %}
+                {% when 4 %}{% assign is_checked = block.settings.col_4 %}
+                {% when 5 %}{% assign is_checked = block.settings.col_5 %}
+                {% when 6 %}{% assign is_checked = block.settings.col_6 %}
+                {% when 7 %}{% assign is_checked = block.settings.col_7 %}
+              {% endcase %}
+
+              {% if is_checked %}
+                <span class="check yes">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 216 216"><path fill="none" stroke="#3da321" stroke-width="19" stroke-miterlimit="10" d="M20 103l63 79L199 25"/></svg>
+                </span>
+              {% else %}
+                <span class="check no">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 216"><g fill="none" stroke="#ff3600" stroke-miterlimit="10" stroke-width="19"><path d="M32 33l161 161M193 33L32 194"/></g></svg>
+                </span>
+              {% endif %}
+
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  </div>
+  </div>
+   </div>
+</section>
+
+
+
+
+<style>
+.thermostat-comparison {
+    padding: 50px 0;
+}
+.comparison-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.comparison-products {
+    display: grid;
+    grid-template-columns: 200px repeat(8, 1fr);
+    text-align: center;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.product-image {
+    max-width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin: auto;
+}
+.thermostat-comparison-content {
+    overflow-x: auto;
+    display: grid;
+}
+
+.product-title {
+  font-weight: 600;
+  margin-top: 10px;
+  display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 1;
+overflow: hidden;
+}
+
+.product-sku {
+  font-size: 13px;
+  color: #777;
+}
+
+.comparison-table {
+  border-top: 1px solid #ddd;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 200px repeat(8, 1fr);
+  border-bottom: 1px solid #eee;
+  gap: 10px;
+}
+
+.table-feature {
+    background: #f5f5f5;
+    padding: 12px;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    left: 0;
+    min-width: 180px;
+    z-index: 99;
+}
+
+.table-cell {
+    text-align: center;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+}
+.table-cell .check svg {
+    width: 20px;
+}
+.product-column.table-feature {
+    background: #FBFBFB;
+}
+.product-column.table-feature .contact_link p {
+    font-size: 14px;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+.product-column.table-feature .contact_link p a {
+    font-weight: 600;
+    border-bottom: 1px solid;
+}
+</style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Thermostat Comparison",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Thermostats Comparison Table"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Contact Image"
+    },
+    {
+      "type": "url",
+      "id": "featured_image_url",
+      "label": "Contact Image Url"
+    },
+    {
+      "type": "richtext",
+      "id": "contct_link",
+      "label": "Contact Info"
+    }
+  ],
+  "blocks": [
+    
+    {
+      "type": "product_column",
+      "name": "Product Column",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        }
+      ]
+    },
+    {
+      "type": "feature_row",
+      "name": "Feature Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature name"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_4",
+          "label": "Product 4"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_5",
+          "label": "Product 5"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_6",
+          "label": "Product 6"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_7",
+          "label": "Product 7"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Thermostat Comparison"
+    }
+  ]
+}
+{% endschema %}

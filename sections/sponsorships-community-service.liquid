@@ -1,0 +1,283 @@
+{{ 'featured-collection.css' | asset_url | stylesheet_tag }}
+{{- 'sponsorships-community-service.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+	assign color_bg = section.settings.color_bg | downcase
+	assign color_heading = section.settings.color_heading
+	assign color_text = section.settings.color_text
+	assign color_links = section.settings.color_links
+
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+
+	assign heading_class = ''
+	if color_heading contains 'gradient'
+		assign heading_class = 'heading-has-gradient'
+	endif
+
+	assign color_body_bg = settings.color_body_bg | downcase
+
+	assign transparent = false
+	if color_body_bg == color_bg or color_bg == 'transparent' or color_bg == 'rgba(0,0,0,0)'
+		assign transparent = true
+	endif
+
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+	assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+	assign mobile_spacing_top = section.settings.mobile_spacing_top
+	assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+-%}
+
+{% style %}
+	#shopify-section-{{ section.id }} {
+		--section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+		--section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+		--section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+		--section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+	}
+{% endstyle %}
+
+<div class="sponsor-community-srvc sponsor-community-srvc--transparent-{{ transparent }} {% if transparent %}section-spacing{% else %}section-spacing-padding{% endif %} {% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}" style="--color-bg: {{ color_bg }}; --color-heading: {{ color_heading }}; --color-text: {{ color_text }}; --solid-button-background: {{ color_text }}; --bg-body: {{ color_bg }}; --color-accent: {{ color_links }}; --color-accent-rgb: {{ color_links.rgb | replace: ' ' , ',' }};">
+  <div class="row">
+    <div class="small-12 columns">      
+        {% assign services = section.blocks | where: "type", "service" %}
+        {% assign galleries = section.blocks | where: "type", "gallery" %}
+
+        {% for service in services %}
+          <div class="service-block">
+            {% if service.settings.text != blank %}
+              <h2 class="service-heading {{ heading_class }}">{{ service.settings.text }}</h2>
+            {% endif %}
+            {% if service.settings.description != blank %}
+              <div class="service-description">
+                {{ service.settings.description }}
+              </div>
+            {% endif %}
+
+            {% comment %}
+              Match galleries where `gallery.settings.matchtext` equals this service heading
+            {% endcomment %}
+            {% for gallery in galleries %}
+              {% if gallery.settings.matchtext == service.settings.text %}
+                <div class="gallery-group">
+                  {% if gallery.settings.block-head != blank %}
+                    <h3 class="gallery-heading h5">{{ gallery.settings.block-head }}</h3>
+                  {% endif %}
+                  {% assign img_count = 0 %}
+                  {% for i in (1..5) %}
+                      {% assign key = 'image_' | append: i %}
+                      {% assign img = gallery.settings[key] %}
+                      {% if img != blank %}
+                        {% assign img_count = img_count | plus: 1 %}
+                      {% endif %}
+                    {% endfor %}
+                  <slide-show id="product-grid-{{ section.id }}" class="products gallery-images gallery-images-{{ img_count }} row carousel" data-dots="true">	
+                    {% for i in (1..5) %}
+                      {% assign key = 'image_' | append: i %}
+                      {% assign img = gallery.settings[key] %}
+                      {% if img != blank %}
+                        <div class="small-6 medium-3 large-1/5 columns carousel__slide">
+                          <div class="gallery-image">
+                            {%- liquid
+                              assign image = img
+                              assign width = image.src.width | append: 'x' | append: image.src.height
+                            -%}
+                            {%- render 'responsive-image', image: image, sizes: width, class: 'slideshow-image--mobile', priority: priority -%}
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </slide-show>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+  	{
+      "name": "Sponsor Community Service",
+      "class": "sponsorships-community-service",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "color_bg",
+          "label": "Background",
+          "default": "transparent"
+        },
+        {
+          "type": "color_background",
+          "id": "color_heading",
+          "label": "Heading",
+          "default": "#1a1c1d"
+        },
+        {
+          "type": "color",
+          "id": "color_text",
+          "label": "Text",
+          "default": "#2c2d2e"
+        },
+        {
+          "type": "color",
+          "id": "color_links",
+          "label": "Links",
+          "default": "#2c2d2e"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_top_spacing",
+          "default": false,
+          "label": "Remove top spacing"
+        },
+        {
+          "type": "checkbox",
+          "id": "disable_bottom_spacing",
+          "default": false,
+          "label": "Remove bottom spacing"
+        },
+        
+        {
+          "type": "header",
+          "content": "Desktop spacing"
+        },
+        {
+          "type": "range",
+          "id": "desktop_spacing_top",
+          "min": 0,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "label": "Desktop spacing top",
+          "default": 100,
+          "info": "Changes the section top spacing in desktop screens."
+        },
+        {
+          "type": "range",
+          "id": "desktop_spacing_bottom",
+          "min": 0,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "label": "Desktop spacing bottom",
+          "default": 100,
+          "info": "Changes the section bottom spacing in desktop screens."
+        },
+        {
+          "type": "header",
+          "content": "Mobile spacing"
+        },
+        {
+          "type": "range",
+          "id": "mobile_spacing_top",
+          "min": 0,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "label": "Mobile spacing top",
+          "default": 50,
+          "info": "Changes the section top spacing in mobile screens."
+        },
+        {
+          "type": "range",
+          "id": "mobile_spacing_bottom",
+          "min": 0,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "label": "Mobile spacing bottom",
+          "default": 50,
+          "info": "Changes the section bottom spacing in mobile screens."
+        }
+      ],
+      "blocks": [
+        {
+          "type": "service",
+          "name": "Service Type",
+          "settings": [
+            {
+              "type": "text",
+              "id": "text",
+              "label": "Heading"
+            },
+            {
+              "type": "richtext",
+              "id": "description",
+              "label": "Description"
+            }
+          ]
+        },
+        {
+          "type": "gallery",
+          "name": "Gallery",
+          "settings": [
+            {
+              "type": "text",
+              "id": "matchtext",
+              "label": "Heading",
+              "info": "Copy From Service Type Heading"
+            },
+            {
+              "type": "text",
+              "id": "block-head",
+              "label": "Block Heading"
+            },
+            {
+              "type": "header",
+              "content": "Images",
+              "info": "240 x 150 .jpg recommended for layouts."
+            },
+            {
+              "type": "image_picker",
+              "id": "image_1",
+              "label":"Image 1"
+            },
+            {
+              "type": "image_picker",
+              "id": "image_2",
+              "label":"Image 2"
+            },
+            {
+              "type": "image_picker",
+              "id": "image_3",
+              "label":"Image 3"
+            },
+            {
+              "type": "image_picker",
+              "id": "image_4",
+              "label":"Image 4"
+            },
+            {
+              "type": "image_picker",
+              "id": "image_5",
+              "label":"Image 5"
+            }
+          ]
+        }
+      ],
+    	"presets": [
+			{
+				"name": "Sponsorships Community Service",
+				"blocks": [
+				]
+			}
+		],
+		"enabled_on": {
+			"templates": ["*"],
+			"groups": [
+				"header", "footer"
+			]
+		}
+  }
+{% endschema %}

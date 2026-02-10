@@ -1,0 +1,95 @@
+<div class="outdoor-vertical-text-section">
+    <div class="outdoor-vertical-text">
+      {{ section.settings.vertical_text }}
+    </div>
+</div>
+
+<style>
+
+.outdoor-vertical-text {
+    color: #70624C;
+    font-size: 320px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 410.604px;
+    opacity: 0.1;
+    position: absolute;
+    transform: rotate(90deg);
+    top: 9%;
+    left: -30%;
+}
+@media (min-width:2700px) {
+  .outdoor-vertical-text {
+    display: none;
+  }
+}
+@media (min-width:2550px) and (max-width:2699px) {
+  .outdoor-vertical-text {
+    left: -21%;
+  }
+}
+@media (min-width:2300px) and (max-width:2549px) {
+  .outdoor-vertical-text {
+    left: -23%;
+  }
+}
+@media (min-width:2150px) and (max-width:2299px) {
+  .outdoor-vertical-text {
+    left: -25%;
+  }
+}
+@media (min-width:2000px) and (max-width:2149px) {
+  .outdoor-vertical-text {
+    left: -27%;
+  }
+}
+@media (min-width:1921px) and (max-width:1999px) {
+  .outdoor-vertical-text {
+    left: -29%;
+  }
+}
+@media (max-width: 1799px) {
+  .outdoor-vertical-text {
+    font-size: 300px;
+    line-height: 390.604px;
+  }
+}
+@media (max-width: 1699px) {
+  .outdoor-vertical-text {
+    font-size: 280px;
+    line-height: 370.604px;
+  }
+}
+@media (max-width: 1599px) {
+  .outdoor-vertical-text {
+    font-size: 260px;
+    line-height: 350.604px;
+  }
+}
+@media (max-width: 1439px) {
+  .outdoor-vertical-text {
+    display: none;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Outdoor Vertical Text",
+  "class": "outdoor-vertical",
+  "settings": [
+    {
+      "type": "text",
+      "id": "vertical_text",
+      "label": "Vertical Text",
+      "default": "Outdoor"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Outdoor Vertical Text"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,489 @@
+{%- liquid
+  assign section_heading = section.settings.heading
+  assign marker_style = section.settings.marker_style
+  assign section_description = section.settings.description
+  assign show_phone_number = section.settings.show_phone_number
+
+  assign marker_color = section.settings.marker_color
+
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+  assign text_blocks = section.blocks | where: 'type', 'text'
+
+  assign desktop_spacing_top = section.settings.desktop_spacing_top
+  assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+  assign mobile_spacing_top = section.settings.mobile_spacing_top
+  assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+
+  if section.blocks.size == 0
+    assign form_class = 'contact-form--has-no-blocks'
+  endif
+-%}
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+  --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+  --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+  --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+}
+{% endstyle %}
+
+{{- 'contact-form.css' | asset_url | stylesheet_tag -}}
+<div class="contact-form section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+        
+  <div class="row align-center">
+    <div class="small-12 columns contact-form--form-column ">
+      <div class="support-contact-form-title">
+        {% render 'section-header',
+          section_heading: section_heading,
+          section_description: section_description,
+          marker_color: marker_color,
+          marker_style: marker_style
+        %}
+        <div class="header_contact">
+          <div class="contact_icon_text body-large">
+            {% if section.settings.contact != blank %}<span class="contact_icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M4.17578 0.737305C3.51472 0.191827 2.5637 0.285629 2.0918 0.939453V0.94043C1.94411 1.14402 1.78111 1.37908 1.52539 1.71387L1.23633 2.08496C0.751992 2.69724 0.460975 3.43685 0.396484 4.20996L0.382812 4.54395C0.383963 5.4362 0.687012 6.30156 1.24219 7C2.16859 8.14951 3.13258 9.29858 4.20801 10.374C5.28163 11.4476 6.43103 12.4115 7.5791 13.3389C8.27741 13.8956 9.14406 14.2 10.0371 14.2012C10.9299 14.2023 11.7974 13.9012 12.4971 13.3467H12.4961C13.0708 12.8874 13.4025 12.6659 13.6807 12.4639C14.3125 12.0047 14.4145 11.0961 13.9023 10.4619V10.4609C13.3147 9.73204 12.6449 9.03995 11.9883 8.34668L11.9893 8.3457C11.8442 8.19776 11.6475 8.1113 11.4404 8.10156C11.2317 8.09177 11.027 8.16205 10.8682 8.29785C10.5662 8.5554 10.3355 8.74282 9.80273 9.24316L9.59277 9.43945L9.3457 9.29297C7.49808 8.19587 6.36622 7.05058 5.28809 5.2373L5.1416 4.98926L5.33887 4.78027C5.84254 4.24414 6.02957 4.01302 6.28906 3.70801L6.29004 3.70605L6.37988 3.58105C6.45626 3.44779 6.49289 3.2942 6.48535 3.13867C6.47535 2.93283 6.38739 2.73883 6.23926 2.5957C5.56038 1.96132 4.8822 1.31965 4.17578 0.737305Z" fill="#900000" stroke="#900000" stroke-width="0.764711"/></svg></span>{% endif %}
+            {{ section.settings.contact }}
+          </div>
+          <div class="contact_icon_text body-large">
+           {% if section.settings.chat != blank %} <span class="contact_icon"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none"> <g filter="url(#filter0_d_8520_11759)"> <path d="M12.9668 0.891113H4.19405C2.68075 0.891113 1.41602 2.1193 1.41602 3.63259V8.01896C1.41602 9.3458 2.39564 10.4534 3.64575 10.7056V13.5019C3.64575 13.9954 4.23787 14.2366 4.57782 13.8857L7.71411 10.7604H12.9668C14.4801 10.7604 15.7083 9.53225 15.7083 8.01896V3.63259C15.7083 2.1193 14.4801 0.891113 12.9668 0.891113Z" fill="#900000"/> </g> <defs> <filter id="filter0_d_8520_11759" x="-1.25758" y="-8.4877e-05" width="19.6402" height="18.5078" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"> <feFlood flood-opacity="0" result="BackgroundImageFix"/> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/> <feOffset dy="1.7824"/> <feGaussianBlur stdDeviation="1.3368"/> <feComposite in2="hardAlpha" operator="out"/> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0"/> <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_8520_11759"/> <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_8520_11759" result="shape"/> </filter> </defs> </svg></span> {% endif %}
+            {{ section.settings.chat }}
+          </div>
+        </div>
+      </div>
+ 
+
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+
+      <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D8c000002heT1" method="POST">
+
+          <input type=hidden name="oid" value="00D8c000002heT1">
+          <input type=hidden name="retURL" value="https://thermosoftonline.myshopify.com/pages/thank-you">
+
+          <div class="row no-padding">
+            <div class="small-12 columns">
+                <div class="field">
+                  <input class="full" id="first_name" maxlength="40" name="first_name" size="20" type="text" required /><label for="first_name">First Name</label>
+                </div>
+            </div> 
+            <div class="small-12 columns">
+              <div class="field">
+                <input class="full" id="last_name" maxlength="80" name="last_name" size="20" type="text" /><label for="last_name">Last Name</label>
+              </div>
+            </div>   
+            <div class="small-12 columns">
+              <div class="field">
+                <input class="full" id="email" maxlength="80" name="email" size="20" type="text" required /><label for="email">Email</label>
+              </div>
+            </div>
+            <div class="small-12 columns">
+              <div class="field">                
+                {% comment %} placeholder="(555) 555-1234" {% endcomment %}
+                <input class="full" id="phone" name="phone" type="tel" maxlength="40" required><label for="phone">Phone</label>
+              </div>
+            </div>
+
+             <div class="small-12 columns">
+              <div class="field">
+                <input class="full" id="company" maxlength="40" name="company" size="20" type="text" /><label for="company">Company</label>
+              </div>
+            </div>
+             <div class="small-12 columns">
+              <div class="field">
+                 <input class="full" id="city" maxlength="40" name="city" size="20" type="text" /><label for="city">City</label>
+              </div>
+            </div>
+             <div class="small-12 columns">
+              <div class="field">
+                 <input class="full" id="state" maxlength="20" name="state" size="20" type="text" /><label for="state">State/Province</label>
+              </div>
+            </div>
+             <div class="small-12 columns">
+              <div class="field">
+                 <input class="full" id="zip" maxlength="20" name="zip" size="20" type="text" /><label for="zip">Zip</label>
+              </div>
+            </div>
+            <div class="small-12 medium-12 columns">
+              <input class="full" type="submit" name="submit">
+            </div>
+          </div>
+      </form>
+      {% comment %} {% assign contact_form_id = 'contact-form-' | append: section.id %}
+      {% form 'contact', class: form_class, id: contact_form_id %}
+
+				{% if form.posted_successfully? %}
+				<div class="form-notification success">
+					{% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+				</div>
+				{%- elsif form.errors %}
+				<div class="form-notification error">
+					{% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+				</div>
+				{% endif %}
+				<div class="row no-padding">
+          {% if section.settings.company %}
+					<div class="small-12 columns">
+						<div class="field">
+							<input type="text" id="ContactFormCompany" name="contact[company]" class="full" placeholder="{{ 'sections.contact.form.company' | t | escape }}">
+							<label for="ContactFormName">
+                {% comment %} {{ 'sections.contact.form.company' | t }} {% endcomment %}
+                Company (Optional)
+              </label>
+						</div>
+					</div>
+          {% endif %}
+					<div class="small-12 columns">
+						<div class="field">
+							<input type="text" id="ContactFormName" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" {% if section.settings.input_req %}required{% endif %}>
+							<label for="ContactFormName">{{ 'sections.contact.form.name' | t }}{% if section.settings.input_req %}*{% endif %}</label>
+						</div>
+					</div>
+					{%- if show_phone_number -%}
+            <div class="small-12 columns">
+              <div class="field">
+                <input type="tel" id="ContactFormPhone" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" {% if section.settings.input_req %}required{% endif %}>
+								<label for="ContactFormPhone">{{ 'sections.contact.form.phone' | t }}{% if section.settings.input_req %}*{% endif %}</label>
+              </div>
+            </div>
+					{%- endif -%}
+          <div class="small-12 columns">
+            <div class="field">
+              <input type="email" id="ContactFormEmail" name="contact[email]" {% if section.settings.input_req %}required{% endif %} class="full" placeholder="{{ 'sections.contact.form.email' | t | escape }}" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$" required>
+							<label for="ContactFormEmail">{{ 'sections.contact.form.email' | t }}{% if section.settings.input_req %}*{% endif %}</label>
+						</div>
+					</div>
+          {% if section.settings.plan %}
+          <div class="small-12 columns">
+            <div class="field date">
+                <input type="date" id="ContactFormPlannedInstallation-{{ block.id }}" name="contact[Planned Installation]" class="full" placeholder="Planned Installation">
+                <label for="ContactFormPlannedInstallation-{{ block.id }}">Planned Installation</label>
+            </div>
+          </div>
+        {% endif %}
+          {% if section.settings.zip %}
+          <div class="small-12 columns">
+            <div class="field">
+              <input type="text" id="ContactFormName" name="contact[zip code]" class="full" placeholder="{{ 'sections.contact.form.zip_code' | t | escape }}">
+              <label for="ContactFormName">{{ 'sections.contact.form.zip_code' | t }}</label>
+            </div>
+          </div>
+          {% endif %}
+					{%- for block in section.blocks -%}
+						{%- liquid
+							assign field_title = block.settings.title
+							if field_title == blank
+								capture field_title
+									echo 'Custom field ' | append: field_index
+								endcapture
+							endif
+						-%}
+						{%- case block.type -%}
+							{%- when 'text_field' -%}
+							<div class="small-12 columns">
+								<div class="field">
+								{%- if block.settings.use_long_text -%}
+									<textarea id="{{ block.id }}" name="contact[{{ field_title | escape }}]" cols="30" rows="4" class="full" aria-label="{{ block.settings.title | escape }}" placeholder="{{ block.settings.title | escape }}" {% if block.settings.is_required %}required{% endif %}></textarea>
+									<label for="{{ block.id }}">{{ block.settings.title | escape }}</label>
+								{%- else -%}
+									<input id="{{ block.id }}" type="text" class="full" name="contact[{{ field_title | escape }}]" aria-label="{{ block.settings.title | escape }}" placeholder="{{ block.settings.title | escape }}" {% if block.settings.is_required %}required{% endif %}>
+									<label for="{{ block.id }}">{{ block.settings.title | escape }}</label>
+								{%- endif -%}
+								</div>
+							</div>
+							{%- assign field_index = field_index | plus: 1 -%}
+						{%- when 'radio_field' -%}
+              {%- liquid
+                assign values = block.settings.values | split: ','
+								if values == empty
+									continue
+								endif
+                
+              -%}
+              <fieldset class="small-12 columns" {{ block.shopify_attributes }}>
+                <div class="form__label" for="{{ block.id }}">{{ block.settings.title | escape }}</div>
+                {% for value in values %}
+                  {%- assign trim_value = value | strip -%}
+                  <label class="label">
+                    <input type="radio" name="{{ field_title }}" value="{{ trim_value | escape }}"{% if forloop.first %} checked{% endif %}>
+                    <span class="label__text-beside-input">{{ trim_value | escape }}</span>
+                  </label>
+                {% endfor %}
+              </fieldset>
+						{%- when 'dropdown_field' -%}
+							{%- liquid
+								assign values = block.settings.values | split: ','
+								if values == empty
+									continue
+								endif
+							-%}
+							<div class="small-12 columns">
+								<div class="field select">
+									<select class="full" name="contact[{{ field_title | escape }}]" title="{{ block.settings.title | escape }}" required>
+										<option value="" disabled selected>{{ block.settings.title | escape }}</option>
+										{%- for value in values -%}
+											{%- assign trim_value = value | strip -%}
+											<option value="{{ trim_value | escape }}">{{ trim_value | escape }}</option>
+										{%- endfor -%}
+									</select>
+								</div>
+							</div>
+							{%- assign field_index = field_index | plus: 1 -%}
+						{%- endcase -%}
+					{%- endfor -%}			
+          <div class="small-12 medium-12 columns">
+						<button type="submit" class="button full"><span>{{ 'sections.contact.form.send' | t }}</span></button>
+					</div>          
+				</div>
+			{% endform %} {% endcomment %}
+    </div>    
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Support contact form",
+  "class": "section-contact-form support-contact-form",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "company",
+      "label": "Company Input",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "zip",
+      "label": "Zip/Code Input",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "plan",
+      "label": "Planned Installation Input",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "input_req",
+      "label": "Name Phone Email Required",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact form",
+      "info": "Wrap your text between | to add animated markers. For example: Animated |marker| will underline marker text."
+    },
+    {
+      "type": "select",
+      "id": "marker_style",
+      "options": [
+        {
+          "value": "style1",
+          "label": "Basic"
+        },
+        {
+          "value": "style2",
+          "label": "Double"
+        },
+        {
+          "value": "style3",
+          "label": "Squiggle"
+        },
+        {
+          "value": "style4",
+          "label": "Zigzag"
+        }
+      ],
+      "default": "style1",
+      "label": "Marker"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Add a short description for this section</p>"
+    },
+    {
+      "type": "header",
+      "content": "Support Contact"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "contact",
+      "label": "Contact"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "chat",
+      "label": "Chat"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone_number",
+      "default": true,
+      "label": "Show phone number"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "marker_color",
+      "label": "Marker",
+      "default": "#FD6262"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_top_spacing",
+      "default": false,
+      "label": "Remove top spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_bottom_spacing",
+      "default": false,
+      "label": "Remove bottom spacing"
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing top",
+      "default": 30,
+      "info": "Changes the section top spacing in desktop screens."
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing bottom",
+      "default": 30,
+      "info": "Changes the section bottom spacing in desktop screens."
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_top",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing top",
+      "default": 15,
+      "info": "Changes the section top spacing in mobile screens."
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing bottom",
+      "default": 15,
+      "info": "Changes the section bottom spacing in mobile screens."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Content",
+          "default": "<p>Add your store address or<br\/>your store hours</p>"
+        }
+      ]
+    },
+    {
+      "type": "text_field",
+      "name": "Text field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Name",
+          "default": "Custom field"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_long_text",
+          "label": "Use long text",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_required",
+          "label": "Field is required",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "dropdown_field",
+      "name": "Dropdown field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Name",
+          "default": "Custom field"
+        },
+        {
+          "type": "text",
+          "id": "values",
+          "label": "Values",
+          "info": "Separate each value by a comma.",
+          "default": "value 1, value 2, value 3"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Support contact form",
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"],
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

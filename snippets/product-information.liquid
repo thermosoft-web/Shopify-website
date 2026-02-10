@@ -1,0 +1,1060 @@
+{{- 'bundle-collection-page.css' | asset_url | stylesheet_tag -}}
+{{- 'product.css' | asset_url | stylesheet_tag -}}
+{{- 'tabbed-content.css' | asset_url | stylesheet_tag -}} 
+{{- 'video.css' | asset_url | stylesheet_tag -}}
+
+<script src="{{ 'tabbed-content.js' | asset_url }}" defer="defer"></script>
+
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+{%- liquid
+  assign is_disabled = false
+  assign picker_type = 'dropdown'
+  assign color_picker = true
+  assign color_picker_size = 'regular'
+  assign color_picker_use_variants = false
+-%}
+{% for block in section.blocks %}
+  {%- case block.type -%}
+  {%- when '@app' -%}
+    {% render block %}
+  {%- when 'label' -%}
+    {%- render 'product-card-labels', product: product, block: block -%}
+  {%- when 'separator' -%}
+    <hr class="product-information--separator" {{ block.shopify_attributes }}/>
+  {%- when 'text' -%}
+    <p class="product--text {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
+      {{- block.settings.text -}}
+    </p>
+  {%- when 'custom_liquid' -%}
+    {{ block.settings.custom_liquid }}
+  {%- when 'title' -%}
+    <div class="product-title-container" {{ block.shopify_attributes }}>
+      <h1 class="product-title">{{ product.title | replace: '®', '<span class="reg">®</span>' }}</h1>
+      {% comment %} {%- if block.settings.show_products_rating and product.metafields.reviews.rating.value != blank -%}
+        <div class="star-rating-container">
+          <div class="star-rating" style="--star-rating: {{ product.metafields.reviews.rating.value.rating }};">{%- if block.settings.show_products_rating_average %}<span class="body-font">{{ product.metafields.reviews.rating.value.rating | round: 2 }}</span>{%- endif -%}</div>
+        </div>
+      {%- endif -%}
+      {%- if product != blank -%}
+        {%- form 'product', product, id: 'product-form-installment', class: 'installment' -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          {{ form | payment_terms }}
+        {%- endform -%}
+      {%- endif -%} {% endcomment %}
+    </div>
+  {%- when 'price' -%}  
+    <div class="product-price-container">
+        <div class="no-js-hidden" id="price-{{ section.id }}">
+          {% render 'product-price', product: product, use_variant: true, show_badges: true, show_custom_badges: block.settings.show_custom_badges %}
+        </div>
+        {%- if section.settings.show_taxes_included != blank -%}
+          {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
+            <div class="product__tax caption">
+              {%- if cart.taxes_included -%}
+                {{ 'products.product.include_taxes' | t }}
+              {%- endif -%}
+              {%- if shop.shipping_policy.body != blank -%}
+                {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+    </div>    
+  {%- when 'project-plan' -%}  
+    <div class="project-plan">
+      <p>Plan your full project</p>
+      <a href="{{ block.settings.link }}">
+        Shop Complete Systems
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M8.33464 13.3333L11.668 9.99998L8.33464 6.66665" stroke="#900000" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg> 
+      </a>
+    </div>
+  {%- when 'modal-power' -%}  
+    {% assign modal = product.metafields.custom.model.value %}
+    {% assign power = product.metafields.custom.power.value %}
+    {% assign length = product.metafields.custom.length.value %}
+    {% assign coverage = product.metafields.custom.coverage.value %}
+    <div class="modal-information">
+      {% if modal != blank %}
+      <div>
+        <span>Model</span>
+        <span>{{ modal }}</span>
+      </div>
+     {% endif %}
+     {% if power != blank %}
+      <div>
+        <span>Power</span>
+        <span>{{ power }}</span>
+      </div>
+      {% endif %}
+      {% if length != blank %}
+      <div>
+        <span>Length</span>
+        <span>{{ length }}</span>
+      </div>
+      {% endif %}
+      {% if coverage != blank %}
+      <div>
+        <span>Coverage</span>
+        <span>{{ coverage }}</span>
+      </div>
+      {% endif %}
+    </div>
+  {%- when 'description' -%}
+    {%- liquid
+        assign seo_text_max_height = block.settings.seo_text_max_height
+        assign seo_text_read_more = block.settings.seo_text_read_more
+        assign seo_text_read_less = block.settings.seo_text_read_less
+        assign description = product.metafields.custom.product_short_description | metafield_tag
+      -%}
+      <div {{ block.shopify_attributes }}>
+      {%- render 'text-max-height', no_bg: true, content: description, custom_liquid: seo_text_custom_liquid, read_more: seo_text_read_more, read_less: seo_text_read_less, max_height: seo_text_max_height, extra_class: 'product-short-description' -%}
+      </div>
+  {%- when 'inventory_level' -%}
+    {% render 'product-inventory-notice', product: product, section: section, block: block %}
+  {%- when 'warranty-options' -%}            
+            {% if product.metafields.custom.warranty_products != blank %}
+              <div class="product-info__block product-info__block--sm product-info__warranty-options" {{ block.shopify_attributes }} style="--warranty-options-bg-color: {{ block.settings.bg_color }}">
+                <div class="warranty-options-wrapper">
+                  <div class="warranty-options-header">
+                    {% if block.settings.icon != blank %}
+                      <div class="warranty-options-icon">
+                        {% assign warranty_logo = block.settings.icon %}  
+                        {% render 'responsive-image',
+                          image: warranty_logo,
+                          src_width: warranty_logo.width,
+                          srcset_2x: true,
+                          lazy_load: false,
+                          alt_text: warranty_logo.alt
+                        %}
+                      </div>
+                    {% endif %}  
+                    {% if block.settings.title != blank or block.settings.sub-title != blank %}
+                      <div class="title_wrapper">
+                        {% if block.settings.title != blank %} <div class="title">{{ block.settings.title }}</div> {% endif %}
+                        {% if block.settings.sub-title != blank %} <div class="sub_title">{{ block.settings.sub-title }}</div> {% endif %}                      
+                      </div>
+                    {% endif %}  
+                  </div>
+                  <div class="warranty-options-product">                                        
+                    {% assign warranty_product = product.metafields.custom.warranty_products %}                    
+                    {% for wProduct in warranty_product.value %}                      
+                      <label class="warranty-option flex flex-wrap items-center">
+                        <input type="checkbox"
+                               name="warranty_option"
+                               value="{{ wProduct.selected_or_first_available_variant.id }}"
+                               class="warranty-checkbox"
+                               data-title="{{ wProduct.title }}"
+                               data-price="{{ wProduct.price | money }}"
+                               data-compare="{{ wProduct.compare_at_price | money }}"
+                               data-variant-id="{{ wProduct.selected_or_first_available_variant.id }}" 
+                               data-main-sku="{{ product.selected_or_first_available_variant.sku }}" 
+                               style="width: 16px; height: 16px;"                                 
+                        />                                               
+                          <span>{{ wProduct.title }} - {{ wProduct.price | money }}</span>              
+                        {% if wProduct.compare_at_price > wProduct.price %}
+                          <span class="save_price_badge">
+                            SAVE {{ wProduct.compare_at_price | minus: wProduct.price | times: 100.0 | divided_by: wProduct.compare_at_price | round }}%
+                          </span>
+                        {% endif %}
+                      </label>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>          
+            {% endif %}   
+  {%- when 'variant_picker' -%}
+    {%- unless product.has_only_default_variant -%}
+    {%- liquid
+      assign is_disabled = block.settings.variant_is_disabled
+      assign option_type = block.settings.picker_type
+      assign color_picker_use_variants = block.settings.color_picker_use_variants
+      assign color_picker_size = block.settings.color_picker_size | default: 'regular'
+    -%}
+    <variant-selects
+      id="variant-selects-{{ section.id }}"
+      class="no-js-hidden"
+      data-update-url="{{ update_url }}"
+      data-section="{{ section.id }}"
+      data-url="{{ product.url }}"
+      data-is-disabled="{{ is_disabled }}"
+      data-hide-variants="{{ hide_variants }}"
+    >
+      <div class="variations" {{ block.shopify_attributes }}>
+        {%- for option in product.options_with_values -%}
+          {%- liquid
+            assign option_name = option.name | downcase | escape
+            assign option_type = block.settings.picker_type
+            assign swatch_count = option.values | map: 'swatch' | compact | size 
+
+            if block.settings.color_picker
+              if option_name contains 'color' or option_name contains 'colour' or option_name contains 'couleur' or option_name contains 'farbe'
+                assign option_type = 'color'
+              endif
+
+              # Additional swatch variant options set inside theme settings
+              assign color_swatches_variant_option = settings.color_swatches_variant_option | downcase | split: ', '
+
+              if color_swatches_variant_option contains option_name
+                assign option_type = 'color'
+              endif
+            endif
+            unless block.settings.color_picker
+              assign color_picker = false
+            endunless
+
+            if swatch_count > 0
+              assign option_type = 'color'
+            endif
+          -%}
+          {%- liquid
+            assign option_slug = option.name | downcase
+            assign sizing_link = ''
+
+            assign sizing_guide_variant = block.settings.sizing_guide_variant | default: 'Size' | downcase
+          -%}
+          {%- if option_slug == sizing_guide_variant -%}
+            {%- if block.settings.sizing_guide_text != empty -%}
+                {%- capture sizing_link -%}
+                  <modal-opener class="product-popup-modal__opener no-js-hidden" data-modal="#PopupModal-{{ block.id }}">
+                    <button id="ProductPopup-{{ block.id }}" class="product-popup-modal__button" type="button" aria-haspopup="dialog">
+                      {% render 'svg-icons-inline', icon: block.settings.sizing_guide_icon %}<span>{{ block.settings.sizing_guide_text }}</span></button>
+                  </modal-opener>
+                {%- endcapture -%}
+                {%- capture sizing_popup -%}
+                <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal">
+                  <div role="dialog" aria-label="{{ block.settings.sizing_guide_text }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+                    <div class="product-popup-modal__content-header">
+                      <h5>{{ block.settings.sizing_guide_page.title }}</h5>
+                      <button id="ModalClose-{{ block.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+                    </div>
+                    <scroll-shadow>
+                      <div class="product-popup-modal__content-info">
+                        {{ block.settings.sizing_guide_page.content }}
+                      </div>
+                    </scroll-shadow>
+                  </div>
+                </modal-dialog>
+					      <script src="{{ 'modal-dialog.js' | asset_url }}" defer="defer"></script>
+                {%- endcapture -%}
+            {%- endif -%}
+          {%- endif -%}
+          {% render 'product-option', option_type: option_type, color_picker_size: color_picker_size, color_picker_use_variants: color_picker_use_variants, product: product, option: option, forloop: forloop, product_form_id: product_form_id, sizing_link: sizing_link %}
+        {%- endfor -%}
+      </div>
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-selects>
+    {%- endunless -%}
+    <noscript class="product-form__noscript-wrapper-{{ section.id }}">
+      <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
+        <label for="Variants-{{ section.id }}">{{ 'products.product.product_variants' | t }}</label>
+        <div class="select">
+          <select name="id" id="Variants-{{ section.id }}" class="select__select" form="{{ product_form_id }}">
+            {%- for variant in product.variants -%}
+              <option
+                {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
+                {% if variant.available == false %}disabled{% endif %}
+                value="{{ variant.id }}"
+              >
+                {{ variant.title }}
+                {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+                - {{ variant.price | money | strip_html }}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      </div>
+    </noscript>
+  {%- when 'icon_list' -%}
+    {% render 'product-icon-list', block: block %}
+  {%- when 'side_panel' -%}
+    <side-panel-links class="side-panel-links">
+      {%- if block.settings.side_panel_1_label != '' -%}
+      <button class="side-panel-links--link no-js-hidden" data-id="1">{% render 'svg-icons-inline', icon: block.settings.side_panel_1_icon %}<span class="text-button">{{ block.settings.side_panel_1_label }}</span></button>
+      <a href="{{ block.settings.side_panel_1_page.url }}" class="side-panel-links--link no-js" target="_blank">{% render 'svg-icons-inline', icon: block.settings.side_panel_1_icon %}<span class="text-button">{{ block.settings.block.settings.side_panel_1_label }}</span></a>
+      {%- endif -%}
+      {%- if block.settings.side_panel_2_label != '' -%}
+      <button class="side-panel-links--link no-js-hidden" data-id="2">{% render 'svg-icons-inline', icon: block.settings.side_panel_2_icon %}<span class="text-button">{{ block.settings.side_panel_2_label }}</span></button>
+      <a href="{{ block.settings.side_panel_2_page.url }}" class="side-panel-links--link no-js" target="_blank">{% render 'svg-icons-inline', icon: block.settings.side_panel_2_icon %}<span class="text-button">{{ block.settings.block.settings.side_panel_2_label }}</span></a>
+      {%- endif -%}
+      {%- if block.settings.side_panel_3_label != '' -%}
+      <button class="side-panel-links--link no-js-hidden" data-id="3">{% render 'svg-icons-inline', icon: block.settings.side_panel_3_icon %}<span class="text-button">{{ block.settings.side_panel_3_label }}</span></button>
+      <a href="{{ block.settings.side_panel_3_page.url }}" class="side-panel-links--link no-js" target="_blank">{% render 'svg-icons-inline', icon: block.settings.side_panel_3_icon %}<span class="text-button">{{ block.settings.block.settings.side_panel_3_label }}</span></a>
+      {%- endif -%}
+    </side-panel-links>
+  {%- when 'quantity' -%}
+    <div
+      id="quantity-{{ section.id }}"
+      class="quantity-add"
+      {{ block.shopify_attributes }}
+    >
+      {% comment %} <label class="form__label quantity__label">{{ 'products.product.quantity.label' | t }}</label> {% endcomment %}
+      <quantity-selector class="quantity">
+        <button class="minus" type="button" aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}">
+          {% render 'svg-icons' with 'minus' %}
+        </button>
+        <input
+          type="number"
+          id="Quantity-{{ section.id }}"
+          name="quantity"
+          class="qty quantity__input"
+          value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+          data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+          min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+          {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+            data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+            max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+          {% endif %}
+          step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+          form="{{ product_form_id }}"
+          aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}"
+        >
+        <button class="plus" type="button" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}">{% render 'svg-icons' with 'plus' %}</button>
+      </quantity-selector>
+      {% render 'product-add-to-cart', product: product, form: form, product_form_id: product_form_id, block: block, pickup: pickup %}
+    </div>
+  {% comment %} {%- when 'buy_buttons' -%}
+    {% render 'product-add-to-cart', product: product, form: form, product_form_id: product_form_id, block: block, pickup: pickup %} {% endcomment %}
+  {%- when 'share' -%}
+    {% render 'social-share', share_label: true, share_title: product.title, share_permalink: product.url, share_image: product.featured_image, block: block %}
+  {%- when 'collapsible_tab' -%}
+    {%- if block.settings.heading != blank -%}
+    <collapsible-row class="product__accordion accordion" {{ block.shopify_attributes }}>
+      <details id="Details-{{ block.id }}-{{ section.id }}" {% if block.settings.open %}open{% endif %}>
+        <summary>
+          {{ block.settings.heading | default: block.settings.page.title }}
+          <span>{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span>
+        </summary>
+        <div class="collapsible__content accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
+          {{ block.settings.content }}
+          {{ block.settings.page.content }}
+          {{ block.settings.custom_liquid }}
+        </div>
+      </details>
+    </collapsible-row>
+    {%- endif -%}
+  {%- when 'specifications_tab' -%}
+    {%- if block.settings.heading != blank -%}
+    <collapsible-row class="product--accordion accordion" {{ block.shopify_attributes }}>
+      <details id="Details-{{ block.id }}-{{ section.id }}" {% if block.settings.open %}open{% endif %}>
+        <summary>
+          {{ block.settings.heading | default: block.settings.page.title }}
+          <span>{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span>
+        </summary>
+        <div class="collapsible__content accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
+          {%- render 'product-specification-table', block: block -%}
+        </div>
+      </details>
+    </collapsible-row>
+    {%- endif -%}
+  {%- when 'complementary' -%}
+    <product-recommendations class="complementary-products no-js-hidden" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.product_list_limit }}&intent=complementary" {{ block.shopify_attributes }}>
+      {%- if recommendations.performed and recommendations.products_count > 0 -%}
+        {%- if block.settings.block_heading != blank -%}
+          <div class="complementary-products--heading">{{ block.settings.block_heading }}</div>
+        {%- endif -%}
+        <scroll-shadow>
+          <div class="complementary-products--inner">
+            {%- for recommended_product in recommendations.products limit: block.settings.product_list_limit offset: continue -%}
+              {% render 'product-card-small', product_small: recommended_product %}
+            {%- endfor -%}
+          </div>
+        </scroll-shadow>
+      {%- endif -%}
+    </product-recommendations>
+  {%- when 'image' -%}
+    <div class="product-information--image {{ block.settings.position }}" {{ block.shopify_attributes }}>
+      {%- if block.settings.image_link -%}<a href="{{ block.settings.image_link }}">{%- endif -%}
+      {% if block.settings.image %}
+      {%- liquid
+        assign image = block.settings.image
+        assign sizes = image.src.width | append: 'x' | append: image.src.height
+        render 'responsive-image', image: image, sizes: sizes
+        -%}
+      {%- else -%}
+        <div class="thb-placeholder">
+          {{ 'image' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+        </div>
+      {%- endif -%}
+      {%- if block.settings.image_link -%}</a>{%- endif -%}
+    </div>
+  {% when 'custom_option' %}
+    {%- if block.settings.label != blank -%}
+      {%- liquid
+        assign line_item_input_id = product_form_id | append: '-custom-' | append: forloop.index
+        assign line_item_input_name = block.settings.label | escape | prepend: 'properties[' | append: ']'
+        assign required = block.settings.text_required
+        assign text_placeholder = block.settings.text_placeholder
+      -%}
+      <fieldset class="product-form__input product-information--line-item" {{ block.shopify_attributes }}>
+        <div class="form__label" for="{{ line_item_input_id }}">{{ block.settings.label | escape }}</div>
+        {% case block.settings.type %}
+          {% when 'text' %}
+              <input class="product-information--line-item--text" type="text" id="{{ line_item_input_id }}" form="{{ product_form_id }}" name="{{ line_item_input_name }}" placeholder="{{ text_placeholder }}" form="{{ product_form_id }}" {% if required %}required{% endif %}>
+
+          {% when 'textarea' %}
+              <textarea class="product-information--line-item--textarea" id="{{ line_item_input_id }}" form="{{ product_form_id }}" name="{{ line_item_input_name }}" rows="3" placeholder="{{ text_placeholder }}" form="{{ product_form_id }}" {% if required %}required{% endif %}></textarea>
+
+          {% when 'checkbox' %}
+              <input type="hidden" form="{{ product_form_id }}" name="{{ line_item_input_name }}" value="{{ block.settings.checkbox_unchecked_value | escape }}">
+              <input type="checkbox" class="custom-checkbox" form="{{ product_form_id }}" name="{{ line_item_input_name }}" value="{{ block.settings.checkbox_checked_value | escape }}" id="{{ line_item_input_id }}" {% if required %}required{% endif %}>
+
+          {% when 'multiple' %}
+            {%- assign custom_options = block.settings.multiple_options | newline_to_br | strip_newlines | split: '<br />' -%}
+
+            {% if block.settings.multiple_style == 'dropdown' %}
+              <div class="select">
+                <select name="{{ line_item_input_name }}" id="{{ line_item_input_id }}" form="{{ product_form_id }}">
+                  {% for option in custom_options %}
+                    <option value="{{ option | escape }}" {% if forloop.first %} selected{% endif %}>{{ option | escape }}</option>
+                  {% endfor %}
+                </select>
+                <div class="select-arrow">{%- render 'svg-icons' with 'thb-select' -%}</div>
+              </div>
+            {% else %}
+              {% for option in custom_options %}
+                <label class="label">
+                  <input type="radio" form="{{ product_form_id }}" name="{{ line_item_input_name }}" value="{{ option | escape }}"{% if forloop.first %} checked{% endif %}>
+                  <span class="label__text-beside-input">{{ option | escape }}</span>
+                </label>
+              {% endfor %}
+            {% endif %}
+        {% endcase %}
+      </fieldset>
+    {%- endif -%}
+  {%- when 'sku' -%}
+    <div class="product-sku product--text {{ block.settings.sku_style }}" id="sku-{{ section.id }}" {{ block.shopify_attributes }}>{{ product.selected_or_first_available_variant.sku }}</div>
+  {%- when 'product_link' -%}
+    {% assign text_button_title = 'products.product.view_product_details' | t %}
+    {% render 'text-button', url: product.url, title: text_button_title, class: 'view-product-details', block: block %}
+  {%- when 'siblings' -%}
+    {%- render 'product-siblings' product: product, product_form_id: product_form_id, block: block -%}
+  {%- when 'fit_guide' -%}
+    <div class="product-fit-guide" style="--active-color: {{ block.settings.color_active_segment }};" {{ block.shopify_attributes }}>
+      {%- liquid
+        assign block_heading = block.settings.block_heading
+        assign label_active = block.settings.label_active | abs | at_most: 5 | at_least: 1
+        assign label_left = block.settings.label_left
+        assign label_middle = block.settings.label_middle
+        assign label_right = block.settings.label_right
+      -%}
+      {%- if block_heading != blank -%}<div class="product--block-heading">{{ block_heading }}</div>{%- endif -%}
+      <div class="product-fit-guide--lines">
+        {%- for i in (1..5) -%}
+        <div class="product-fit-guide--line{% if label_active == i %} product-fit-guide--line--active{%- endif -%}"></div>
+        {%- endfor -%}
+      </div>
+      <div class="product-fit-guide--labels">
+        <div class="product-fit-guide--label-left">{{ label_left }}</div>
+        {%- if label_middle != blank -%}<div class="product-fit-guide--label-middle">{{ label_middle }}</div>{%- endif -%}
+        <div class="product-fit-guide--label-right">{{ label_right }}</div>
+      </div>
+      <link rel="stylesheet" href="{{ 'product-fit.css' | asset_url }}" media="print" onload="this.media='all'">
+    </div>
+  {%- when 'payment_security' -%}
+    <div class="product--payment-security{% if block.settings.has_border %} product--payment-security-has-border{%- endif -%}" style="--block-image-width: {{ block.settings.security_image_width | append: 'px' }}" {{ block.shopify_attributes }}>
+      <div>
+        {%- if block.settings.heading != blank -%}
+        <div class="product--block-heading">{{- block.settings.heading -}}</div>
+        {%- endif -%}
+        {%- if block.settings.show_payment_icons -%}
+          {%- unless shop.enabled_payment_types == empty -%}
+            <div class="product--payment-security-payment-icons">
+              {%- for type in shop.enabled_payment_types -%}
+                <figure>{{ type | payment_type_svg_tag: class: 'payment-icons__icon' }}</figure>
+              {%- endfor -%}
+            </div>
+          {%- endunless -%}
+        {%- endif -%}
+      </div>
+      {%- if block.settings.security_heading != blank -%}
+      <hr />
+      <div>
+        <div class="product--block-heading product--block-heading-small">{{- block.settings.security_heading -}}</div>
+        {%- if block.settings.security_image != blank -%}
+          <div class="product--payment-security-image">
+          {%- assign image_width = block.settings.security_image_width | append: 'x0' -%}
+          {%- render 'responsive-image', image: block.settings.security_image, sizes: image_width -%}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    </div>
+    <link rel="stylesheet" href="{{ 'payment-security.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- when 'pros_cons' -%}
+    {%- liquid
+      assign pros = block.settings.pros | newline_to_br | strip_newlines | split: '<br />'
+      assign cons = block.settings.cons | newline_to_br | strip_newlines | split: '<br />'
+    -%}
+    {%- if block.settings.heading != blank -%}
+      <div class="product--block-heading">{{- block.settings.heading -}}</div>
+      {%- endif -%}
+    <div class="product--pros-cons {% if block.settings.has_border %} product--pros-cons-has-border{%- endif -%}" {{ block.shopify_attributes }}>
+      <div class="product--pros-cons-section">
+        {%- for pro in pros -%}
+          <div class="product--pros-cons-item">{%- render 'svg-icons' with 'thb-pros' -%}<span>{{ pro }}</span></div>
+        {%- endfor -%}
+      </div>
+      <div class="product--pros-cons-section">
+        {%- for con in cons -%}
+          <div class="product--pros-cons-item">{%- render 'svg-icons' with 'thb-cons' -%}<span>{{ con }}</span></div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <link rel="stylesheet" href="{{ 'pros-cons.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- when 'shipping_estimator' -%}
+    <collapsible-row class="product__accordion accordion" {{ block.shopify_attributes }}>
+      <details id="Details-{{ block.id }}-{{ section.id }}" {% if block.settings.open %}open{% endif %}>
+        <summary>
+          {{- 'sections.cart.shipping_estimator.estimate_shipping' | t -}}
+          <span>{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span>
+        </summary>
+        <div class="collapsible__content accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
+          {%- render 'shipping-estimator', section: section, shipping_estimator: block -%}
+        </div>
+      </details>
+    </collapsible-row>
+  {%- when 'coupon_code' -%}
+    {%- liquid
+      assign coupon_text = block.settings.coupon_text
+      assign copy_text = block.settings.copy_text
+      assign has_background = block.settings.has_background
+
+      assign coupon_box_color = block.settings.coupon_box_color 
+      assign coupon_box_color_link = block.settings.coupon_box_color_link
+    -%}
+    <coupon-code class="coupon-code{% if has_background %} coupon-code--has-bg{% endif %}" style="--color-body: {{ coupon_box_color }}; --color-body-rgb: {{ coupon_box_color.rgb | replace: ' ' , ',' }}; --color-accent: {{ coupon_box_color_link }}">
+      {% if block.settings.image %}
+      <figure class="coupon-code--image">
+        {%- render 'responsive-image', image: block.settings.image, sizes: '24x24,48x48,96x96' -%}
+      </figure>
+      {%- else  -%}
+        {% unless block.settings.icon == 'none' %}
+        <figure class="coupon-code--image coupon-code--svg">
+          {% render 'svg-icons-inline', icon: block.settings.icon %}
+        </figure>
+        {%- endunless -%}
+      {%- endif -%}
+      <div>
+        <div class="rte">
+          {{ block.settings.text }}
+        </div>
+        {%- if coupon_text -%}
+        <div class="coupon-code--code">{{ coupon_text }}</div>
+        {%- endif -%}
+        {%- if copy_text -%}
+        <script src="{{ 'coupon-code.js' | asset_url }}" defer="defer"></script>
+        <button class="clipboard" data-clipboard-text="{{ coupon_text | default: 'COUPON' }}"><span class="clipboard--bubble">{{ 'social.copied_to_clipboard' | t }}</span>{{ copy_text }}</button>
+        {%- endif -%}
+      </div>
+    </coupon-code>
+    <link rel="stylesheet" href="{{ 'coupon-code.css' | asset_url }}" media="print" onload="this.media='all'">
+  {%- when 'scrolling_text' -%}
+    {%- liquid
+      assign content = block.settings.content
+      assign lines = content | newline_to_br | split: '<br />'
+
+      assign direction = block.settings.direction
+      assign speed = block.settings.speed
+      assign background_color = block.settings.background_color
+      assign text_color = block.settings.text_color
+    -%}
+    <div class="product--scrolling-text direction-{{ direction }}" style="--marquee-speed: {{ speed }}; --scrolling-text-bg: {{ background_color }}; --scrolling-text-color: {{ text_color }}">
+      <div class="product--scrolling-text-inner">
+        {%- capture repeated_lines -%}
+        {%- for line in lines -%}
+        <div>{{ line }}</div>
+        {%- endfor -%}
+        {%- endcapture -%}
+        {{- repeated_lines -}}{{- repeated_lines -}}{{- repeated_lines -}}
+      </div>
+    </div>
+  {%- when 'product-tabs' -%}
+    <div class="bundle-content--tabs">
+        <tabbed-content class="tabbed-content rtm rtm--readmore tabs-left body-regular" selected-index="0">
+          {% assign product_more_info_tab = false %}
+          {% assign product_faq_tab = false %}
+          {% assign product_docs_tab = false %}
+          
+          {%  if product.metafields.custom.product_more_info_tab != blank %}
+            {% assign product_more_info_tab = true %}
+          {% endif %}
+          {%  if product.metafields.custom.product_docs_tab != blank and product_more_info_tab == false %}
+            {% assign product_docs_tab = true %}
+          {% endif %}
+          {%  if product.metafields.custom.product_faq_tab != blank and product_more_info_tab == false and product_docs_tab == false %}
+            {% assign product_faq_tab = true %}
+          {% endif %}
+          <scroll-shadow class="tabbed-content--scroll">
+            {% if product_more_info_tab != blank or product.metafields.custom.installation_title_and_content != blank or product.metafields.custom.product_docs_tab != blank or product.metafields.custom.product_faq_tab != blank %}
+            <div class="tabbed-content--tabs un-tab-content-wrapp tabs-left">
+              {%- if product_more_info_tab != blank -%}
+                <button class="tabbed-btn body-small active" data-id="more-info">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                  </svg>
+                  <span>More info</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                  </svg>
+                </button>
+              {%- endif -%}
+              {% if product.metafields.custom.installation_title_and_content != blank %}
+                <button class="tabbed-btn body-small instalation-popup-btn" data-id="installation">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                  </svg>
+                  <span>Installation</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                  </svg>
+                </button>
+              {% endif %}
+              {% comment %} {%- if product.metafields.custom.thermoshower_installation_guide_link != blank or product.metafields.custom.warranty_link != blank or product.metafields.custom.spec_sheet_link != blank or product.metafields.custom.installation_guide_link != blank or product.metafields.custom.user_manual_link != blank or product.metafields.custom.brochure_link != blank or product.metafields.custom.instructions_link != blank or product.metafields.custom.quick_start_link != blank or product.metafields.custom.user_guide_link != blank or product.metafields.custom.startup_guide_link != blank -%}                
+                <button class="tabbed-btn body-small" data-id="docs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                  </svg>
+                  <span>Docs</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                  </svg>
+                </button>
+              {%- endif -%} {% endcomment %}
+              {%- if product.metafields.custom.product_docs -%}                
+                <button class="tabbed-btn body-small" data-id="docs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                  </svg>
+                  <span>Docs</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                  </svg>
+                </button>
+              {%- endif -%}
+              {%- if product.metafields.custom.product_faq_tab != blank -%}
+                <button class="tabbed-btn body-small" data-id="faq">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                  </svg>
+                  <span>FAQ</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                  </svg>
+                </button>
+              {%- endif -%}
+            </div>
+          {% endif %}
+          </scroll-shadow>
+          {%- if product.metafields.custom.product_more_info_tab  != blank -%}
+          {% comment %} <div class="tabbed-content--content rtm__content is-collapsed text-left active" aria-expanded="false" style="--columns:">
+            {{ product.metafields.custom.product_more_info_tab | metafield_tag }}
+          </div>
+           <button class="rtm__toggle" type="button" aria-expanded="false">
+            <span class="rtm__more">Read more...</span>
+            <span class="rtm__less" hidden>Read less</span>
+          </button> {% endcomment %}
+
+          {%- liquid
+            assign seo_text_max_height = 323
+            assign seo_text_read_more = "Read more"
+            assign seo_text_read_less = "Read less"
+            assign description = product.metafields.custom.product_more_info_tab  | metafield_tag 
+          -%}
+           <div class="tabbed-content--content text-left active" aria-expanded="false" style="--columns:" data-key="more-info">
+          {%- render 'text-max-height', no_bg: true, content: description, read_more: seo_text_read_more, read_less: seo_text_read_less, max_height: seo_text_max_height -%}
+          </div>
+          {%- endif -%}
+          {% comment %} <div class="tabbed-content--content text-left" style="--columns:"></div> {% endcomment %}
+          {% if product.metafields.custom.product_docs %}
+            <div class="tabbed-content--content content-docs text-left" style="--columns:" data-key="docs">
+              {% for productDoc in product.metafields.custom.product_docs.value %}                
+                <p>
+                  <a href="{{ productDoc.pdf_file | file_url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>{{ productDoc.title }}</span>
+                  </a>
+                </p>
+              {% endfor %}                
+            </div>   
+          {% endif %}  
+
+          {% comment %} {% if product.metafields.custom.thermoshower_installation_guide_link != blank or product.metafields.custom.warranty_link != blank or product.metafields.custom.spec_sheet_link != blank or product.metafields.custom.installation_guide_link != blank or product.metafields.custom.user_manual_link != blank or product.metafields.custom.brochure_link != blank or product.metafields.custom.instructions_link != blank or product.metafields.custom.quick_start_link != blank or product.metafields.custom.user_guide_link != blank or product.metafields.custom.startup_guide_link != blank %}
+            <div class="tabbed-content--content content-docs text-left" style="--columns:" data-key="docs">
+              {% if product.metafields.custom.thermoshower_installation_guide_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.thermoshower_installation_guide_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Thermoshower Installation Guide</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.warranty_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.warranty_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Warranty</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.spec_sheet_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.spec_sheet_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Spec Sheet</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.installation_guide_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.installation_guide_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Installation Guide</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.user_manual_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.user_manual_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>User Manual</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.brochure_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.brochure_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Brochure</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.instructions_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.instructions_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Instructions</span>
+                  </a>
+                </p>
+              {% endif %} 
+              {% if product.metafields.custom.quick_start_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.quick_start_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Quick Start</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.user_guide_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.user_guide_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>User Guide</span>
+                  </a> 
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.startup_guide_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.startup_guide_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Startup Guide</span>
+                  </a> 
+                </p>
+              {% endif %}
+            </div>
+          {% endif %} {% endcomment %}
+
+          {%- if product.metafields.custom.product_faq_tab != blank -%}
+          <div class="tabbed-content--content faq-tabed text-left" style="--columns:" data-key="faq">
+            {% for faqs in product.metafields.custom.product_faq_tab.value %}
+              <collapsible-row class="accordion" {{ block.shopify_attributes }}>
+                <details id="Details-{{ forloop.index }}-{{ section.id }}">
+                  <summary>
+                    {{ faqs.faq_title }}
+                    <span>{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span>
+                  </summary>
+                  <div class="collapsible__content accordion__content rte" id="Accordion-{{ forloop.index }}-{{ section.id }}">
+                    {{ faqs.faq_description | metafield_tag }}
+                  </div>
+                </details>
+              </collapsible-row>
+            {% endfor %}
+          </div>
+          {%- endif -%}
+        </tabbed-content>
+      </div>
+{%- endcase -%}
+{% endfor %}
+
+  <modal-opener class="product-popup-modal__opener no-js-hidden PopupModal-instalation-tab" data-modal="#PopupModal-instalation-tab">
+    <button id="ProductPopup-instalation-tab" class="body-small product-popup-modal__button" type="button" aria-haspopup="dialog">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+        <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+      </svg>
+      <span>Installation</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+        <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+      </svg>
+    </button>
+  </modal-opener>
+  <modal-dialog id="PopupModal-instalation-tab" class="product-popup-modal">
+    <div role="dialog" aria-label="Instalation tab" aria-modal="true" class="product-popup-modal__content instalation-tabmodal__content" tabindex="-1">
+      <div class="product-popup-modal__content-header">
+        <button id="ModalClose-instalation" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+      </div>
+      <scroll-shadow>
+        <div class="product-popup-modal__content-info">
+          <h2>{{ product.metafields.custom.installation_title_and_content.value.title }}</h2>
+          <div>{{ product.metafields.custom.installation_title_and_content.value.content | metafield_tag }}</div>
+          <h2>{{ product.metafields.custom.installation_title_and_content.value.steps_heading }}</h2>            
+          <tabbed-content selected-index="0">
+            <scroll-shadow class="tabbed-content--scroll">
+              <div class="tabbed-content--tabs  un-tab-content-wrapp tabs-left">
+                {% for i in (1..3) %}
+                  {% capture tab_title %}tab_title_{{ i }}{% endcapture %}
+                  {% if product.metafields.custom.installation_title_and_content.value[tab_title] != blank %}                    
+                    <button class="tabbed-btn body-small {% if forloop.first %}active{% endif %}" data-tab="{{ product.metafields.custom.installation_title_and_content.value[tab_title] | handle }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                        <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                      </svg>
+                      <span>{{ product.metafields.custom.installation_title_and_content.value[tab_title] }}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                        <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                      </svg>
+                    </button>
+                  {% endif %}
+                {% endfor %}                    
+              </div>
+            </scroll-shadow>
+            {% for i in (1..3) %}
+              {% capture tab_video %}tab_{{ i }}_video{% endcapture %}
+              {% capture tab_video_banner %}tab_{{ i }}_video_banner{% endcapture %}
+              {% capture installation_tab %}installation_tab_{{ i }}{% endcapture %}
+              <div class="tabbed-content--content {% if forloop.first %}active{% endif %}" data-tab-content="{{ product.metafields.custom.installation_title_and_content.value[tab_title] | handle }}">
+                {%- liquid                                        
+                  assign video_hosted = product.metafields.custom.installation_title_and_content.value[tab_video].value
+                  assign video_autoplay = false
+                  assign aspect_ratio = "16-9"
+                -%}                  
+                {% if product.metafields.custom.installation_title_and_content.value[tab_video] != blank %}
+                  <div class="tabbed-section--video-wrapp">
+                    <div class="video-section--container video-aspect--{{ aspect_ratio }}">
+                      {%- if video_hosted != blank -%}
+                        {%- liquid
+                          assign sizes = '1280x'                            
+                        -%}
+                        {% if product.metafields.custom.installation_title_and_content.value[tab_video_banner] != blank %}
+                          <div class="video-banner-image">
+                            {%- liquid
+                              assign image = product.metafields.custom.installation_title_and_content.value[tab_video_banner].value
+                              assign width = image.src.width | append: 'x' | append: image.src.height
+                            -%}
+                            {%- render 'responsive-image', image: image, sizes: width, class: 'video-banner-images'-%}
+                          </div>
+                        {% endif %}                          
+                        {{ video_hosted | video_tag: autoplay: video_autoplay, loop: true, controls: true, muted: video_autoplay, image_size: sizes }}                                                
+                      {%- endif -%}
+                    </div>
+                  </div>
+                {% endif %}
+                <div class="installation-steps">
+                  {% for installation in product.metafields.custom[installation_tab].value %}                      
+                    <div class="step-card">
+                      {% if installation.image != blank %}
+                        <div class="step-image">
+                          {%- liquid
+                            assign image = installation.image.value
+                            assign width = image.src.width | append: 'x' | append: image.src.height
+                          -%}
+                          {%- render 'responsive-image', image: image, sizes: width, class: 'step-images'-%}
+                          <span class="step-number">{{ forloop.index }}</span>
+                        </div>
+                      {% endif %}
+                      <div class="step-content">
+                        <div class="step-head body-regular">{{ installation.title }}</div>
+                        <div class="rte body-small">{{ installation.content | metafield_tag }}</div>
+                      </div>
+                    </div>                      
+                  {% endfor %}  
+                </div>
+              </div>  
+            {% endfor %}                
+          </tabbed-content>
+          {% if product.metafields.custom.product_docs %}
+            <div class="modal__content_docs">
+              {% for productDoc in product.metafields.custom.product_docs.value %}                
+                <p>
+                  <a href="{{ productDoc.pdf_file | file_url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>{{ productDoc.title }}</span>
+                  </a>
+                </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% comment %} {% if product.metafields.custom.thermoshower_installation_guide_link != blank or product.metafields.custom.warranty_link != blank or product.metafields.custom.spec_sheet_link != blank or product.metafields.custom.installation_guide_link != blank or product.metafields.custom.user_manual_link != blank or product.metafields.custom.brochure_link != blank or product.metafields.custom.instructions_link != blank or product.metafields.custom.quick_start_link != blank or product.metafields.custom.user_guide_link != blank or product.metafields.custom.startup_guide_link != blank %}
+            <div class="modal__content_docs">
+              {% if product.metafields.custom.thermoshower_installation_guide_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.thermoshower_installation_guide_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Thermoshower Installation Guide</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.warranty_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.warranty_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Warranty</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.spec_sheet_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.spec_sheet_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Spec Sheet</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.installation_guide_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.installation_guide_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Installation Guide</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.user_manual_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.user_manual_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>User Manual</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.brochure_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.brochure_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Brochure</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.instructions_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.instructions_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Instructions</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.quick_start_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.quick_start_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Quick Start</span>
+                  </a>
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.user_guide_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.user_guide_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>User Guide</span>
+                  </a> 
+                </p>
+              {% endif %}
+              {% if product.metafields.custom.startup_guide_link != blank %}
+                <p>
+                  <a href="{{ product.metafields.custom.startup_guide_link.value.url }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>Startup Guide</span>
+                  </a> 
+                </p>
+              {% endif %}
+            </div>
+          {% endif %} {% endcomment %}
+        </div>
+      </scroll-shadow>
+    </div>
+  </modal-dialog>
+    <script src="{{ 'modal-dialog.js' | asset_url }}" defer="defer"></script>
+
+
+{%- if section.settings.enable_sticky_add_to_cart -%}
+  {% render 'product-add-to-cart-sticky', product: product, media: first_image, color_picker: color_picker, color_picker_size: color_picker_size, color_picker_use_variants: color_picker_use_variants, picker_type: picker_type, form: form, is_disabled: is_disabled %}
+{%- endif -%}
+
+
+{{ sizing_popup }}

@@ -1,0 +1,13 @@
+.section-safety-certifications-wrapp {max-width: 1000px;margin-left: auto;margin-right: auto;}
+.section-safety-certifications-wrapp .section-header {margin-top: 30px;text-align: center;padding: 0;}
+.section-safety-certifications-wrapp .section-header .section-header--title {font-weight: var(--font-body-medium-weight, 500);margin-bottom: 20px;font-variation-settings: normal;}
+.section-safety-certifications-wrapp .section-header .section-header--description a {text-decoration: none;color: var(--color-accent);}
+.safety-certifications-content {display: flex;justify-content: center;align-items: center;}
+.safety-certifications-content .safety-certifications-items {width: 100%;max-width: 129px;display: flex;align-items: center;justify-content: center;padding: 7px 0;}
+
+@media only screen and (max-width: 767px) {
+  .safety-certifications-content .safety-certifications-items {padding: 0;}
+}
+@media only screen and (max-width: 375px) {
+  .safety-certifications-content .safety-certifications-items {padding: 0 4px;}
+}

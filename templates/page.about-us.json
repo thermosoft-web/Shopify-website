@@ -1,0 +1,792 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "image_with_text_overlay_m8NGAj": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_it4PCW": {
+          "type": "heading",
+          "settings": {
+            "text": "{{ page.title }}",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_it4PCW"
+      ],
+      "name": "Image with text overlay",
+      "settings": {
+        "image": "shopify://shop_images/thermosoft-hq-2560x640_1.jpg",
+        "mobile_image": "shopify://shop_images/Untitled-2_1.jpg",
+        "image_parallax": false,
+        "desktop_height": "desktop-height-400",
+        "mobile_height": "mobile-height-400",
+        "full_width": true,
+        "content_width": "medium",
+        "content_position": "bottom-left",
+        "text_alignment": "left",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true
+      }
+    },
+    "rich_text_KBTDXi": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_jVrXFC": {
+          "type": "heading",
+          "settings": {
+            "text": "Over the last 30 years we have started every day focused on our core mission: Providing comfort, joy and wellness by creating the most advanced, safest, energy-efficient, and reliable heating products",
+            "marker_style": "style1",
+            "size": "h2",
+            "marker_color": "#fd6262"
+          }
+        },
+        "text_NXM9kz": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We remain dedicated to providing the best service, support, and products by placing our customers first. We will never compromise on quality or safety!</p><p>To keep our commitment, we are devoted to relentless innovation. Our patented FiberThermics® heating technology safely brings warmth and comfort to every area of your home. We have expanded our product line to include outdoor, indoor, agricultural, and custom heating solutions. ThermoSoft designs, manufactures, and distributes various electric radiant heating products that provide safe, reliable, and green energy solutions with great value.</p><p>Based in Vernon Hills, Illinois, our quest for perfection constantly keeps us researching and innovating to find new ways to deliver the benefits of radiant heating or improve upon longstanding technologies. Our passion is ingenuity, quality, and fulfilling our commitment to excellence!<br/><br/></p>",
+            "custom_liquid": "",
+            "size": "text-size-regular"
+          }
+        }
+      },
+      "block_order": [
+        "heading_jVrXFC",
+        "text_NXM9kz"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "xlarge",
+        "text_position": "center",
+        "text_alignment": "center",
+        "color_bg": "rgba(0,0,0,0)",
+        "color_heading": "#252626",
+        "color_text": "#2c2d2e",
+        "color_links": "#2c2d2e",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 60,
+        "desktop_spacing_bottom": 60,
+        "mobile_spacing_top": 60,
+        "mobile_spacing_bottom": 60
+      }
+    },
+    "toggle_boxes_QKdfhC": {
+      "type": "toggle-boxes",
+      "blocks": {
+        "box_HGqVpT": {
+          "type": "box",
+          "settings": {
+            "image": "shopify://shop_images/482608c17e4cb3538ebb6280a38281bed713534a.png",
+            "image_link": "",
+            "open": false,
+            "heading": "Our Heritage",
+            "text": "<p>Since our founding in 1996, we have delivered on our mission and remain dedicated to providing the best service, support, and products by placing our customers first. We will never compromise on quality or safety!</p>"
+          }
+        },
+        "box_UPW7nq": {
+          "type": "box",
+          "settings": {
+            "image": "shopify://shop_images/e88b2e63282352d777e30253a44836d04e6dad33.jpg",
+            "image_link": "",
+            "open": false,
+            "heading": "Our Technology",
+            "text": "<p>To keep our commitment, we are devoted to relentless innovation. Our patented <a href=\"/pages/our-technology\" title=\"Our Technology\">FiberThermics®</a> heating technology safely brings warmth and comfort to every area of your home. We have expanded our product line to include outdoor, indoor, agricultural, and custom heating solutions. ThermoSoft designs, manufactures, and distributes various electric radiant heating products that provide safe, reliable, and green energy solutions with great value.</p>"
+          }
+        },
+        "box_qPXqJX": {
+          "type": "box",
+          "settings": {
+            "image": "shopify://shop_images/about_us_block.png",
+            "image_link": "",
+            "open": false,
+            "heading": "Our Passion",
+            "text": "<p>Our quest for perfection constantly keeps us researching and innovating to find new ways to deliver the benefits of radiant heating or improve upon longstanding technologies. Our passion is ingenuity, quality, and fulfilling our commitment to excellence!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "box_HGqVpT",
+        "box_UPW7nq",
+        "box_qPXqJX"
+      ],
+      "name": "Toggle boxes",
+      "settings": {
+        "heading": "",
+        "marker_style": "style1",
+        "description": "",
+        "columns_desktop": 3,
+        "column_spacing": "medium",
+        "image_ratio": "portrait",
+        "mobile_swipe": true,
+        "text_alignment": "left",
+        "color_bg": "#efebe2",
+        "color_heading": "#900000",
+        "marker_color": "#fd6262",
+        "color_text": "#252626",
+        "color_link": "#900000",
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true
+      }
+    },
+    "rich_text_LMT3wg": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_apqDUt": {
+          "type": "heading",
+          "settings": {
+            "text": "Our Core Values",
+            "marker_style": "style1",
+            "size": "h1",
+            "marker_color": "#fd6262"
+          }
+        },
+        "text_AE87bk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>To achieve our mission and keep our promise, we are:</p>",
+            "custom_liquid": "",
+            "size": "text-size-large"
+          }
+        }
+      },
+      "block_order": [
+        "heading_apqDUt",
+        "text_AE87bk"
+      ],
+      "disabled": true,
+      "name": "Rich text",
+      "settings": {
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "center",
+        "color_bg": "rgba(0,0,0,0)",
+        "color_heading": "#1a1c1d",
+        "color_text": "#2c2d2e",
+        "color_links": "#2c2d2e",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 35,
+        "mobile_spacing_top": 40,
+        "mobile_spacing_bottom": 35
+      }
+    },
+    "scrolling_text_9GHAKK": {
+      "type": "scrolling-text",
+      "blocks": {
+        "text_Q6BGbR": {
+          "type": "text",
+          "settings": {
+            "text": "Committed to excellence",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_cEtb7q": {
+          "type": "text",
+          "settings": {
+            "text": "Meticulously dedicated to safety",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_BiJ38z": {
+          "type": "text",
+          "settings": {
+            "text": "Devoted to customer care and service",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_XBcWAb": {
+          "type": "text",
+          "settings": {
+            "text": "Steadfast and passionate about innovation",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_CFHUpm": {
+          "type": "text",
+          "settings": {
+            "text": "Mindful of our responsibilities to the environment",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_fPihdV": {
+          "type": "text",
+          "settings": {
+            "text": "Loyal, sincere & respectful of our staff and customers",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_AwxhFY": {
+          "type": "text",
+          "settings": {
+            "text": "Dedicated to creating the best value",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_6HyKrg": {
+          "type": "text",
+          "settings": {
+            "text": "Grateful to our loyal customers and partners",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_NVDVtp": {
+          "type": "text",
+          "settings": {
+            "text": "Humbled by 30 years of service and providing safe, energy-efficient, and innovative electric radiant heating products to communities across the USA and globally",
+            "link": "",
+            "outline_text": false
+          }
+        }
+      },
+      "block_order": [
+        "text_Q6BGbR",
+        "text_cEtb7q",
+        "text_BiJ38z",
+        "text_XBcWAb",
+        "text_CFHUpm",
+        "text_fPihdV",
+        "text_AwxhFY",
+        "text_6HyKrg",
+        "text_NVDVtp"
+      ],
+      "disabled": true,
+      "name": "Scrolling text",
+      "settings": {
+        "height": "height-auto",
+        "full_width": false,
+        "direction": "left",
+        "speed": "50s",
+        "rotation": 0,
+        "negative_rotation": false,
+        "font_family": "heading",
+        "text_size": 12,
+        "text_size_mobile": 12,
+        "text_uppercase": true,
+        "image_size": "large",
+        "set-blocks": true,
+        "color_bg": "rgba(0,0,0,0)",
+        "color_text": "#1a1c1d",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 100,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 50,
+        "mobile_spacing_bottom": 40
+      }
+    },
+    "text_box_kE7zcr": {
+      "type": "text-box",
+      "blocks": {
+        "value_rmAEw8": {
+          "type": "value",
+          "settings": {
+            "text": "Committed to excellence"
+          }
+        },
+        "value_WgDqYK": {
+          "type": "value",
+          "settings": {
+            "text": "Meticulously dedicated to safety"
+          }
+        },
+        "value_kPQ6g3": {
+          "type": "value",
+          "settings": {
+            "text": "Devoted to customer care and service"
+          }
+        },
+        "value_zDQPEi": {
+          "type": "value",
+          "settings": {
+            "text": "Steadfast and passionate about innovation"
+          }
+        },
+        "value_64GMjW": {
+          "type": "value",
+          "settings": {
+            "text": "Mindful of our responsibilities to the environment"
+          }
+        },
+        "value_xmxHrg": {
+          "type": "value",
+          "settings": {
+            "text": "Loyal, sincere & respectful of our staff and customers"
+          }
+        },
+        "value_gecwKU": {
+          "type": "value",
+          "settings": {
+            "text": "Dedicated to creating the best value"
+          }
+        },
+        "value_UawpyC": {
+          "type": "value",
+          "settings": {
+            "text": "Grateful to our loyal customers and partners"
+          }
+        },
+        "value_WwMdzc": {
+          "type": "value",
+          "settings": {
+            "text": "Humbled by 30 years of service and providing safe, energy-efficient, and innovative electric radiant heating products to communities across the USA and globally"
+          }
+        }
+      },
+      "block_order": [
+        "value_rmAEw8",
+        "value_WgDqYK",
+        "value_kPQ6g3",
+        "value_zDQPEi",
+        "value_64GMjW",
+        "value_xmxHrg",
+        "value_gecwKU",
+        "value_UawpyC",
+        "value_WwMdzc"
+      ],
+      "name": "Text Box",
+      "settings": {
+        "heading": "Our Core Values",
+        "subheading": "To achieve our mission and keep our promise, we are:"
+      }
+    },
+    "image_with_text_overlay_gfVn9n": {
+      "type": "image-with-text-overlay-body",
+      "blocks": {
+        "heading_DUdNfd": {
+          "type": "heading",
+          "settings": {
+            "text": "Our Most Prominent Industry",
+            "heading_size": "h1"
+          }
+        },
+        "text_ggpc4A": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Underfloor radiant heat is our most common application of our radiant heat technology. Radiant heat brings comfort and luxury to any space, and we give homeowners, installers, and retailers access to the best in radiant heating solutions. We know that we aren’t the only provider of radiant heat products, but we also know that we have superior solutions for your project; that our development, design, value, and support are the best in the industry.</p>",
+            "description_size": "medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading_DUdNfd",
+        "text_ggpc4A"
+      ],
+      "name": "Image with text overlay",
+      "settings": {
+        "image": "shopify://shop_images/Image_2_bec7af6a-1608-4a4e-b967-82bb5ed3f8e0.png",
+        "mobile_image": "shopify://shop_images/Image_3_74bf913f-c37c-4eb5-9f09-a1f99f391f43.png",
+        "image_parallax": false,
+        "desktop_height": "desktop-height-400",
+        "mobile_height": "mobile-height-450",
+        "full_width": true,
+        "content_width": "large",
+        "content_position": "middle-center",
+        "text_alignment": "center",
+        "text_color": "#252626",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true
+      }
+    },
+    "element_technology_6TaBzy": {
+      "type": "element-technology",
+      "blocks": {
+        "element_item_9WUqdm": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/ba1631879475d03705cc38f6f4cb483883f8e914.png",
+            "title": "Apparel",
+            "description": "<p>Winter, work and extreme sports clothing including: coats, jackets, vests, pants, gloves, socks, shoes, boots</p>"
+          }
+        },
+        "element_item_fayaNQ": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/811ad8da60fa67e1819b7c6f68ca51afb28f1b99.png",
+            "title": "Automotive",
+            "description": "<p>Thermosoft is an approved seat heater supplier to VW Automotive Group.</p>"
+          }
+        },
+        "element_item_8AGUkK": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/258fdc68b02ecd5edcea2f23d270586d24e8375c.png",
+            "title": "Bedding",
+            "description": "<ul><li>Blankets</li><li>Mattress pads</li><li>Mattresses</li><li>Air Beds</li></ul>"
+          }
+        },
+        "element_item_rrctXh": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/e861eee2ed10e8cd14d67732412d925bc5fc1f82.png",
+            "title": "Furniture",
+            "description": "<ul><li>Recliners</li><li>Seat Heaters</li><li>Lumber Heaters</li><li>Personal Workspaces</li></ul>"
+          }
+        },
+        "element_item_B73f9n": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/8f41e4ed4ebf572d499688f80f477fa103cd18e1.png",
+            "title": "Floor Heating",
+            "description": "<ul><li>Tile Floor Heating</li><li>Laminate and Vinyl Floor Heating</li><li>Carpet Floor Heating</li><li>Wood Floor Heating</li></ul>"
+          }
+        },
+        "element_item_wF4j8J": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/eb9d31232dffc56c06fd06cb7de6b752cb361e70.png",
+            "title": "Personal Protection",
+            "description": "<ul><li>Medical Patient Warming Systems</li><li>Military Hypothermia Heaters</li><li>Underwater Dry Suit Heaters</li></ul>"
+          }
+        },
+        "element_item_3pxtWE": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/268d8b41d13f28f9c924288be27c25e76dd1373c.png",
+            "title": "Spa & Massage",
+            "description": "<ul><li>Massage Table</li><li>Massage Table Pads</li><li>Sleepover Mats</li></ul>"
+          }
+        },
+        "element_item_gwprYA": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/e997d986a078a31c79f5df7f504aef081b0377f1.png",
+            "title": "Bath Fixtures",
+            "description": "<ul><li>Bathtub Heaters</li><li>Shower Pan Heaters</li><li>Mirror Heaters</li><li>Towel Heaters</li></ul>"
+          }
+        },
+        "element_item_VzCRe7": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/dc48c797601013641d6c601ce63d06b1951b28e5.png",
+            "title": "Snow Melting",
+            "description": "<ul><li>Driveway Snow Melting</li><li>Gutter and Downspout Heating</li><li>Pipe Freeze Protection</li><li>Roof De-icing</li></ul>"
+          }
+        },
+        "element_item_YUX4He": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/921e4209623c82e509361fc3dc002819c1e0ddca.png",
+            "title": "Agricultural",
+            "description": "<ul><li>Soil Heating</li><li>Container Heating</li><li>Propogation Mat Heating</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "element_item_9WUqdm",
+        "element_item_fayaNQ",
+        "element_item_8AGUkK",
+        "element_item_rrctXh",
+        "element_item_B73f9n",
+        "element_item_wF4j8J",
+        "element_item_3pxtWE",
+        "element_item_gwprYA",
+        "element_item_VzCRe7",
+        "element_item_YUX4He"
+      ],
+      "name": "Element Technology",
+      "settings": {
+        "heading": "Thermosoft's Heating Element Technology Widely Used in Many Industries, Some of Them Being:",
+        "marker_style": "style1",
+        "description": "",
+        "columns_desktop": 5,
+        "columns_mobile": "2",
+        "remove_heading_border": true,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 100,
+        "desktop_spacing_bottom": 40,
+        "mobile_spacing_top": 40,
+        "mobile_spacing_bottom": 30
+      }
+    },
+    "element_technology_VXM3fp": {
+      "type": "element-technology",
+      "blocks": {
+        "element_item_nFggmt": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<p>ThermoStrip®<br/>ThermoFilm®<br/>Thermergency®<br/>NeverFreeze®<br/>ThermoSlab®<br/>Happy Roots, Better Fruits®</p>"
+          }
+        },
+        "element_item_7anFyr": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<p>ThermoSoil®<br/>ThermUrgency®<br/>ThermoPeutic®<br/>Water Is Optional®<br/>ComforTub®<br/>ThermoTub®</p>"
+          }
+        },
+        "element_item_LyRXfV": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<p>Floorever Warm®<br/>InstAlarm®<br/>ThermoFloor®<br/>WarmWalk®<br/>Warmsulate®<br/>WarmStep®</p>"
+          }
+        },
+        "element_item_JGMVP8": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<p>ThermoTile®<br/>ThermoFlex®<br/>ThermoSoft®<br/>ThermoSoft International Corporation®<br/>FiberThermics®</p>"
+          }
+        }
+      },
+      "block_order": [
+        "element_item_nFggmt",
+        "element_item_7anFyr",
+        "element_item_LyRXfV",
+        "element_item_JGMVP8"
+      ],
+      "name": "Element Technology",
+      "settings": {
+        "heading": "Trademarks",
+        "marker_style": "style1",
+        "description": "",
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "remove_heading_border": false,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 20,
+        "mobile_spacing_bottom": 40
+      }
+    },
+    "sponsorships_community_service_MUPNaQ": {
+      "type": "sponsorships-community-service",
+      "blocks": {
+        "service_XbyUaY": {
+          "type": "service",
+          "settings": {
+            "text": "Sponsorships",
+            "description": "<p>Reflecting the global markets in which we compete, Thermosoft sponsors International competition in several arenas including <strong>Grand Prix, World Masters Swimming and World Masters Judo</strong>. We believe our sponsorships, like the Olympics, help our business transcend language and cultural barriers. We also believe that the athletes we support demonstrate the values we uphold in our business every day, values such as hard work, perseverance, achievement and excellence. When they're not competing, our athletes serve as highly regarded coaches, who train, inspire and instill these values in hundreds of young people who learn the credo of champions, a credo that will serve them later in life no matter what they decide to do – <strong>“Never Give Up”.</strong></p>"
+          }
+        },
+        "gallery_t3zTkK": {
+          "type": "gallery",
+          "settings": {
+            "matchtext": "Sponsorships",
+            "block-head": "Judo",
+            "image_1": "shopify://shop_images/b33b6f8383d4211f968b0e5702bdb584c4395291.png",
+            "image_2": "shopify://shop_images/1c9a809d2d9cae2818d2706ba69c7d9c187575ad.png",
+            "image_3": "shopify://shop_images/aacab374343f11625ecc333417115b72da3c86b3.png",
+            "image_4": "shopify://shop_images/df29a5e70fe82618b1196b491db7ff7d78b2c7ab.png",
+            "image_5": "shopify://shop_images/ba254a2cf738a2170b241c1365a7261febcf02b0.png"
+          }
+        },
+        "gallery_TCNRVC": {
+          "type": "gallery",
+          "settings": {
+            "matchtext": "Sponsorships",
+            "block-head": "Swimming",
+            "image_1": "shopify://shop_images/627547dea55c2037b1db91f3b239552d79b23fc0.png",
+            "image_2": "shopify://shop_images/37ad5cecc31f2e12a553ddb9a77335de9a38a4bb.png",
+            "image_3": "shopify://shop_images/bae1af0afcfa57acf58906491b6417fc39ebf1d1.png",
+            "image_4": "shopify://shop_images/9e498b63d53977c65238f5614604504abe57d816.png",
+            "image_5": "shopify://shop_images/79469207f5a9ac8b87e1ed74d9dd74cff498bc3c.png"
+          }
+        },
+        "gallery_mHFxqn": {
+          "type": "gallery",
+          "settings": {
+            "matchtext": "Sponsorships",
+            "block-head": "Racing",
+            "image_1": "shopify://shop_images/eadf6773d594e0d9dc816f7abe8820bbd858acdb.png",
+            "image_2": "shopify://shop_images/362c975031f26cc1df0f65d771bd35b335afb4ce.png",
+            "image_3": "shopify://shop_images/6e25b2360019f8e68f2e5744128dd7465882cb0e.png",
+            "image_4": "shopify://shop_images/145cfd253a9ae59a17e0360b9b2c0715270467ee.png",
+            "image_5": "shopify://shop_images/2c66c272944913e36634e78342e2d2a5a24f2e7f.png"
+          }
+        },
+        "service_6tfdVP": {
+          "type": "service",
+          "settings": {
+            "text": "Community Service",
+            "description": "<p>ThermoSoft believes in the importance of giving back and investing in our community. This is why we have donated materials, profits, and time to such causes. Volunteering with the Saint Bernard Project, ThermoSoft helped to rebuild and restore homes in New Orleans that had been flooded by hurricane Katrina. ThermoSoft has also donated a workout facility to a local Synagogue.</p>"
+          }
+        },
+        "gallery_thBWEA": {
+          "type": "gallery",
+          "settings": {
+            "matchtext": "Community Service",
+            "block-head": "St. Bernard Project, New Orleans",
+            "image_1": "shopify://shop_images/cf350638b97cec33dfb2f2a702602a1594bad577.png",
+            "image_2": "shopify://shop_images/cb9470202079187a9051447ce19eb28318432558.png",
+            "image_3": "shopify://shop_images/17952558d7649e7d4ecb1cb224c8d9e82ffa31c5.png",
+            "image_4": "shopify://shop_images/67f7682751885ed1d65976eaecb702879cdfd12e.png"
+          }
+        },
+        "gallery_9LtRKH": {
+          "type": "gallery",
+          "settings": {
+            "matchtext": "Community Service",
+            "block-head": "Gym in Northbrook, IL",
+            "image_1": "shopify://shop_images/8c5b3668f7bb56d3e4eb2801f30d5e4fbed72866.png",
+            "image_2": "shopify://shop_images/6892fbba36a85db8d1d7977d99808dcd38699d93.png"
+          }
+        }
+      },
+      "block_order": [
+        "service_XbyUaY",
+        "gallery_t3zTkK",
+        "gallery_TCNRVC",
+        "gallery_mHFxqn",
+        "service_6tfdVP",
+        "gallery_thBWEA",
+        "gallery_9LtRKH"
+      ],
+      "name": "Sponsorships Community Service",
+      "settings": {
+        "color_bg": "#f1ede4",
+        "color_heading": "#1a1c1d",
+        "color_text": "#2c2d2e",
+        "color_links": "#2c2d2e",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 30,
+        "mobile_spacing_bottom": 30
+      }
+    },
+    "custom_icon_text_columns_8wHgkm": {
+      "type": "custom-icon-text-columns",
+      "blocks": {
+        "column_PQ9wXG": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Real_People.svg",
+            "title": "Real People, Real Support",
+            "text": "<p>Behind every system is a US-Based team that listens, solves, and supports—because great products deserve even better service backed by the highest level of quality control possible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_d9TFbT": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Our_Mission.svg",
+            "title": "Our Mission is Your Comfort",
+            "text": "<p>We’re here to make your home feel amazing. Every system we build is designed to deliver joy, warmth, and lasting satisfaction while also offering an unsurpassed best-in-class safety record.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_nLxULD": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Unmatched_Value.svg",
+            "title": "Unmatched Value, USA Based Manufacturer",
+            "text": "<p>Using only premium materials, patented technology, and superior engineering—all at a price that makes luxury heating and accessible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_YmCgDp": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Innovation.svg",
+            "title": "Innovation You Can Trust",
+            "text": "<p>We don’t follow trends—we set them. With proprietary tech like FiberThermics®, our systems have been installed and delivering reliable electric radiant heat to homeowners for 30 years.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bDWpXY": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Designed_Around_You.svg",
+            "title": "Designed Around You",
+            "text": "<p>We listen first to your needs, then guide. Whether it’s a single room or a full-home project, we tailor solutions to your needs and budgets.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bcnVXW": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Integrity.svg",
+            "title": "Integrity in Every Detail",
+            "text": "<p>We’ve earned our reputation by keeping promises. From product quality to customer care, we stand behind everything we do.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_PQ9wXG",
+        "column_d9TFbT",
+        "column_nLxULD",
+        "column_YmCgDp",
+        "column_bDWpXY",
+        "column_bcnVXW"
+      ],
+      "name": "Custom icon text columns",
+      "settings": {
+        "subtitle": "Thermosoft",
+        "heading": "Cozy, Affordable and Reliable Electric Radiant Heating—|Inside and Out|",
+        "marker_style": "style5",
+        "description": "<p>At ThermoSoft, electric radiant heating is about more than just warmth—it’s about comfort, safety, and peace of mind throughout your home. Indoors, our systems integrate seamlessly wherever you need them—bathrooms, kitchens, basements, or your entire living space. Outdoors, we empower you to be fully in control, keeping driveways and walkways clear, roofs and gutters snow and ice-free, and exposed pipes protected. Across every corner of your property, ThermoSoft’s electric radiant heating delivers consistent, energy-efficient performance—right where it matters most.<br/><br/>For over 30 years, homeowners have trusted ThermoSoft for safe, dependable indoor and outdoor heating solutions. With patented technologies like FiberThermics®, our systems offer unmatched performance, proven durability, minimal EMF emissions, and fast, even heat distribution on demand.<br/><br/>As a US based manufacturer proudly based in Vernon Hills, Illinois, our systems ensure faster heat delivery, easier maintenance, and long-term reliability. From floor heating under any floor type— including tile, laminate, vinyl, and wood—to deicing and snow-melting systems for concrete, asphalt, and pavers, as well as roof, gutter, and water pipe protection solutions, we provide systems that are built to last and backed by expert support.<br/><br/>Join the millions of homeowners who trust ThermoSoft to bring warmth to every step, inside and out.</p>",
+        "heading_size": "body-large",
+        "color_heading": "#1a1c1d",
+        "marker_color": "#7f766e",
+        "color_text": "#896f57",
+        "color_links": "#2c2d2e",
+        "image_bg": "#eeeade",
+        "image_inner_bg": "#ffffff",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 50,
+        "mobile_spacing_bottom": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_m8NGAj",
+    "rich_text_KBTDXi",
+    "toggle_boxes_QKdfhC",
+    "rich_text_LMT3wg",
+    "scrolling_text_9GHAKK",
+    "text_box_kE7zcr",
+    "image_with_text_overlay_gfVn9n",
+    "element_technology_6TaBzy",
+    "element_technology_VXM3fp",
+    "sponsorships_community_service_MUPNaQ",
+    "custom_icon_text_columns_8wHgkm"
+  ]
+}

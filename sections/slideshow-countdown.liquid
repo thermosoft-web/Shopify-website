@@ -1,0 +1,1626 @@
+{{- 'slideshow.css' | asset_url | stylesheet_tag -}}
+{{ 'countdown-banner.css' | asset_url | stylesheet_tag }}
+{{ 'slideshow-countdown.css' | asset_url | stylesheet_tag }}
+{%- liquid
+	assign desktop_height = section.settings.desktop_height
+	assign mobile_height = section.settings.mobile_height
+	assign full_width = section.settings.full_width
+	assign controls = section.settings.controls
+	assign transition = section.settings.transition
+	assign autoplay = section.settings.autoplay
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+  assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+  assign mobile_spacing_top = section.settings.mobile_spacing_top
+  assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+
+ 	assign enable_controls = true
+	if section.blocks.size < 2
+		assign enable_controls = false
+	endif
+
+	if autoplay
+		assign autoplay = section.settings.autoplay_length | times: 1000
+	endif
+
+  assign subheading = section.settings.subheading
+	assign heading = section.settings.heading
+	assign heading_size = section.settings.heading_size
+	assign content = section.settings.content
+	assign content_size = section.settings.content_size
+	assign button_text = section.settings.button_text
+	assign button_link = section.settings.button_link
+  	assign button_text_1 = section.settings.button_text_1
+	assign button_link_1 = section.settings.button_link_1
+
+	assign timer_year = section.settings.timer_year
+	assign timer_month = section.settings.timer_month
+	assign timer_day = section.settings.timer_day
+	assign timer_hour = section.settings.timer_hour
+	assign timer_minute = section.settings.timer_minute
+
+	assign timezone = 1 | date: '%z'
+
+	capture date
+		echo timer_day | append: '-' | append: timer_month | append: '-' | append: timer_year
+	endcapture
+
+	capture time
+		echo timer_hour | append: ':' | append: timer_minute
+	endcapture
+
+	case mobile_height
+		when 'mobile-height-400'
+			assign mobile_image_height = 400
+		when 'mobile-height-450'
+			assign mobile_image_height = 450
+		when 'mobile-height-500'
+			assign mobile_image_height = 500
+		else
+			assign mobile_image_height = 500
+	endcase
+
+	assign fade = true
+	if transition == 'slide'
+		assign fade = false
+	endif
+
+	assign dots = false
+	if controls == 'dots'
+		assign dots = true
+	endif
+
+	assign preload = false
+
+	if section.index == 1 or section.index == 2
+		assign preload = true
+	endif
+-%}
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+  --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+  --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+  --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+}
+.button-overflow-container .button.accent {--color-accent-hover: #716b4a;}
+@media only screen and (min-width: 768px) {
+  .button-overflow-container + .button-overflow-container {margin-left: 10px;}
+}
+{% endstyle %}
+
+<div class="row{% if full_width %} full-width-row{% endif %}">
+	<div class="small-12 columns">
+    <div class="countdown-banner-relative section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+      <slide-show class="slideshow main-slideshow slideshow--full-width-{{ full_width }} carousel {{ mobile_height }} {{ desktop_height }} transition--{{ transition }}" data-dots="{{ dots }}" data-autoplay="{{ autoplay }}" data-fade="{{ fade }}" data-transition="{{ transition }}" style="--dot-speed: {{ autoplay | divided_by: 1000 | append: 's' }};--color-text: #fff;">
+        {%- if autoplay -%}
+          {%- assign first_color = section.blocks[0].settings.color_text -%}
+        <div class="slideshow--autoplay-progress" style="--color-body: {{ first_color }}">
+          {%- render 'svg-icons' with 'thb-slideshow-progress' -%}
+        </div>
+        {%- endif -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign content_position = block.settings.content_position
+            assign text_alignment = block.settings.text_alignment
+            assign content_position_mobile = block.settings.content_position_mobile
+            assign text_alignment_mobile = block.settings.text_alignment_mobile
+            assign content_size = block.settings.content_size
+            assign color_text = block.settings.color_text
+
+            assign color_slidebg = block.settings.color_slidebg
+            assign color_slidebg_opacity = block.settings.color_slidebg_opacity
+            assign color_slidebg_blur = block.settings.color_slidebg_blur
+
+            assign overlay_color = block.settings.overlay_color
+            assign overlay_opacity = block.settings.overlay_opacity
+
+            assign slide_link_label = ''
+
+            assign has_visible_bg = false
+            if color_slidebg_blur > 0
+              assign has_visible_bg = true
+            endif
+
+            if color_slidebg != 'transparent' and color_slidebg != 'rgba(0,0,0,0)'
+              assign has_visible_bg = true
+            endif
+
+            if color_slidebg == 'rgba(0,0,0,0)' or color_slidebg == 'transparent'
+              assign color_slidebg_opacity = 0
+            endif
+
+            assign priority = false
+            
+            if forloop.index == 1 and preload
+              assign priority = 'high'
+            endif
+          -%}
+          <div class="slideshow__slide carousel__slide {{ mobile_height }} {{ desktop_height }} text-{{ text_alignment }} text-mobile-{{ text_alignment_mobile }} content-size-{{ content_size }}" style="--color-text: {{ color_text }}; --overlay-color-rgb: {{ overlay_color.rgb | replace: ' ' , ',' }}; --overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }}; --color-slidebg-rgb: {{ color_slidebg.rgb | replace: ' ' , ',' }}; --color-slidebg-opacity: {{ color_slidebg_opacity | divided_by: 100.0 }}; --bg-blur: {{ color_slidebg_blur | append: 'px' }} " {{ block.shopify_attributes }}>
+            <div class="slideshow__slide-bg">
+              {%- if block.settings.image -%}
+                {%- liquid
+                  assign image = block.settings.image
+                  assign master_width = image.src.width | append: 'x' | append: image.src.height
+                  assign variable_widths = '900x,1000x,1100x,1200x,1400x,1600x,' | append: master_width
+                  assign width = '375x' | append: mobile_image_height | append: ',' | append: variable_widths
+                  assign class = nil
+
+                  if block.settings.mobile_image != blank
+                    assign class = 'slideshow-image--desktop'
+                    assign width = variable_widths
+                  endif
+                -%}
+                {%- render 'responsive-image', image: image, sizes: width, class: class, priority: priority -%}
+              {%- else -%}
+                {%- assign index = forloop.index | modulo: 2 | plus: 1 -%}
+                  {{ 'hero-apparel-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
+              {%- endif -%}
+              {%- if block.settings.mobile_image != blank -%}
+                {%- liquid
+                  assign image = block.settings.mobile_image
+                  assign master_width = image.src.width | append: 'x' | append: image.src.height
+                  assign width = '375x' | append: mobile_image_height | append: ',' | append: master_width
+                -%}
+                {%- render 'responsive-image', image: image, sizes: width, class: 'slideshow-image--mobile', priority: priority -%}
+              {%- endif -%}
+            </div>
+            {%- if desktop_height == 'desktop-height-image' or mobile_height == 'mobile-height-image' -%}
+              <div class="slideshow__slide-adapt-to-image">
+                {%- if block.settings.image -%}
+                  {%- liquid
+                    assign image = block.settings.image
+                    assign master_width = image.src.width | append: 'x' | append: image.src.height
+                    assign width = '375x' | append: mobile_image_height | append: ',' | append: master_width
+
+                    assign class = ''
+                    if block.settings.mobile_image
+                      assign class = 'slideshow-image--desktop'
+                    endif
+                  -%}
+                  <img data-src="{{ image | image_url }}" class="lazyload {{ class }}{% unless settings.lazy_loading %} no-blur{% endunless %}" width="{{ image.src.width }}" height="{{ image.src.height }}" alt="{{ image.alt }}" />
+                {%- else -%}
+                  {%- assign index = forloop.index | modulo: 2 | plus: 1 -%}
+                  {{ 'hero-apparel-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
+                {%- endif -%}
+                {%- if block.settings.mobile_image -%}
+                  {%- liquid
+                    assign image = block.settings.mobile_image
+                    assign master_width = image.src.width | append: 'x' | append: image.src.height
+                    assign width = '375x' | append: mobile_image_height | append: ',' | append: master_width
+                  -%}
+                  <img {% unless priority == 'high' %}data-{% endunless %}src="{{ image | image_url }}" class="lazyload slideshow-image--mobile{% unless settings.lazy_loading %} no-blur{% endunless %}" width="{{ image.src.width }}" height="{{ image.src.height }}" alt="{{ image.alt }}" />
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.video_background -%}
+              {%- liquid
+                assign video = block.settings.video_hosted
+                assign autoplay = false
+                if forloop.index == 1
+                  assign autoplay = true
+                endif
+              -%}
+              <div class="slideshow__slide-video-bg" data-provider="hosted" data-video-id="{{ video.id }}">
+                {{ video | video_tag: autoplay: autoplay, loop: true, controls: false, muted: true }}
+              </div>
+            {%- endif -%}
+            <div class="slideshow__slide-overlay" style="background: {{ block.settings.overlay_gradient }}"></div>
+            <div class="slideshow__slide-inner content-{{ content_position }} content-mobile-{{ content_position_mobile }} content-has-bg--{{ has_visible_bg }}">
+              <div class="slideshow__slide-content">
+                {% if block.settings.badge_text != blank %}
+                  <div>
+                    <span class="inline-badge" style="--badge-bg: {{ block.settings.color_badge_bg }};--badge-text: {{ block.settings.color_badge_text }}">{{ block.settings.badge_text }}</span>
+                  </div>
+                {% endif %}
+                {% if block.settings.subheading != blank %}
+                  <p class="subheading">{{ block.settings.subheading }}</p>
+                {% endif %}
+                {% if block.settings.heading != blank %}
+                  {% comment %} {% assign slide_link_label = block.settings.heading %}
+                  <div class="split-text slideshow__slide-heading {{ block.settings.heading_size }}">{{ block.settings.heading | newline_to_br }}</div> {% endcomment %}
+                  <div class="split-text slideshow__slide-heading slideshow__slide_wrapper {{ block.settings.heading_size }}">                    
+                    {% comment %} {% assign parts = block.settings.heading | split: '||' %}
+                    <div>
+                      {{ parts[0] }}<br>
+                      {{ parts[1] }}
+                    </div> {% endcomment %}
+                    <div>{{ block.settings.heading }}</div>
+                  </div>
+                {% endif %}
+                {% if block.settings.content != blank %}
+                <p class="split-text description-size--{{ block.settings.description_size }}">{{ block.settings.content | newline_to_br }}</p>
+                {% endif %}
+                {% if block.settings.button_1_text != blank %}
+                <div class="button-overflow-container">
+                  {% if block.settings.use_text_button_1 %}
+                  {% render 'text-button', url: block.settings.button_1_link, title: block.settings.button_1_text, class: block.settings.button_1_color %}
+                  {% else %}
+                  <a class="button {{ block.settings.button_1_color }}" href="{{ block.settings.button_1_link }}" role="button" title="{{ block.settings.button_1_text | escape }}">{{ block.settings.button_1_text }}</a>
+                  {% endif %}
+                </div>
+                {% endif %}
+                {% if block.settings.button_2_text != blank %}
+                <div class="button-overflow-container slideshow_btn-open">
+                  {% if block.settings.use_text_button_2 %}
+                  {% render 'text-button', url: block.settings.button_2_link, title: block.settings.button_2_text, class: block.settings.button_1_color %}
+                  {% else %}
+                  <a class="button {{ block.settings.button_1_color }}" href="{{ block.settings.button_2_link }}" role="button" title="{{ block.settings.button_2_text | escape }}">{{ block.settings.button_2_text }}</a>
+                  {% endif %}
+                </div>
+                {% endif %}
+                {% if block.settings.slide_link != blank %}
+                <a href="{{ block.settings.slide_link }}" class="slideshow__slide-content-link" target="_blank" tabindex="-1" aria-label="{{ slide_link_label }}"></a>
+                {% endif %}
+              </div>
+              {% if full_width %}
+                {%- liquid
+                  assign color_bg = section.settings.color_bg
+                  assign color_text = section.settings.color_text
+                  assign overlay_color = section.settings.overlay_color
+                  assign overlay_opacity = section.settings.overlay_opacity 
+                -%}
+                <div class="countdown-banner countdown_full countdown-banner-fixed countdown-banner--full-width-{{ full_width }}" style="--color-bg: {{ color_bg }}; --color-bg-rgb: {{ color_bg.rgb | replace: ' ' , ',' }}; --color-text: {{ color_text }}; --bg-body: {{ color_bg }}; --bg-body-rgb: {{ color_bg.rgb | replace: ' ' , ',' }};">
+                  <div class="countdown-banner--inner layout--vertical">
+                    <div class="countdown-banner--timer">
+                      {%- if subheading != blank -%}
+                        <p class="subheading">{{ subheading }}</p>
+                      {%- endif -%}
+                      {% unless template.suffix == 'professional' %}
+                      <countdown-timer class="countdown-timer" data-date="{{ date }}" data-time="{{ time }}" data-timezone="{{ timezone }}">
+                        <div class="countdown-timer--column days">
+                          <span class="countdown-timer--column--number"></span>
+                          <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.days' | t }}</span>
+                        </div>
+                        <div class="countdown-timer--column hours">
+                          <span class="countdown-timer--column--number"></span>
+                          <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.hours' | t }}</span>
+                        </div>
+                        <div class="countdown-timer--column minutes">
+                          <span class="countdown-timer--column--number"></span>
+                          <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.minutes' | t }}</span>
+                        </div>
+                        <div class="countdown-timer--column seconds">
+                          <span class="countdown-timer--column--number"></span>
+                          <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.seconds' | t }}</span>
+                        </div>
+                      </countdown-timer>
+                      {% endunless %}
+                    </div>
+                    <div class="countdown-banner--content">
+                      {%- if heading != blank -%}
+                        <h2 class="{{ heading_size }}">{{ heading }}</h2>
+                      {% endif %}
+                      {%- if content != blank -%}
+                        <p class="description body-regular">{{ content | newline_to_br }}</p>
+                      {%- endif -%}
+                      {%- if button_text != blank -%}
+                        <a class="button small white" href="{{ button_link }}" role="button" title="{{ button_text | escape }}"><span>{{ button_text }}</span></a>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {%- endfor -%}
+        {%- if enable_controls -%}
+          {%- if controls == 'arrows-with-numbers' -%}
+          <div class="flickity-custom-navigation-wrapper">
+            <div class="flickity-custom-navigation">
+              <div class="flickity-nav flickity-prev" tabindex="0">{%- render 'svg-icons' with 'carousel-prev' -%}</div>
+              <div class="flickity-custom-navigation--dots">
+                <span class="flickity-custom-navigation--current">1</span>
+                <span class="flickity-custom-navigation--seperator">/</span>
+                <span class="flickity-custom-navigation--total">{{ section.blocks.size }}</span>
+              </div>
+              <div class="flickity-nav flickity-next" tabindex="0">{%- render 'svg-icons' with 'carousel-next' -%}</div>
+            </div>
+          </div>
+          {%- elsif controls == 'arrows' -%}
+          <div class="flickity-custom-navigation-wrapper">
+            <div class="flickity-static-arrows">
+              {%- render 'slideshow-arrows' -%}
+            </div>
+          </div>
+          {%- endif -%}
+        {%- endif -%}
+      </slide-show>
+      {%- liquid
+        assign color_bg = section.settings.color_bg
+        assign color_text = section.settings.color_text
+        assign overlay_color = section.settings.overlay_color
+        assign overlay_opacity = section.settings.overlay_opacity 
+      -%}
+      <div class="countdown-banner countdown-banner-fixed {% if full_width %}count-full-width{% endif %} countdown-banner--full-width-{{ full_width }}" style="--color-bg: {{ color_bg }}; --color-bg-rgb: {{ color_bg.rgb | replace: ' ' , ',' }}; --color-text: {{ color_text }}; --bg-body: {{ color_bg }}; --bg-body-rgb: {{ color_bg.rgb | replace: ' ' , ',' }};">
+        <div class="countdown-banner--inner layout--vertical">
+          <div class="countdown-banner--timer">
+            {%- if subheading != blank -%}
+              <p class="subheading">{{ subheading }}</p>
+            {%- endif -%}
+            {% unless template.suffix == 'professional' %}
+            <countdown-timer class="countdown-timer" data-date="{{ date }}" data-time="{{ time }}" data-timezone="{{ timezone }}">
+              <div class="countdown-timer--column days">
+                <span class="countdown-timer--column--number"></span>
+                <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.days' | t }}</span>
+              </div>
+              <div class="countdown-timer--column hours">
+                <span class="countdown-timer--column--number"></span>
+                <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.hours' | t }}</span>
+              </div>
+              <div class="countdown-timer--column minutes">
+                <span class="countdown-timer--column--number"></span>
+                <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.minutes' | t }}</span>
+              </div>
+              <div class="countdown-timer--column seconds">
+                <span class="countdown-timer--column--number"></span>
+                <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.seconds' | t }}</span>
+              </div>
+            </countdown-timer>
+            {% endunless %}
+            {%- if button_text_1 != blank -%}
+              <a href="{{ section.settings.button_link_1 }}" class="second_btn small white" data-modal="#ProductPopup-contact-expert">
+                <button class="contact-guide" type="button" aria-haspopup="dialog">{{ button_text_1 }}</button>  
+              </a>
+            {%- endif -%}
+          </div>
+          <div class="countdown-banner--content">
+            {%- if heading != blank -%}
+              <h2 class="{{ heading_size }}">{{ heading }}</h2>
+            {% endif %}
+            {%- if content != blank -%}
+              <p class="description body-regular">{{ content | newline_to_br }}</p>
+            {%- endif -%}
+            {%- if button_text != blank -%}
+              {%- if button_link == blank -%}
+                <modal-opener class="" data-modal="#ProductPopup-contact-member">
+                  <button class="button small white" type="button" aria-haspopup="dialog">
+                    <span>{{ button_text }}</span>
+                  </button>
+                </modal-opener>       
+              {%- else -%}
+                <a class="button small white" href="{{ button_link }}" role="button" title="{{ button_text | escape }}"><span>{{ button_text }}</span></a>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{{ 'countdown-banner.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+  {
+    "name": "Slideshow countdown",
+		"class": "section-slideshow",
+    "settings": [
+			{
+				"type": "select",
+				"id": "desktop_height",
+				"label": "Desktop height",
+				"options": [
+					{
+						"value": "desktop-height-image",
+						"label": "Adapt to image"
+					},
+					{
+						"value": "desktop-height-auto",
+						"label": "Adapt to content"
+					},
+					{
+						"value": "desktop-height-450",
+						"label": "450px"
+					},
+					{
+						"value": "desktop-height-550",
+						"label": "550px"
+					},
+					{
+						"value": "desktop-height-650",
+						"label": "650px"
+					},
+					{
+						"value": "desktop-height-750",
+						"label": "750px"
+					},
+					{
+						"value": "desktop-height-full",
+						"label": "Full screen"
+					}
+				],
+				"default": "desktop-height-650"
+			},
+			{
+				"type": "select",
+				"id": "mobile_height",
+				"label": "Mobile height",
+				"options": [
+					{
+						"value": "mobile-height-image",
+						"label": "Adapt to image"
+					},
+					{
+						"value": "mobile-height-auto",
+						"label": "Adapt to content"
+					},
+					{
+						"value": "mobile-height-400",
+						"label": "400px"
+					},
+					{
+						"value": "mobile-height-450",
+						"label": "450px"
+					},
+					{
+						"value": "mobile-height-500",
+						"label": "500px"
+					},
+					{
+						"value": "mobile-height-full",
+						"label": "Full screen"
+					}
+				],
+				"default": "mobile-height-500"
+			},
+			{
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Make section full width",
+        "default": true
+      },
+			{
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Auto-rotate slides",
+        "default": true
+      },
+			{
+				"type": "range",
+				"id": "autoplay_length",
+				"min": 3,
+				"max": 10,
+				"step": 1,
+				"unit": "s",
+				"label": "Change slides every",
+				"default": 5
+			},
+			{
+				"type": "select",
+				"id": "transition",
+				"label": "Transition",
+				"options": [
+					{
+						"value": "zoom",
+						"label": "Zoom"
+					},
+					{
+						"value": "fade",
+						"label": "Fade"
+					},
+					{
+						"value": "slide",
+						"label": "Slide"
+					}
+				],
+				"default": "zoom"
+			},
+			{
+				"type": "select",
+				"id": "controls",
+				"label": "Controls",
+				"options": [
+					{
+						"value": "arrows-with-numbers",
+						"label": "Arrows with numbers"
+					},
+					{
+						"value": "arrows",
+						"label": "Arrows"
+					},
+					{
+						"value": "dots",
+						"label": "Dots"
+					}
+				],
+				"default": "arrows-with-numbers"
+			},
+      {
+        "type": "header",
+        "content": "Countdown Content"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Add a tagline"
+      },
+      {
+        "type": "textarea",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Countdown heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size",
+        "label": "Heading size",
+        "options": [
+          {
+            "value": "h1-xlarge",
+            "label": "Extra large"
+          },
+          {
+            "value": "h1-large",
+            "label": "Large"
+          },
+          {
+            "value": "h1",
+            "label": "Medium"
+          },
+          {
+            "value": "h2",
+            "label": "Small"
+          }
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "textarea",
+        "id": "content",
+        "label": "Description",
+        "default": "Add descriptive text for your countdown here."
+      },
+      {
+        "id": "button_text",
+        "type": "text",
+        "label": "Label",
+        "default": "Shop Now",
+        "info": "Leave the label blank to hide the button."
+      },
+      {
+        "id": "button_link",
+        "type": "url",
+        "label": "Link"
+      },
+      {
+        "id": "button_text_1",
+        "type": "text",
+        "label": "Label",
+        "default": "Shop Now",
+        "info": "Leave the label blank to hide the button."
+      },
+      {
+        "id": "button_link_1",
+        "type": "url",
+        "label": "Link"
+      },
+      {
+        "type": "header",
+        "content": "Timer"
+      },
+      {
+        "type": "number",
+        "id": "timer_year",
+        "label": "Year",
+        "default": 2022
+      },
+      {
+        "type": "select",
+        "id": "timer_month",
+        "label": "Month",
+        "options": [
+          {
+            "value": "01",
+            "label": "January"
+          },
+          {
+            "value": "02",
+            "label": "February"
+          },
+          {
+            "value": "03",
+            "label": "March"
+          },
+          {
+            "value": "04",
+            "label": "April"
+          },
+          {
+            "value": "05",
+            "label": "May"
+          },
+          {
+            "value": "06",
+            "label": "June"
+          },
+          {
+            "value": "07",
+            "label": "July"
+          },
+          {
+            "value": "08",
+            "label": "August"
+          },
+          {
+            "value": "09",
+            "label": "September"
+          },
+          {
+            "value": "10",
+            "label": "October"
+          },
+          {
+            "value": "11",
+            "label": "November"
+          },
+          {
+            "value": "12",
+            "label": "December"
+          }
+        ],
+        "default": "01"
+      },
+      {
+        "type": "select",
+        "id": "timer_day",
+        "label": "Day",
+        "options": [
+          {
+            "value": "01",
+            "label": "01"
+          },
+          {
+            "value": "02",
+            "label": "02"
+          },
+          {
+            "value": "03",
+            "label": "03"
+          },
+          {
+            "value": "04",
+            "label": "04"
+          },
+          {
+            "value": "05",
+            "label": "05"
+          },
+          {
+            "value": "06",
+            "label": "06"
+          },
+          {
+            "value": "07",
+            "label": "07"
+          },
+          {
+            "value": "08",
+            "label": "08"
+          },
+          {
+            "value": "09",
+            "label": "09"
+          },
+          {
+            "value": "10",
+            "label": "10"
+          },
+          {
+            "value": "11",
+            "label": "11"
+          },
+          {
+            "value": "12",
+            "label": "12"
+          },
+          {
+            "value": "13",
+            "label": "13"
+          },
+          {
+            "value": "14",
+            "label": "14"
+          },
+          {
+            "value": "15",
+            "label": "15"
+          },
+          {
+            "value": "16",
+            "label": "16"
+          },
+          {
+            "value": "17",
+            "label": "17"
+          },
+          {
+            "value": "18",
+            "label": "18"
+          },
+          {
+            "value": "19",
+            "label": "19"
+          },
+          {
+            "value": "20",
+            "label": "20"
+          },
+          {
+            "value": "21",
+            "label": "21"
+          },
+          {
+            "value": "22",
+            "label": "22"
+          },
+          {
+            "value": "23",
+            "label": "23"
+          },
+          {
+            "value": "24",
+            "label": "24"
+          },
+          {
+            "value": "25",
+            "label": "25"
+          },
+          {
+            "value": "26",
+            "label": "26"
+          },
+          {
+            "value": "27",
+            "label": "27"
+          },
+          {
+            "value": "28",
+            "label": "28"
+          },
+          {
+            "value": "29",
+            "label": "29"
+          },
+          {
+            "value": "30",
+            "label": "30"
+          },
+          {
+            "value": "31",
+            "label": "31"
+          }
+        ],
+        "default": "01"
+      },
+      {
+        "type": "select",
+        "id": "timer_hour",
+        "label": "Hour",
+        "options": [
+          {
+            "value": "00",
+            "label": "12 AM (Midnight)"
+          },
+          {
+            "value": "01",
+            "label": "01 AM"
+          },
+          {
+            "value": "02",
+            "label": "02 AM"
+          },
+          {
+            "value": "03",
+            "label": "03 AM"
+          },
+          {
+            "value": "04",
+            "label": "04 AM"
+          },
+          {
+            "value": "05",
+            "label": "05 AM"
+          },
+          {
+            "value": "06",
+            "label": "06 AM"
+          },
+          {
+            "value": "07",
+            "label": "07 AM"
+          },
+          {
+            "value": "08",
+            "label": "08 AM"
+          },
+          {
+            "value": "09",
+            "label": "09 AM"
+          },
+          {
+            "value": "10",
+            "label": "10 AM"
+          },
+          {
+            "value": "11",
+            "label": "11 AM"
+          },
+          {
+            "value": "12",
+            "label": "12 PM (Noon)"
+          },
+          {
+            "value": "13",
+            "label": "01 PM"
+          },
+          {
+            "value": "14",
+            "label": "02 PM"
+          },
+          {
+            "value": "15",
+            "label": "03 PM"
+          },
+          {
+            "value": "16",
+            "label": "04 PM"
+          },
+          {
+            "value": "17",
+            "label": "05 PM"
+          },
+          {
+            "value": "18",
+            "label": "06 PM"
+          },
+          {
+            "value": "19",
+            "label": "07 PM"
+          },
+          {
+            "value": "20",
+            "label": "08 PM"
+          },
+          {
+            "value": "21",
+            "label": "09 PM"
+          },
+          {
+            "value": "22",
+            "label": "10 PM"
+          },
+          {
+            "value": "23",
+            "label": "11 PM"
+          }
+        ],
+        "default": "00"
+      },
+      {
+        "type": "select",
+        "id": "timer_minute",
+        "label": "Minute",
+        "options": [
+          {
+            "value": "00",
+            "label": "00"
+          },
+          {
+            "value": "01",
+            "label": "01"
+          },
+          {
+            "value": "02",
+            "label": "02"
+          },
+          {
+            "value": "03",
+            "label": "03"
+          },
+          {
+            "value": "04",
+            "label": "04"
+          },
+          {
+            "value": "05",
+            "label": "05"
+          },
+          {
+            "value": "06",
+            "label": "06"
+          },
+          {
+            "value": "07",
+            "label": "07"
+          },
+          {
+            "value": "08",
+            "label": "08"
+          },
+          {
+            "value": "09",
+            "label": "09"
+          },
+          {
+            "value": "10",
+            "label": "10"
+          },
+          {
+            "value": "11",
+            "label": "11"
+          },
+          {
+            "value": "12",
+            "label": "12"
+          },
+          {
+            "value": "13",
+            "label": "13"
+          },
+          {
+            "value": "14",
+            "label": "14"
+          },
+          {
+            "value": "15",
+            "label": "15"
+          },
+          {
+            "value": "16",
+            "label": "16"
+          },
+          {
+            "value": "17",
+            "label": "17"
+          },
+          {
+            "value": "18",
+            "label": "18"
+          },
+          {
+            "value": "19",
+            "label": "19"
+          },
+          {
+            "value": "20",
+            "label": "20"
+          },
+          {
+            "value": "21",
+            "label": "21"
+          },
+          {
+            "value": "22",
+            "label": "23"
+          },
+          {
+            "value": "24",
+            "label": "24"
+          },
+          {
+            "value": "25",
+            "label": "25"
+          },
+          {
+            "value": "26",
+            "label": "26"
+          },
+          {
+            "value": "27",
+            "label": "27"
+          },
+          {
+            "value": "28",
+            "label": "28"
+          },
+          {
+            "value": "29",
+            "label": "29"
+          },
+          {
+            "value": "30",
+            "label": "30"
+          },
+          {
+            "value": "31",
+            "label": "31"
+          },
+          {
+            "value": "32",
+            "label": "32"
+          },
+          {
+            "value": "33",
+            "label": "33"
+          },
+          {
+            "value": "34",
+            "label": "34"
+          },
+          {
+            "value": "35",
+            "label": "35"
+          },
+          {
+            "value": "36",
+            "label": "36"
+          },
+          {
+            "value": "37",
+            "label": "37"
+          },
+          {
+            "value": "38",
+            "label": "38"
+          },
+          {
+            "value": "39",
+            "label": "39"
+          },
+          {
+            "value": "40",
+            "label": "40"
+          },
+          {
+            "value": "41",
+            "label": "41"
+          },
+          {
+            "value": "42",
+            "label": "42"
+          },
+          {
+            "value": "43",
+            "label": "43"
+          },
+          {
+            "value": "44",
+            "label": "44"
+          },
+          {
+            "value": "45",
+            "label": "45"
+          },
+          {
+            "value": "46",
+            "label": "46"
+          },
+          {
+            "value": "47",
+            "label": "47"
+          },
+          {
+            "value": "48",
+            "label": "48"
+          },
+          {
+            "value": "49",
+            "label": "49"
+          },
+          {
+            "value": "50",
+            "label": "50"
+          },
+          {
+            "value": "51",
+            "label": "51"
+          },
+          {
+            "value": "52",
+            "label": "52"
+          },
+          {
+            "value": "53",
+            "label": "53"
+          },
+          {
+            "value": "54",
+            "label": "54"
+          },
+          {
+            "value": "55",
+            "label": "55"
+          },
+          {
+            "value": "56",
+            "label": "56"
+          },
+          {
+            "value": "57",
+            "label": "57"
+          },
+          {
+            "value": "58",
+            "label": "58"
+          },
+          {
+            "value": "59",
+            "label": "59"
+          }
+        ],
+        "default": "00"
+      },
+      {
+        "type": "header",
+        "content": "Countdown Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Background",
+        "default": "#f5f3ef"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#2c2d2e"
+      },
+      {
+        "type": "color",
+        "id": "overlay_color",
+        "label": "Overlay",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Overlay opacity",
+        "default": 10
+      },
+			{
+	      "type": "header",
+	      "content": "Spacing"
+	    },
+      {
+        "type": "checkbox",
+        "id": "disable_top_spacing",
+        "default": false,
+        "label": "Remove top spacing"
+      },
+      {
+        "type": "checkbox",
+        "id": "disable_bottom_spacing",
+        "default": false,
+        "label": "Remove bottom spacing"
+      },
+      {
+        "type": "header",
+        "content": "Desktop spacing"
+      },
+      {
+        "type": "range",
+        "id": "desktop_spacing_top",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Desktop spacing top",
+        "default": 30,
+        "info": "Changes the section top spacing in desktop screens."
+      },
+      {
+        "type": "range",
+        "id": "desktop_spacing_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Desktop spacing bottom",
+        "default": 30,
+        "info": "Changes the section bottom spacing in desktop screens."
+      },
+      {
+        "type": "header",
+        "content": "Mobile spacing"
+      },
+      {
+        "type": "range",
+        "id": "mobile_spacing_top",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Mobile spacing top",
+        "default": 15,
+        "info": "Changes the section top spacing in mobile screens."
+      },
+      {
+        "type": "range",
+        "id": "mobile_spacing_bottom",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Mobile spacing bottom",
+        "default": 15,
+        "info": "Changes the section bottom spacing in mobile screens."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+					{
+						"type": "image_picker",
+						"id": "image",
+						"label": "Image",
+						"info": "2800 x 1000 .jpg recommended for full screen layouts."
+					},
+					{
+						"type": "image_picker",
+						"id": "mobile_image",
+						"label": "Mobile image (optional)"
+					},
+					{
+            "id": "slide_link",
+            "type": "url",
+            "label": "Slide link",
+						"info": "Adds a link to slide image"
+          },
+					{
+			      "type": "header",
+			      "content": "Video"
+			    },
+					{
+		        "type": "checkbox",
+		        "id": "video_background",
+		        "label": "Use video as a background",
+		        "default": false
+		      },
+					{
+					  "type": "video",
+					  "id": "video_hosted",
+					  "label": "Shopify-hosted video",
+						"info": "Overrides the Video URL setting."
+					},
+					{
+			      "type": "header",
+			      "content": "Content"
+			    },
+					{
+						"type": "text",
+						"id": "badge_text",
+						"label": "Badge"
+					},
+					{
+						"type": "text",
+						"id": "subheading",
+						"label": "Subheading",
+						"default": "Add a tagline"
+					},
+          {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Slide Heading"
+          },
+					{
+						"type": "select",
+						"id": "heading_size",
+						"label": "Heading size",
+						"options": [
+							{
+								"value": "h1",
+								"label": "Large"
+							},
+							{
+								"value": "h2",
+								"label": "Medium"
+							},
+							{
+								"value": "h3",
+								"label": "Small"
+							}
+						],
+						"default": "h1"
+					},
+          {
+            "type": "textarea",
+            "id": "content",
+            "label": "Description",
+            "default": "Add descriptive text for your slide here."
+          },
+					{
+						"type": "select",
+						"id": "description_size",
+						"label": "Description size",
+						"options": [
+							{
+								"value": "small",
+								"label": "Small"
+							},
+							{
+								"value": "medium",
+								"label": "Medium"
+							},
+							{
+								"value": "large",
+								"label": "Large"
+							}
+						],
+						"default": "medium"
+					},
+					{
+						"type": "select",
+						"id": "content_position",
+						"label": "Content position",
+						"options": [
+							{ "value": "top-left", "label": "Top left" },
+							{ "value": "top-center", "label": "Top center" },
+							{ "value": "top-right", "label": "Top right" },
+							{ "value": "middle-left", "label": "Middle left" },
+							{ "value": "middle-center", "label": "Middle center" },
+							{ "value": "middle-right", "label": "Middle right" },
+							{ "value": "bottom-left", "label": "Bottom left" },
+							{ "value": "bottom-center", "label": "Bottom center" },
+							{ "value": "bottom-right", "label": "Bottom right" }
+						],
+						"default": "middle-center"
+					},
+					{
+						"type": "select",
+						"id": "text_alignment",
+						"options": [
+							{
+								"value": "left",
+								"label": "Left"
+							},
+							{
+								"value": "center",
+								"label": "Center"
+							},
+							{
+								"value": "right",
+								"label": "Right"
+							}
+						],
+						"default": "center",
+						"label": "Content alignment"
+					},
+					{
+						"type": "select",
+						"id": "content_position_mobile",
+						"label": "Content position mobile",
+						"options": [
+							{ "value": "top-left", "label": "Top left" },
+							{ "value": "top-center", "label": "Top center" },
+							{ "value": "top-right", "label": "Top right" },
+							{ "value": "middle-left", "label": "Middle left" },
+							{ "value": "middle-center", "label": "Middle center" },
+							{ "value": "middle-right", "label": "Middle right" },
+							{ "value": "bottom-left", "label": "Bottom left" },
+							{ "value": "bottom-center", "label": "Bottom center" },
+							{ "value": "bottom-right", "label": "Bottom right" }
+						],
+						"default": "middle-center"
+					},
+					{
+						"type": "select",
+						"id": "text_alignment_mobile",
+						"options": [
+							{
+								"value": "left",
+								"label": "Left"
+							},
+							{
+								"value": "center",
+								"label": "Center"
+							},
+							{
+								"value": "right",
+								"label": "Right"
+							}
+						],
+						"default": "center",
+						"label": "Content alignment mobile"
+					},
+					{
+						"type": "select",
+						"id": "content_size",
+						"options": [
+							{
+								"value": "small",
+								"label": "Small"
+							},
+							{
+								"value": "medium",
+								"label": "Medium"
+							},
+							{
+								"value": "large",
+								"label": "Large"
+							}
+						],
+						"default": "medium",
+						"label": "Content width"
+					},
+					{
+			      "type": "header",
+			      "content": "Colors"
+			    },
+					{
+		        "type": "color",
+		        "id": "color_slidebg",
+		        "label": "Background",
+		        "default": "transparent"
+		      },
+					{
+						"type": "range",
+						"id": "color_slidebg_opacity",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Background opacity",
+						"default": 0
+					},
+					{
+						"type": "range",
+						"id": "color_slidebg_blur",
+						"min": 0,
+						"max": 30,
+						"step": 1,
+						"unit": "px",
+						"label": "Background blur",
+						"default": 20
+					},
+					{
+		        "type": "color",
+		        "id": "color_text",
+		        "label": "Text",
+		        "default": "#2c2d2e"
+		      },
+					{
+						"type": "color",
+						"id": "color_badge_bg",
+						"label": "Badge background",
+						"default": "#3f72e5"
+					},
+					{
+						"type": "color",
+						"id": "color_badge_text",
+						"label": "Badge text",
+						"default": "#ffffff"
+					},
+					{
+		        "type": "color",
+		        "id": "overlay_color",
+		        "label": "Overlay",
+		        "default": "#000000"
+		      },
+					{
+						"type": "range",
+						"id": "overlay_opacity",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Overlay opacity",
+						"default": 70
+					},
+					{
+					  "type": "color_background",
+					  "id": "overlay_gradient",
+					  "label": "Overlay gradient",
+					  "default": "linear-gradient(180deg, rgba(0,0,0, 0.1), rgba(0, 0, 0, 0.4) 100%)"
+					},
+					{
+			      "type": "header",
+			      "content": "Button 1"
+			    },
+          {
+            "id": "button_1_text",
+            "type": "text",
+            "label": "Label",
+            "default": "Shop Now",
+						"info": "Leave the label blank to hide the button."
+          },
+					{
+						"type": "select",
+						"id": "button_1_color",
+						"label": "Color",
+						"options": [
+							{
+								"value": "regular",
+								"label": "Regular"
+							},
+							{
+								"value": "accent",
+								"label": "Accent"
+							},
+							{
+								"value": "white",
+								"label": "White"
+							}
+						],
+						"default": "accent"
+					},
+          {
+            "id": "button_1_link",
+            "type": "url",
+            "label": "Link"
+          },
+					{
+						 "type": "checkbox",
+						 "id": "use_text_button_1",
+						 "label": "Use text button",
+						 "default": false
+					},
+					{
+			      "type": "header",
+			      "content": "Button 2"
+			    },
+          {
+            "id": "button_2_text",
+            "type": "text",
+            "label": "Label",
+            "default": "Shop Now",
+						"info": "Leave the label blank to hide the button."
+          },
+					{
+						"type": "select",
+						"id": "button_2_color",
+						"label": "Color",
+						"options": [
+							{
+								"value": "regular",
+								"label": "Regular"
+							},
+							{
+								"value": "accent",
+								"label": "Accent"
+							},
+							{
+								"value": "white",
+								"label": "White"
+							}
+						],
+						"default": "white"
+					},
+          {
+            "id": "button_2_link",
+            "type": "url",
+            "label": "Link"
+          },
+					{
+						 "type": "checkbox",
+						 "id": "use_text_button_2",
+						 "label": "Use text button",
+						 "default": false
+					}
+        ]
+      }
+    ],
+  	"max_blocks": 10,
+    "presets": [
+      {
+        "name": "Slideshow countdown",
+				"blocks": [
+					{
+						"type": "slide"
+					},
+					{
+						"type": "slide"
+					},
+					{
+						"type": "slide"
+					}
+				]
+      }
+    ],
+		"enabled_on": {
+			"templates": ["*"],
+			"groups": [
+				"header", "footer"
+			]
+		}
+  }
+{% endschema %}

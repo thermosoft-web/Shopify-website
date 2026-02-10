@@ -1,0 +1,379 @@
+
+{% if page.handle == 'floor-type-tile-stone' or page.handle == 'laminate' or page.handle == 'vinyl' or page.handle == 'engineered-solid-wood' or page.handle == 'carpet' or page.handle == 'concrete-slab' or page.handle == 'driveway-walkway-heating' %}
+
+{% if page.metafields.custom.choose_your_heating_system %}
+  {{ 'choose-your-heating-system.css' | asset_url | stylesheet_tag }}
+  {% liquid
+    assign disable_top_spacing = section.settings.disable_top_spacing
+    assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+    assign desktop_spacing_top = section.settings.desktop_spacing_top
+    assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+    assign mobile_spacing_top = section.settings.mobile_spacing_top
+    assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+  %}
+  {% style %}
+  #shopify-section-{{ section.id }} {
+    --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+    --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+    --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+    --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+  }
+  {% endstyle %}
+  <div class="new-choose-heating-system choose-your-heating-system swipe-on-mobile section-spacing {% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+    <div class="row">
+      <div class="small-12 columns">
+        {% if section.settings.heading != blank or section.settings.content != blank %}
+          <div class="section-heading-wrapper text-center">
+            {% if section.settings.heading != blank %}  <h2 class="h2">{{ section.settings.heading }}</h2>{% endif %}
+            <div class="rte">
+              Discover the Warmth and Comfort of Radiant Indoor-Floor Heating. 
+              <modal-opener class="" data-modal="#ProductPopup-floor_chooes">
+                <button class="contact-guide" type="button" aria-haspopup="dialog">
+                  Download our Indoor-Floor Heating Guide for FREE.
+                </button>  
+              </modal-opener>
+            </div>
+          </div>
+        {% endif %}
+        <div class="choose-your-heating-system-wrapper">
+          {% assign systems = page.metafields.custom.choose_your_heating_system.value %}  
+          {% assign printed_points = '' %}      
+          <div class="carousel products row" data-dots="true" data-align="center">
+            <div class="carousel__slide carousel__slide-first columns">
+              <div class="heating-system_inner">
+              <figure class="image_wrapper">
+                {% if section.settings.fallback_img != blank %}
+                  <a href="{{ section.settings.fallback_img_url }}">
+                    <img src="{{ section.settings.fallback_img | img_url: 'master' }}">
+                  </a>
+                {% endif %}
+                {{ section.settings.bottom_content }}
+              </figure> 
+              <div class="heating-system_content">
+                  <h6 class="h6"></h6>                  
+                  <div class="product_info first_column_product_info">                      
+                      {% for system in systems %}
+                        {% for i in (1..7) %}
+                          {% capture point %}point_{{ i }}{% endcapture %}
+                          {% capture toolkit %}toolkit_{{ i }}{% endcapture %}
+
+                          {% if system[point] != blank %}
+
+                            {% assign unique_key = system[point] | append: '___' | append: system[toolkit] | strip %}
+
+                            {% unless printed_keys contains unique_key %}
+                              {% if forloop.first %} 
+                                <div class="product_info_column {% if page.id == 110347845685 %} product_info_column_blank {% endif %}">
+                                  <div class="product_info_value body-regular">
+                                    {{ system[point] }}
+                                    {% if system[toolkit] != blank %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" role="img" viewBox="0 0 512 512"><path fill="#a00404" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg>
+                                  {% endif %}
+                                    <p>{{ system[toolkit] }}</p>
+                                  </div>
+                                </div>
+                              {% else %}  
+                                <div class="product_info_column">
+                                  <div class="product_info_value body-regular">
+                                    {{ system[point] }}
+                                    {% if system[toolkit] != blank %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" role="img" viewBox="0 0 512 512"><path fill="#a00404" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg>
+                                  {% endif %}
+                                    <p>{{ system[toolkit] }}</p>
+                                  </div>
+                                </div>
+                              {% endif %}                              
+                              {% assign printed_keys = printed_keys | append: unique_key | append: '|' %}
+                            {% endunless %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>    
+            {% for system in systems %}
+              <div class="carousel__slide columns">
+                <div class="heating-system_inner {% if system.preferred_choice %}preferred_choice{% endif %}">
+                  {% if system.image %}      
+                    <a href="{{ system.url }}">          
+                    <figure class="image_wrapper">                
+                      {%- liquid
+                        assign image = system.image.value
+                        assign master_width = image.src.width | append: 'x' | append: image.src.height
+                        render 'responsive-image', image: image, sizes: master_width, retina: false, alt: system.title
+                      -%}
+                    </figure>       
+                    </a>         
+                  {% if system.preferred_choice %}<div class="heating-system-badge">Preferred Choice!</div>{% endif %}
+                  {% endif %}
+                  <div class="heating-system_content">
+                    {% if system.title != blank %} 
+                      {% if system.url %}
+                      <a href="{{ system.url }}" class="h6">{{ system.title | replace: '®', '<span class="reg">®</span>' }}</a>
+                      {% else %}
+                      <h6 class="h6">{{ system.title | replace: '®', '<span class="reg">®</span>' }}</h6> 
+                      {% endif %}
+                    {% endif %}
+                    {% if system.url %}
+                      <a href="{{ system.url }}" class="button outline">Choose and build</a>
+                    {% endif %}
+                    <div class="product_info">
+                      {% for i in (1..7) %}                             
+                        {% capture value %}value_{{ i }}{% endcapture %}
+                        {% if forloop.first and system[value] == blank %}
+                          <div class="product_info_column product_info_column_blank">
+                            <div class="product_info_value body-regular"></div>
+                          </div>
+                        {% endif %}  
+                        {% if system[value] %}
+                          <div class="product_info_column">
+                            <div class="product_info_value body-regular">{{ system[value] }}</div>
+                          </div>
+                        {% endif %}  
+                      {% endfor %}
+                    </div>                    
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% unless template.suffix == 'floor-heating-type' %}
+        {% if section.settings.bottom_content != blank %} <div class="section_bottom_text text-center rte">{{ section.settings.bottom_content }}</div> {% endif %}
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+  <modal-dialog id="ProductPopup-floor_chooes" class="product-popup-modal">
+      <div role="dialog" aria-label="{{ block.settings.title }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+        <button id="ModalClose-desktop-{{ block.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+        <scroll-shadow>
+          <div class="product-popup-modal__content-info">										
+            <div class="talk-us">
+              <div class="talk-contact-full">
+                <div class="talk-contact-form" id="talkPopup">
+                  <div class="form-header">
+                    <div class="small-12">
+                      <h3 class="h3">Free Guide: Radiant Floor Heating</h3>
+                    </div>
+                  </div>
+                  <div class="align-center">
+                    <div class="small-12 contact-form--form-column">
+                      {% form 'contact', class: form_class %}
+                        {% if form.posted_successfully? %}
+                          <div class="form-notification success">
+                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                          </div>
+                        {%- elsif form.errors %}
+                          <div class="form-notification error">
+                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                          </div>
+                        {% endif %}
+                        <div class="row no-padding">
+                          <div class="small-12">
+                            <div class="field">
+                              <input id="ContactFormCompany" type="text" class="full" name="contact[{{ 'sections.contact.form.company' | t | escape }}]" aria-label="{{ 'sections.contact.form.company' | t | escape }}" placeholder="Company (Optional)">
+                              <label for="ContactFormCompany">Company (Optional)</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <div class="field">
+                              <input type="text" id="ContactFormName" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                              <label for="ContactFormName">{{ 'sections.contact.form.name' | t }}*</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <div class="field">
+                              <input type="tel" id="ContactFormPhone" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                              <label for="ContactFormPhone">{{ 'sections.contact.form.phone' | t }}*</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <div class="field email-field">
+                              <input type="email" id="ContactFormEmail" name="contact[email]" class="full" placeholder="{{ 'sections.contact.form.email' | t | escape }}" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$" required>
+                              <label for="ContactFormEmail">{{ 'sections.contact.form.email' | t }}*</label>
+                            </div>
+                          </div>
+                          <div class="small-12">
+                            <div class="field">
+                              <input id="question" type="text" class="full" name="What is your most important question about floor heating?" aria-label="What is your most important question about floor heating?" placeholder="What is your most important question about floor heating?">
+                              <label for="question">What is your most important question about floor heating?</label>
+                            </div>
+                          </div>
+                          <div class="small-12">
+                            <div class="field">
+                              <input id="prompted" type="text" class="full" name="What prompted you to start your search today?" aria-label="What prompted you to start your search today?" placeholder="What prompted you to start your search today?">
+                              <label for="prompted">What prompted you to start your search today?</label>
+                            </div>
+                          </div>
+                          <div class="small-12 req-checkbox">
+                            <div class="field">
+                                <input type="checkbox" name="contact[Follow Up Request]"  required>
+                                <span class="custom-checkbox"></span>
+                                <span class="checkbox-label">
+                                  Please follow up with me to assist with my project planning or questions.
+                                </span>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <button type="submit" class="button full call-btn"><span>Send me the Free Guide</span></button>
+                          </div>
+                        </div>
+                      {% endform %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </scroll-shadow>
+      </div>
+    </modal-dialog>   
+ 
+{% endif %}  
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.product_info_value').forEach(el => {
+    const text = el.textContent.trim();
+
+    if (text === 'Best') {
+      el.classList.add('best');
+    } else if (text === 'Better') {
+      el.classList.add('better');
+    } else if (text === 'Good') {
+      el.classList.add('good');
+    }
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "New Choose Heating System",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose your Heating System"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Discover the Warmth and Comfort of Radiant Indoor-Floor Heating.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "bottom_content",
+      "label": "Bottom Content",
+      "default": "<p>Discover the Warmth and Comfort of Radiant Indoor-Floor Heating.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_top_spacing",
+      "default": false,
+      "label": "Remove top spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_bottom_spacing",
+      "default": false,
+      "label": "Remove bottom spacing"
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing top",
+      "default": 30,
+      "info": "Changes the section top spacing in desktop screens."
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing bottom",
+      "default": 30,
+      "info": "Changes the section bottom spacing in desktop screens."
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_top",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing top",
+      "default": 15,
+      "info": "Changes the section top spacing in mobile screens."
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing bottom",
+      "default": 15,
+      "info": "Changes the section bottom spacing in mobile screens."
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_img",
+      "label": "First Card image"
+    },
+    {
+      "type": "url",
+      "id": "fallback_img_url",
+      "label": "First Card image url"
+    }
+  ],
+  "blocks": [
+    {
+        "type": "point",
+        "name": "point",
+        "settings": [
+            {
+                "type": "text",
+                "id": "point",
+                "label": "Point text"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "label": "Description"
+            }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": " New Choose Heating System"
+    }
+  ]
+}
+{% endschema %}

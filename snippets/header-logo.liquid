@@ -1,0 +1,48 @@
+{% if header_settings.logo %}
+	<div class="header-pro-logo">
+	<a class="logolink{% if template.suffix == 'professional' %} logolink-professional{% endif %}" href="{% if template.suffix == 'professional' %}https://thermosoftonline.myshopify.com/pages/professional{% else %}{{ routes.root_url }}{% endif %}">
+		<img
+			src="{{ header_settings.logo | image_url }}"
+			class="logoimg"
+			alt="{{ header_settings.logo.alt | default: shop.name | escape }}"
+			width="{{ header_settings.logo.width }}"
+			height="{{ header_settings.logo.height }}"
+		>
+		{%- liquid
+			if header_settings.logo_light != blank
+				assign light_logo = header_settings.logo_light
+			else
+				assign light_logo = header_settings.logo
+			endif
+		-%}
+		<img
+			src="{{ light_logo | image_url }}"
+			class="logoimg logoimg--light"
+			alt="{{ header_settings.logo.alt | default: shop.name | escape }}"
+			width="{{ header_settings.logo.width }}"
+			height="{{ section.settings.logo.height }}"
+		>
+		{% if template.suffix == 'professional' %}
+		
+		<img
+			src="{{ header_settings.pro_logo | image_url }}"
+			class="logoimg pro"
+			alt="{{ header_settings.pro_logo.alt | default: shop.name | escape }}"
+			width="{{ header_settings.pro_logo.width }}"
+			height="{{ header_settings.pro_logo.height }}"
+		>
+			{% endif %}
+		</a>
+		{% if template.suffix == 'professional' %}
+			<a href="/" class="not-a-pro">Not a pro?</a>
+		{% else %}	
+		{% endif %}
+		</div>
+{% else %}
+	<a class="logolink text-logo{% if template.suffix == 'professional' %} logolink-professional{% endif %}" href="{{ routes.root_url }}">
+		{{ shop.name }}
+		{% if template.suffix == 'professional' %}
+			<span class="h3">For Pros</span>
+		{% endif %}
+	</a>
+{% endif %}

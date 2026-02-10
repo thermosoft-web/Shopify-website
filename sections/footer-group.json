@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "column_size": "large",
+            "text_alignment": "left",
+            "title": "",
+            "image": "shopify://shop_images/Thermosoft_Logo.svg",
+            "text": "<p>Since our founding in 1996, it’s been our mission at ThermoSoft to provide comfort, wellness and happiness by creating the most innovative, safe, and reliable sensory thermal solutions.</p>",
+            "text_size": "medium",
+            "button_text": "800.308.8057",
+            "call_svg": true,
+            "button_link": "tel:+1800-308-8057"
+          }
+        },
+        "menu-1": {
+          "type": "menu",
+          "settings": {
+            "column_size": "small",
+            "title": "COMPANY",
+            "menu": "company"
+          }
+        },
+        "menu-2": {
+          "type": "menu",
+          "settings": {
+            "column_size": "small",
+            "title": "NEED HELP?",
+            "menu": "need-help"
+          }
+        },
+        "signup": {
+          "type": "signup",
+          "settings": {
+            "column_size": "medium",
+            "title": "Subscribe to our newsletters",
+            "text": "<p>Sign up to receive news and promotions.</p>",
+            "show_social_links": true
+          }
+        }
+      },
+      "block_order": [
+        "text",
+        "menu-1",
+        "menu-2",
+        "signup"
+      ],
+      "settings": {
+        "footer_reveal_animation": false,
+        "copyright_text": "All rights reserved.",
+        "show_language_switcher": false,
+        "show_currency_switcher": false,
+        "show_payment_icons": true,
+        "privacy_url": "shopify://pages/privacy-policy",
+        "tearms_url": "shopify://pages/terms-conditions",
+        "enable_follow_on_shop": false
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

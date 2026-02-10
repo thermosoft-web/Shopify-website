@@ -1,0 +1,79 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {}
+    },
+    "rich_text_qCdw7f": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading_x4rLCb": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_tjNXhy": {
+          "type": "heading",
+          "settings": {
+            "text": "Need assistance or can’t find what you’re looking for?",
+            "marker_style": "style1",
+            "size": "h3",
+            "marker_color": "#fd6262"
+          }
+        },
+        "text_XTM7Ba": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We are moving a new website and apologize for the inconvenience. Please contact us at 1 (800) 308-8057 and we'll be happy to assist you.</p>",
+            "custom_liquid": "",
+            "size": "text-size-regular"
+          }
+        },
+        "button_eHCXQw": {
+          "type": "button",
+          "settings": {
+            "link_label": "Back to Homepage",
+            "link": "https://thermosoftonline.myshopify.com/"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_x4rLCb",
+        "heading_tjNXhy",
+        "text_XTM7Ba",
+        "button_eHCXQw"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "center",
+        "color_bg": "rgba(0,0,0,0)",
+        "color_heading": "#1a1c1d",
+        "color_text": "#2c2d2e",
+        "color_links": "#2c2d2e",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 100,
+        "desktop_spacing_bottom": 100,
+        "mobile_spacing_top": 50,
+        "mobile_spacing_bottom": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_qCdw7f"
+  ]
+}

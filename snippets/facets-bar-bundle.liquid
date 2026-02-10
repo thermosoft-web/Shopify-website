@@ -1,0 +1,228 @@
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+-%}
+
+{% comment %} {%- liquid
+	
+  assign pagination_current_item_start = paginate.current_offset
+  assign pagination_current_item_end = paginate.current_page | times: paginate.page_size
+  assign current_pagination_range = pagination_current_item_start
+
+  if pagination_current_item_end > paginate.items
+    assign pagination_current_item_end = paginate.items
+  endif
+	assign pagination_current_item_end = pagination_current_item_end | at_least: 1
+
+  assign current_pagination_range = pagination_current_item_end | minus: current_pagination_range
+	
+-%} {% endcomment %}
+{%- liquid
+  assign pagination_start = paginate.current_offset | plus: 1
+  assign pagination_end = paginate.current_offset | plus: paginate.page_size
+
+  if pagination_end > paginate.items
+    assign pagination_end = paginate.items
+  endif
+-%}
+
+<facet-filters-form class="facets--bar{% if facets_desktop == 'sidebar' %} facets--bar-inline{% endif %}">
+	<form id="FacetFiltersForm-bar" class="facets__form">
+		{%- if results.terms -%}
+			<input type="hidden" name="q" value="{{ results.terms | escape }}">
+			<input name="options[prefix]" type="hidden" value="last">
+		{%- endif -%}
+		{%- if results.current_vendor or results.current_type -%}
+			<input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+		{%- endif -%}
+		{%- for filter in results.filters -%}
+			{%- if filter.param_name == 'filter.v.availability' and filter.values[0].active -%}
+				<input type="hidden"
+					name="{{ filter.values[0].param_name }}"
+					value="1"
+				>
+			{%- else -%}
+				{%- case filter.type -%}
+					{% when 'boolean' or 'list' %}
+						{%- for value in filter.values -%}
+							{%- if value.active -%}
+								<input type="hidden"
+									name="{{ value.param_name }}"
+									value="{{ value.value }}"
+								>
+							{%- endif -%}
+						{%- endfor -%}
+					{% when 'price_range' %}
+						{%- liquid
+							assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,UYU,VES,VND' | split: ','
+							assign uses_comma_decimals = false
+							if currencies_using_comma_decimals contains cart.currency.iso_code
+								assign uses_comma_decimals = true
+							endif
+						-%}
+						{%- if filter.min_value.value -%}
+							<input type="hidden"
+								name="{{ filter.min_value.param_name }}"
+								{%- if uses_comma_decimals -%}
+									value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+								{%- else -%}
+									value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+								{%- endif %}
+							/>
+						{%- endif -%}
+						{%- if filter.max_value.value -%}
+							<input type="hidden"
+								name="{{ filter.max_value.param_name }}"
+								{%- if uses_comma_decimals -%}
+									value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+								{%- else -%}
+									value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+								{%- endif %}
+							/>
+						{%- endif -%}
+				{%- endcase -%}
+			{%- endif -%}
+		{% endfor %}
+		{% if facets_desktop == 'drawer' %}
+			<div class="facets--bar-left facets--bar-left-desktop">
+				{%- if enable_filtering -%}
+				<facet-toggle class="facets-toggle">{% render 'svg-icons' with 'thb-filter' %} {{ 'products.facets.filter_and_sort' | t }}</facet-toggle>
+				{%- endif -%}
+			</div>
+		{%- endif -%}
+		<div class="facets--bar-right">
+			{%- if settings.enable_compare and settings.show_compare_toggle -%}
+			<facet-toolbar>
+				<div class="facets--bar-compare">
+					{%- assign value = filter.values[0] -%}
+					<label for="compare_toggle">{{ 'products.compare.compare' | t }}</label>
+					<input type="checkbox"
+						name="compare_toggle"
+						value="0"
+						class="custom-checkbox"
+						id="compare_toggle"
+						{% if settings.show_compare_toggle_on %}checked{% endif %}
+					>
+				</div>
+			</facet-toolbar>
+			{%- endif -%}
+			<div class="thb-filter-sort-count">
+				{%- if enable_sorting -%}
+					<div class="thb-filter-sort">
+						<custom-select class="custom-select" data-auto-close="true">
+							{%- liquid
+								assign sort_by = results.sort_by | default: results.default_sort_by
+								for option in results.sort_options
+									if option.value == sort_by
+										assign sort_by_name = option.name
+									endif
+								endfor
+							-%}
+							<button class="custom-select--button"><span class="custom-select--text">{{ sort_by_name }}</span> <span class="custom-select--arrow">{%- render 'svg-icons' with 'thb-select' -%}</span></button>
+							<div class="custom-select--list">
+								<scroll-shadow>
+									<ul>
+										{%- for option in results.sort_options -%}
+											<li class="custom-select--item" tabindex="-1">
+												<button class="{% if option.value == sort_by %}custom-select--item-active{% endif %}" {% if option.value == sort_by %} aria-current="true"{% endif %} data-value="{{ option.value | escape }}">
+													{{ option.name | escape }}
+												</button>
+											</li>
+										{%- endfor -%}
+									</ul>
+								</scroll-shadow>
+							</div>
+							<input type="hidden" id="SortBy" name="sort_by" value="{{ results.default_sort_by }}">
+						</custom-select>
+					</div>
+				{%- endif -%}
+				<div class="thb-filter-count" id="ProductCount">
+					{% comment %} <span class="facets__label">
+						{%- if results.results_count -%}
+							Show {{ current_pagination_range }} out of {{ 'search.results_with_count' | t: terms: results.terms, count: results.results_count }}
+						{%- elsif results.products_count == results.all_products_count -%}
+							Show {{ current_pagination_range }} out of {{ results.products_count }}
+						{%- else -%}
+							Show {{ current_pagination_range }} out of {{ results.products_count }}
+						{%- endif -%}
+					</span> {% endcomment %}
+						<span class="facets__label" data-pagination-label>
+						Show {{ pagination_start }} – {{ pagination_end }} out of {{ paginate.items }}
+						</span>
+					{% comment %} <span class="loading-overlay">
+						{% render 'svg-icons' with 'thb-loading' %}
+					</span> {% endcomment %}
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="facets--bar-sticky">
+		{%- if enable_filtering -%}
+		<facet-toggle class="facets-toggle">{% render 'svg-icons' with 'thb-filter' %} {{ 'products.facets.filter_and_sort' | t }}</facet-toggle>
+		{%- endif -%}
+	</div>
+	{%- if enable_filtering -%}
+	{% render 'facets-active', results: results, results_url: results_url, filter_color_swatches: filter_color_swatches %}
+	{%- endif -%}
+	<div class="ProductPopup-free-size-wrapper">
+		{% if collection.metafields.custom.how_to_select_the_right_size %}
+			<modal-opener class="" data-modal="#ProductPopup-free-size">
+				<button class="contact-member-button" type="button" aria-haspopup="dialog">
+					<div class="">						
+						{{ section.settings.sizing_title }}
+					</div>
+					{% comment %} <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M6.66666 0C10.3485 0 13.3333 2.98475 13.3333 6.66666C13.3333 10.3485 10.3486 13.3333 6.66666 13.3333C2.98478 13.3333 0 10.3486 0 6.66666C0 2.98475 2.98478 0 6.66666 0ZM6.66666 8.83334C6.20638 8.83334 5.83328 9.20641 5.83328 9.66666C5.83328 10.1269 6.20641 10.5 6.66663 10.5C7.12684 10.5 7.49997 10.1269 7.49997 9.66666C7.49997 9.20641 7.12684 8.83334 6.66663 8.83334M6.55538 2.91672C5.90647 2.91672 5.36106 3.0935 4.91981 3.44609C4.39694 3.86847 4.13572 4.49222 4.13572 5.31791H5.55328V5.30841C5.55328 4.99337 5.61963 4.73497 5.75203 4.53341C5.93469 4.26247 6.231 4.12684 6.64062 4.12684C6.89272 4.12684 7.10728 4.19303 7.28344 4.32516C7.50388 4.50822 7.61447 4.78531 7.61447 5.15716C7.61447 5.39037 7.55747 5.59822 7.44416 5.78109C7.34963 5.94491 7.19841 6.10547 6.99016 6.26313C6.54909 6.56559 6.26228 6.865 6.13016 7.16134C6.01669 7.40709 5.95969 7.79781 5.95969 8.33334H7.29297C7.29297 7.98034 7.33988 7.71584 7.43484 7.53928C7.51034 7.39434 7.66806 7.24006 7.90756 7.07609C8.32366 6.76719 8.61959 6.48034 8.79619 6.21566C9.01034 5.90066 9.11769 5.53188 9.11769 5.1095C9.11769 4.23419 8.76169 3.61331 8.04909 3.24763C7.62081 3.02709 7.12291 2.91666 6.55541 2.91666" fill="#900000"/>
+					</svg> {% endcomment %}
+				</button>
+			</modal-opener> 
+		{% endif %}
+	</div>
+</facet-filters-form>
+
+
+{% if collection.id == 310534733877 or collection.id == 310474702901 %}
+	{% if section.settings.volume_discounts_message != blank or section.settings.volume_discounts_message != blank %}
+		<div class="discounts_available_wrapper">
+			{{ section.settings.volume_discounts_note }}		
+			<modal-opener class="discounts_available" data-modal="#volume_discounts_available">
+				<button class="volume_discounts_available" type="button" aria-haspopup="dialog">				
+					{{ section.settings.volume_discounts_message }}
+					{% comment %} <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" role="img" viewBox="0 0 512 512"><path fill="#a00404" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path></svg> {% endcomment %}
+				</button>
+			</modal-opener>		
+		</div>
+	{% endif %}	
+	<modal-dialog id="volume_discounts_available" class="product-popup-modal">
+		<div role="dialog" aria-label="{{ block.settings.title }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+			<button id="ModalClose-desktop-{{ section.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>			
+			<div class="product-popup-modal__content-info volume_discounts-popup-modal__content-info">
+				<div class="title_wrapper text-center">
+					<h2 class="h2">Automatic Volume Discounts</h2>
+					<p class="body-large">Save more when you order more total feet.</p>
+				</div>
+				<div class="offer-list">
+					<div class="offer-row blue">
+						<span class="offer-label">Buy 250-499'</span>
+						<span class="offer-text">Get 5% Off</span>
+					</div>
+
+					<div class="offer-row green">
+						<span class="offer-label">Buy 500-999'</span>
+						<span class="offer-text">Get 10% Off</span>
+					</div>
+
+					<div class="offer-row dark-green">
+						<span class="offer-label">Buy 1000</span>
+						<span class="offer-text">Get 15% Off</span>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</modal-dialog>			
+{% endif %}

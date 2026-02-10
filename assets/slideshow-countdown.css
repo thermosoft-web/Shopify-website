@@ -1,0 +1,148 @@
+.countdown-banner-relative {
+  position: relative;
+}
+.countdown-banner-fixed {  
+  padding: 4px;
+}
+.countdown-banner-fixed.countdown-banner--full-width-false {
+  isolation: isolate;
+  border-radius: calc(var(--block-border-radius, 16px) * 2);
+}
+
+.countdown-banner-fixed .countdown-banner--timer {
+  background: #F1EDE4;
+  border-radius: var(--block-border-radius, 16px);
+  padding: 5px 10px;
+}
+.countdown-banner-fixed .countdown-banner--inner {
+  gap: 4px;
+}
+.countdown-banner-fixed .countdown-banner--content {
+  padding: 12px;
+}
+.countdown-banner-fixed .countdown-banner--content .description {
+  font-weight: 500;
+  margin-bottom: 0;
+}
+.countdown-banner-fixed .countdown-banner--timer .subheading {
+  color: var(--color-accent);
+  font-size: 12px;
+  line-height:  18px;
+  letter-spacing: 0.24px;
+  margin: 0;
+}
+.countdown-banner-fixed .countdown-timer--column--number {
+  color: #3B352B;
+  font-size: calc(var(--font-heading-scale) * 20px);
+  line-height: calc(var(--font-heading-line-height-scale) * calc(var(--font-heading-scale) * 28px));
+  font-weight: 500; }
+.countdown-banner-fixed .countdown-timer--column--text {
+  color: #3B352B;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0; }
+.countdown-banner-fixed .countdown-banner--timer .countdown-timer {
+  gap: 8px;
+  margin: 0 -8px;
+  min-height: 54px; }
+.countdown-banner-fixed .countdown-timer--column {
+    min-width: 74px;
+    padding: 0 8px; }
+.countdown-banner-fixed .countdown-timer--column + .countdown-timer--column .countdown-timer--column--number:before {
+  width: 8px;
+  left: -16px; }
+ .count-full-width {
+    display: none;
+} 
+.countdown-banner-relative .slideshow__slide:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.00) 100%); */
+}
+.template-page-room-type .countdown-banner-relative .slideshow__slide:after {
+    background: transparent;
+}
+.countdown-banner--inner.layout--vertical .button button {
+    font-weight: 500;
+}  
+modal-opener.white {
+    background: #FFF;
+    border-radius: 4px;
+    padding: 6px 15px;
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+}
+.second_btn.white {
+    background: #900000;
+    border-radius: 4px;
+    padding: 6px 15px;
+    margin-top: 5px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+}
+.second_btn.white button {
+    color: #FFF;
+}
+.countdown_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+  @media only screen and (min-width: 768px) {
+    .countdown-banner-fixed {  
+      isolation: isolate;
+      border-radius: calc(var(--block-border-radius, 16px) * 2);
+      padding: 4px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      max-width: 352px;
+      width: 100%;
+    }
+    .countdown-banner-fixed .countdown-timer--column--number {
+      font-size: calc(var(--font-heading-scale) * 24px);
+      line-height: calc(var(--font-heading-line-height-scale) * calc(var(--font-heading-scale) * 32px)); } 
+    .countdown-banner-fixed .countdown-timer--column--text {
+      font-size: 12px; }
+    .countdown-banner-fixed .countdown-timer--column {
+        padding: 0 8px; }
+    .countdown-banner-fixed .countdown-timer--column + .countdown-timer--column .countdown-timer--column--number:before {
+      font-size: calc(var(--font-heading-scale) * 24px);
+      line-height: calc(var(--font-heading-line-height-scale) * calc(var(--font-heading-scale) * 32px));
+      left: -16px; } }
+  @media only screen and (min-width: 1068px) {
+    .countdown-banner-fixed .countdown-timer--column--number {
+      font-size: calc(var(--font-heading-scale) * 28px);
+      line-height: calc(var(--font-heading-line-height-scale) * calc(var(--font-heading-scale) * 36px)); } 
+    .countdown-banner-fixed .countdown-timer--column + .countdown-timer--column .countdown-timer--column--number:before {
+      font-size: calc(var(--font-heading-scale) * 28px);
+      line-height: calc(var(--font-heading-line-height-scale) * calc(var(--font-heading-scale) * 36px)); } }
+  @media only screen and (max-width: 767px) {
+    .countdown-banner-fixed {
+      margin-top: 15px;
+    }
+    .countdown_full {
+      display: none;
+    }
+    .section-slideshow .row.full-width-row .countdown-banner {
+        margin-left: 15px;
+        margin-right: 15px;
+        border-radius: calc(var(--block-border-radius, 16px) * 2);
+    }
+    .count-full-width {
+        display: block;
+    }
+    .countdown-banner-fixed.countdown-banner--full-width-false {
+        border-radius: 0;
+    }
+  }

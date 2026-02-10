@@ -1,0 +1,302 @@
+{%- liquid
+	assign section_heading = section.settings.heading
+	assign marker_style = section.settings.marker_style
+	assign section_description = section.settings.description
+	assign columns_desktop = section.settings.columns_desktop
+	assign mobile_swipe = section.settings.mobile_swipe
+	assign section_blog = section.settings.blog
+	assign post_limit = section.settings.post_limit
+	assign show_view_all = section.settings.show_view_all
+	assign show_date = section.settings.show_date
+	assign show_excerpt = section.settings.show_excerpt
+	assign show_read_more = section.settings.show_read_more
+	assign image_ratio = section.settings.image_ratio
+
+	assign marker_color = section.settings.marker_color
+
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+	assign columns_class = 'medium-6 large-4'
+
+	case columns_desktop
+		when 2
+			assign columns_class = 'medium-6'
+		when 3
+			assign columns_class = 'medium-4'
+		when 4
+			assign columns_class = 'medium-6 large-3'
+	endcase
+
+	if section_blog != blank and show_view_all and post_limit < section_blog.articles_count
+		assign section_heading_button_blog = section_blog
+	endif
+
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+	assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+	assign mobile_spacing_top = section.settings.mobile_spacing_top
+	assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+-%}
+
+{% style %}
+	#shopify-section-{{ section.id }} {
+		--section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+		--section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+		--section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+		--section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+	}
+{% endstyle %}
+
+{%- if template.name == 'article' -%}
+	{%- assign article_handle = article.handle -%}
+	{% for article in blogs[section_blog].articles limit: post_limit %}
+		{% if article_handle == article.handle %}
+			{% assign post_limit = post_limit | plus: 1 %}
+		{% endif %}
+	{% endfor %}
+{%- endif -%}
+
+<div class="row">
+	<div class="small-12 columns">
+		<div class="blog-posts{% if mobile_swipe %} swipe-on-mobile{% endif %} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+			{% render 'section-header', section_heading: section_heading, section_description: section_description, section_heading_button_blog: section_heading_button_blog, marker_color: marker_color, marker_style: marker_style %}
+			<div class="articles no-padding">
+				<slide-show id="product-grid-{{ section.id }}" class="products row carousel flickity-enabled is-draggable flickity-resize" data-dots="true">
+				{% if section_blog and blogs[section_blog].articles.size > 0 %}
+					{% for article in blogs[section_blog].articles limit: post_limit %}
+						{% unless article_handle == article.handle %}
+							<div class="small-5 {{ columns_class }} carousel__slide columns">
+								{% render 'blog-post', article: article, show_date: show_date, show_excerpt: show_excerpt, image_ratio: image_ratio, show_read_more: show_read_more %}
+							</div>
+						{% endunless %}
+		      {% endfor %}
+				{% else %}
+					{% assign placeholder_array = "1,2,3,4,5,6" | split: ',' %}
+					{% for item in placeholder_array limit: post_limit %}
+						<div class="small-5 {{ columns_class }} carousel__slide columns">
+							{% render 'blog-post', article: false, show_date: show_date, show_excerpt: show_excerpt, image_ratio: image_ratio, show_read_more, show_read_more %}
+			      </div>
+					{% endfor %}
+		    {% endif %}
+			{%- if post_limit > columns_desktop -%}
+			  <div class="flickity-nav flickity-prev" tabindex="0">{% render 'svg-icons' with 'carousel-prev' %}</div>
+              <div class="flickity-nav flickity-next" tabindex="0">{% render 'svg-icons' with 'carousel-next' %}</div>
+			  {%- endif -%}
+			</slide-show>
+		  </div>
+		</div>
+	</div>
+</div>
+{{ 'blog.css' | asset_url | stylesheet_tag }}
+{% schema %}
+	{
+		"name": "Blog posts",
+		"class": "section-featured-blog",
+		"settings": [
+			{
+				"type": "text",
+				"id": "heading",
+				"label": "Heading",
+				"default": "Latest News",
+						"info": "Wrap your text between | to add animated markers. For example: Animated |marker| will underline marker text."
+			},
+			{
+				"type": "select",
+				"id": "marker_style",
+				"options": [
+					{
+						"value": "style1",
+						"label": "Basic"
+					},
+					{
+						"value": "style2",
+						"label": "Double"
+					},
+					{
+						"value": "style3",
+						"label": "Squiggle"
+					},
+					{
+						"value": "style4",
+						"label": "Zigzag"
+					}
+				],
+				"default": "style1",
+				"label": "Marker"
+			},
+			{
+				"type": "richtext",
+				"id": "description",
+				"label": "Description",
+				"default": "<p>Add a short description for your brand news</p>"
+			},
+			{
+				"type": "blog",
+				"id": "blog",
+				"label": "Blog"
+			},
+			{
+				"type": "range",
+				"id": "post_limit",
+				"min": 2,
+				"max": 4,
+				"step": 1,
+				"default": 3,
+				"label": "Number of blog posts to show"
+			},
+			{
+				"type": "range",
+				"id": "columns_desktop",
+				"min": 2,
+				"max": 4,
+				"step": 1,
+				"default": 3,
+				"label": "Number of columns on desktop"
+	   	 	},
+			{
+				"type": "checkbox",
+				"id": "mobile_swipe",
+				"default": true,
+				"label": "Enable swipe on mobile"
+			},
+			{
+				"type": "select",
+				"id": "image_ratio",
+				"options": [
+					{
+						"value": "adapt",
+						"label": "Adapt to image"
+					},
+					{
+						"value": "portrait",
+						"label": "Portrait"
+					},
+					{
+						"value": "square",
+						"label": "Square"
+					},
+								{
+						"value": "landscape",
+						"label": "Landscape"
+					}
+				],
+				"default": "square",
+				"label": "Image ratio"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_date",
+				"default": true,
+				"label": "Show date"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_excerpt",
+				"default": true,
+				"label": "Show excerpt"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_read_more",
+				"default": true,
+				"label": "Show read more"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_view_all",
+				"default": true,
+				"label": "Enable \"View all\" button if blog includes more blog posts than shown"
+			},
+			{
+				"type": "header",
+				"content": "Colors"
+      		},
+			{
+				"type": "color",
+				"id": "marker_color",
+				"label": "Marker",
+				"default": "#FD6262"
+			},
+			{
+				"type": "header",
+				"content": "Spacing"
+			},
+			{
+				"type": "checkbox",
+				"id": "disable_top_spacing",
+				"default": false,
+				"label": "Remove top spacing"
+			},
+			{
+				"type": "checkbox",
+				"id": "disable_bottom_spacing",
+				"default": false,
+				"label": "Remove bottom spacing"
+			},
+			{
+				"type": "header",
+				"content": "Desktop spacing"
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_top",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Desktop spacing top",
+				"default": 100,
+				"info": "Changes the section top spacing in desktop screens."
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_bottom",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Desktop spacing bottom",
+				"default": 100,
+				"info": "Changes the section bottom spacing in desktop screens."
+			},
+			{
+				"type": "header",
+				"content": "Mobile spacing"
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_top",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing top",
+				"default": 50,
+				"info": "Changes the section top spacing in mobile screens."
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_bottom",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing bottom",
+				"default": 50,
+				"info": "Changes the section bottom spacing in mobile screens."
+			}
+    	],
+    	"presets": [
+			{
+				"name": "Blog posts"
+			}
+    	],
+		"enabled_on": {
+			"templates": ["*"],
+			"groups": [
+				"header", "footer"
+			]
+		}
+  	}
+{% endschema %}

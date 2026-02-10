@@ -1,0 +1,568 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "meta_slideshow_countdown_bcCVDq": {
+      "type": "meta-slideshow-countdown",
+      "name": "Meta Slideshow countdown",
+      "settings": {
+        "desktop_height": "desktop-height-450",
+        "mobile_height": "mobile-height-image",
+        "full_width": true,
+        "subheading": "while supplies last",
+        "heading": "SAVE UP TO 10% AND GET FREE SHIPPING",
+        "heading_size": "h2",
+        "content": "SALE ENDS   2/15",
+        "button_text": "",
+        "button_link": "",
+        "button_text_1": "",
+        "button_link_1": "",
+        "timer_year": 2026,
+        "timer_month": "10",
+        "timer_day": "28",
+        "timer_hour": "00",
+        "timer_minute": "00",
+        "color_bg": "#8d8659",
+        "color_text": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 10,
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true,
+        "desktop_spacing_top": 30,
+        "desktop_spacing_bottom": 30,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "meta_custom_description_G6QCnT": {
+      "type": "meta-custom-description",
+      "name": "Meta Richtext – Readmore",
+      "settings": {
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 0,
+        "mobile_spacing_top": 30,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "new_choose_your_heating_system_dH4aKf": {
+      "type": "new-choose-your-heating-system",
+      "blocks": {
+        "point_96Ytzm": {
+          "type": "point",
+          "settings": {
+            "point": "Accepted by NWFA for Wood Floors",
+            "description": "A lower total cost is best when considering all additional components. This may include required mortar sleepers or glue to add the heating system to your project."
+          }
+        },
+        "point_LaiAV3": {
+          "type": "point",
+          "settings": {
+            "point": "Total Additional heating Material Cost",
+            "description": "A lower total cost is best when considering all additional components. This may include required mortar sleepers or glue to add the heating system to your project."
+          }
+        },
+        "point_8FKQhc": {
+          "type": "point",
+          "settings": {
+            "point": "Additional Install Steps",
+            "description": "A lower total cost is best when considering all additional components. This may include required mortar sleepers or glue to add the heating system to your project."
+          }
+        },
+        "point_zR3GDn": {
+          "type": "point",
+          "settings": {
+            "point": "Total Additional Labor Time",
+            "description": "A lower total cost is best when considering all additional components. This may include required mortar sleepers or glue to add the heating system to your project."
+          }
+        }
+      },
+      "block_order": [
+        "point_96Ytzm",
+        "point_LaiAV3",
+        "point_8FKQhc",
+        "point_zR3GDn"
+      ],
+      "name": " New Choose Heating System",
+      "settings": {
+        "heading": "Choose your Heating System",
+        "content": "<p>Discover the Warmth and Comfort of Radiant Indoor-Floor Heating. <a href=\"#\" title=\"#\"><strong>Download our Indoor-Floor Heating Guide for FREE.</strong></a></p>",
+        "bottom_content": "<p><em>*Based on a 60 sq.ft. heated area. Total price will depend on total area coverage.</em><br/><br/>Not sure which is right? <a href=\"/pages/contact\" title=\"Contact\"><strong>Contact Us for Help</strong></a></p>",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": true,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15,
+        "fallback_img": "shopify://shop_images/Untitled-2_12.png",
+        "fallback_img_url": "shopify://pages/contact"
+      }
+    },
+    "rich_text_VEpBqm": {
+      "type": "rich-text",
+      "blocks": {
+        "text_arhDAx": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>*ThermoFloor® Heating Mats are designed for use with laminate flooring that does not have a pre-attached underlayment pad. If your flooring has a pad attached or you already have an underlayment pad to use with your floor, the system best suited for your project is <a href=\"https://thermosoftonline.myshopify.com/collections/warmstep-mats?filter.p.m.custom.voltage_size=120V+1.5%27+Wide\" title=\"https://thermosoftonline.myshopify.com/collections/warmstep-mats?filter.p.m.custom.voltage_size=120V+1.5%27+Wide\">WarmStep®</a>.</h6>",
+            "custom_liquid": "",
+            "size": "text-size-large"
+          }
+        }
+      },
+      "block_order": [
+        "text_arhDAx"
+      ],
+      "custom_css": [
+        ".section-rich-text {display: none;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "text_width": "xlarge",
+        "text_position": "center",
+        "text_alignment": "left",
+        "color_bg": "rgba(0,0,0,0)",
+        "color_heading": "#1a1c1d",
+        "color_text": "#2c2d2e",
+        "color_links": "#2c2d2e",
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true,
+        "desktop_spacing_top": 100,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 50,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "choose_your_heating_system_Uzpbdh": {
+      "type": "choose-your-heating-system",
+      "name": "Choose Heating System",
+      "settings": {
+        "heading": "Choose your Heating System",
+        "content": "<p>Discover the Warmth and Comfort of Radiant Indoor-Floor Heating. <a href=\"#\" title=\"#\"><strong>Download our Indoor-Floor Heating Guide for FREE.</strong></a></p>",
+        "bottom_content": "<p><em>*Based on a 60 sq.ft. heated area. Total price will depend on total area coverage.</em><br/><br/>Not sure? <a href=\"/pages/contact\" title=\"Contact\"><strong>Contact Us for Help</strong></a></p>",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "meta_room_grid_ahncxE": {
+      "type": "meta-room-grid",
+      "name": "Meta Room Grid",
+      "settings": {
+        "title": "",
+        "content": "",
+        "columns_desktop": 3,
+        "columns_mobile": 2,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 40,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15
+      }
+    },
+    "meta_background_video_CRQEzL": {
+      "type": "meta-background-video",
+      "name": "Meta Background video",
+      "settings": {
+        "desktop_height": "desktop-height-550",
+        "mobile_height": "mobile-height-270",
+        "full_width": false,
+        "video_controls": true,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "overlay_color": "#000000",
+        "link_label_0": "",
+        "link_0": "",
+        "link_label_1": "",
+        "link_1": "",
+        "overlay_opacity": 0,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 40,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 30
+      }
+    },
+    "logo_list_XJWzTC": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_gKmLLK": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-1.png",
+            "link": "https://thermosoftonline.myshopify.com/pages/about-us",
+            "video": false
+          }
+        },
+        "logo_nYyCjj": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-2.png",
+            "link": "https://www.bbb.org/us/il/vernon-hills/profile/radiant-heat/thermosoft-international-corporation-0654-88009657",
+            "video": false
+          }
+        },
+        "logo_yiqXiB": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-3.svg",
+            "link": "/pages/manual-documents#safty-certificate",
+            "video": false
+          }
+        },
+        "logo_7AEFFK": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-4.svg",
+            "link": "https://nwfa.org/",
+            "video": false
+          }
+        },
+        "logo_tHri4p": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-5.svg",
+            "link": "/pages/manual-documents#safty-certificate",
+            "video": false
+          }
+        },
+        "logo_kYaJUe": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-6.svg",
+            "link": "https://player.vimeo.com/external/403347433.sd.mp4?s=8d224db7ec88b1bef2b876e16dd855df1b8e90eb&profile_id=164",
+            "video": true
+          }
+        },
+        "logo_tgyPPL": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-7.svg",
+            "link": "https://www.tile-assn.com/members/?id=31992715",
+            "video": false
+          }
+        },
+        "logo_3nnTwK": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/judge.me_reviews_1.png",
+            "link": "https://thermosoftonline.myshopify.com/pages/all-reviews",
+            "video": false
+          }
+        },
+        "logo_zdfRNL": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/brand-9.svg",
+            "link": "https://player.vimeo.com/external/403347212.sd.mp4?s=ec5a7024023773d966d68f21fcba2c0d9b78a747&profile_id=165",
+            "video": true
+          }
+        }
+      },
+      "block_order": [
+        "logo_gKmLLK",
+        "logo_nYyCjj",
+        "logo_yiqXiB",
+        "logo_7AEFFK",
+        "logo_tHri4p",
+        "logo_kYaJUe",
+        "logo_tgyPPL",
+        "logo_3nnTwK",
+        "logo_zdfRNL"
+      ],
+      "name": "Logo list",
+      "settings": {
+        "heading": "",
+        "marker_style": "style1",
+        "description": "",
+        "columns": 9,
+        "mobile_swipe": true,
+        "center_align": true,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 24,
+        "desktop_spacing_bottom": 24,
+        "mobile_spacing_top": 15,
+        "mobile_spacing_bottom": 15,
+        "color_logo_bg": "rgba(0,0,0,0)",
+        "marker_color": "#fd6262"
+      }
+    },
+    "support_contact_form_hLEGTF": {
+      "type": "support-contact-form",
+      "blocks": {
+        "dropdown_field_N7HL6U": {
+          "type": "dropdown_field",
+          "settings": {
+            "title": "I am interested in heating...",
+            "values": "value 1, value 2, value 3"
+          }
+        },
+        "text_field_xejEUP": {
+          "type": "text_field",
+          "settings": {
+            "title": "Project Description",
+            "use_long_text": true,
+            "is_required": false
+          }
+        }
+      },
+      "block_order": [
+        "dropdown_field_N7HL6U",
+        "text_field_xejEUP"
+      ],
+      "name": "Support contact form",
+      "settings": {
+        "company": true,
+        "zip": true,
+        "plan": false,
+        "input_req": false,
+        "heading": "Need Help or Have Questions? Call, Chat or Contact Us",
+        "marker_style": "style1",
+        "description": "<p>To speak with one of our qualified experts, simply fill out form or call us now.</p>",
+        "contact": "<a href=\"tel:800.308.8057\" title=\"tel:800.308.8057\">800.308.8057</a>",
+        "chat": "",
+        "show_phone_number": true,
+        "marker_color": "#fd6262",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 20,
+        "desktop_spacing_bottom": 60,
+        "mobile_spacing_top": 20,
+        "mobile_spacing_bottom": 30
+      }
+    },
+    "meta_image_with_text_overlay_AHQVVx": {
+      "type": "meta-image-with-text-overlay",
+      "name": "Meta Image with text",
+      "settings": {
+        "image": "shopify://shop_images/fiberthermics-img-desktop_1.jpg",
+        "mobile_image": "shopify://shop_images/Fiberthermics_1.png",
+        "image_parallax": false,
+        "desktop_height": "desktop-height-650",
+        "mobile_height": "mobile-height-600",
+        "full_width": true,
+        "content_width": "small",
+        "content_position": "middle-left",
+        "text_alignment": "left",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true
+      }
+    },
+    "meta_scrolling_content_pkQGaK": {
+      "type": "meta-scrolling-content",
+      "name": "Meta Scrolling content",
+      "settings": {
+        "desktop_layout": "text_first",
+        "mobile_swipe": true,
+        "dots": true,
+        "color_bg": "rgba(0,0,0,0)",
+        "color_heading": "#252626",
+        "color_text": "#252626",
+        "color_links": "#252626",
+        "content_collapsed": true,
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false
+      }
+    },
+    "meta_collapsible_content_LLjXLh": {
+      "type": "meta-collapsible-content",
+      "name": "Meta Collapsible content",
+      "settings": {
+        "heading": "Collapsible content",
+        "marker_style": "style1",
+        "description": "<p>Add a short description for this section</p>",
+        "color_bg": "#ffffff",
+        "color_heading": "#252626",
+        "marker_color": "#fd6262",
+        "color_text": "#252626",
+        "color_links": "#2c2d2e",
+        "color_border": "#d0ccc0",
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": false
+      }
+    },
+    "meta_testimonials_h96Ece": {
+      "type": "meta-testimonials",
+      "blocks": {
+        "quote_EJ3AHF": {
+          "type": "quote",
+          "settings": {
+            "stars": "",
+            "text": "Add your customer or client quote here to showcase them.",
+            "author": "Testimonial author"
+          }
+        },
+        "quote_yqVBzN": {
+          "type": "quote",
+          "settings": {
+            "stars": "",
+            "text": "Add your customer or client quote here to showcase them.",
+            "author": "Testimonial author"
+          }
+        },
+        "quote_PHNQKh": {
+          "type": "quote",
+          "settings": {
+            "stars": "",
+            "text": "Add your customer or client quote here to showcase them.",
+            "author": "Testimonial author"
+          }
+        }
+      },
+      "block_order": [
+        "quote_EJ3AHF",
+        "quote_yqVBzN",
+        "quote_PHNQKh"
+      ],
+      "name": "Meta Testimonials",
+      "settings": {
+        "heading": "",
+        "full_width": true,
+        "text_size": "large",
+        "font_family": "heading",
+        "pagination": "dots",
+        "autoplay": true,
+        "autoplay_length": 5,
+        "color_bg": "#f1eee4",
+        "color_text": "#252626",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 30,
+        "mobile_spacing_bottom": 30
+      }
+    },
+    "custom_icon_text_columns_nqPE7g": {
+      "type": "custom-icon-text-columns",
+      "blocks": {
+        "column_PQ9wXG": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Real_People.svg",
+            "title": "Real People, Real Support",
+            "text": "<p>Behind every system is a US-Based team that listens, solves, and supports—because great products deserve even better service backed by the highest level of quality control possible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_d9TFbT": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Our_Mission.svg",
+            "title": "Our Mission is Your Comfort",
+            "text": "<p>We’re here to make your home feel amazing. Every system we build is designed to deliver joy, warmth, and lasting satisfaction while also offering an unsurpassed best-in-class safety record.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_nLxULD": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Unmatched_Value.svg",
+            "title": "Unmatched Value, USA Based Manufacturer",
+            "text": "<p>Using only premium materials, patented technology, and superior engineering—all at a price that makes luxury heating and accessible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_YmCgDp": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Innovation.svg",
+            "title": "Innovation You Can Trust",
+            "text": "<p>We don’t follow trends—we set them. With proprietary tech like FiberThermics®, our systems have been installed and delivering reliable electric radiant heat to homeowners for 30 years.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bDWpXY": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Designed_Around_You.svg",
+            "title": "Designed Around You",
+            "text": "<p>We listen first to your needs, then guide. Whether it’s a single room or a full-home project, we tailor solutions to your needs and budgets.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bcnVXW": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Integrity.svg",
+            "title": "Integrity in Every Detail",
+            "text": "<p>We’ve earned our reputation by keeping promises. From product quality to customer care, we stand behind everything we do.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_PQ9wXG",
+        "column_d9TFbT",
+        "column_nLxULD",
+        "column_YmCgDp",
+        "column_bDWpXY",
+        "column_bcnVXW"
+      ],
+      "name": "Custom icon text columns",
+      "settings": {
+        "subtitle": "Thermosoft",
+        "heading": "Cozy, Affordable and Reliable Electric Radiant Heating—|Inside and Out|",
+        "marker_style": "style5",
+        "description": "<p>At ThermoSoft, electric radiant heating is about more than just warmth—it’s about comfort, safety, and peace of mind throughout your home. Indoors, our systems integrate seamlessly wherever you need them—bathrooms, kitchens, basements, or your entire living space. Outdoors, we empower you to be fully in control, keeping driveways and walkways clear, roofs and gutters snow and ice-free, and exposed pipes protected. Across every corner of your property, ThermoSoft’s electric radiant heating delivers consistent, energy-efficient performance—right where it matters most.<br/><br/>For over 30 years, homeowners have trusted ThermoSoft for safe, dependable indoor and outdoor heating solutions. With patented technologies like FiberThermics®, our systems offer unmatched performance, proven durability, minimal EMF emissions, and fast, even heat distribution on demand.<br/><br/>As a US based manufacturer proudly based in Vernon Hills, Illinois, our systems ensure faster heat delivery, easier maintenance, and long-term reliability. From floor heating under any floor type— including tile, laminate, vinyl, and wood—to deicing and snow-melting systems for concrete, asphalt, and pavers, as well as roof, gutter, and water pipe protection solutions, we provide systems that are built to last and backed by expert support.<br/><br/>Join the millions of homeowners who trust ThermoSoft to bring warmth to every step, inside and out.</p>",
+        "heading_size": "body-large",
+        "color_heading": "#1a1c1d",
+        "marker_color": "#7f766e",
+        "color_text": "#896f57",
+        "color_links": "#2c2d2e",
+        "image_bg": "#eeeade",
+        "image_inner_bg": "#ffffff",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 50,
+        "mobile_spacing_bottom": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "meta_slideshow_countdown_bcCVDq",
+    "meta_custom_description_G6QCnT",
+    "new_choose_your_heating_system_dH4aKf",
+    "rich_text_VEpBqm",
+    "choose_your_heating_system_Uzpbdh",
+    "meta_room_grid_ahncxE",
+    "meta_background_video_CRQEzL",
+    "logo_list_XJWzTC",
+    "support_contact_form_hLEGTF",
+    "meta_image_with_text_overlay_AHQVVx",
+    "meta_scrolling_content_pkQGaK",
+    "meta_collapsible_content_LLjXLh",
+    "meta_testimonials_h96Ece",
+    "custom_icon_text_columns_nqPE7g"
+  ]
+}

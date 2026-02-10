@@ -1,0 +1,745 @@
+{{- 'tabbed-content.css' | asset_url | stylesheet_tag -}}
+<script src="{{ 'tabbed-content.js' | asset_url }}" defer="defer"></script>
+{%- liquid
+    assign tab_alignment = section.settings.tab_alignment
+	assign text_alignment = section.settings.text_alignment
+
+	assign show_phone_number = section.settings.show_phone_number
+
+	assign marker_color = section.settings.marker_color
+    assign color_text = section.settings.color_text
+	assign color_tabs = section.settings.color_tabs
+
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+-%}
+{{- 'contact-form.css' | asset_url | stylesheet_tag -}}
+<div class="contact-form section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}" style="--color-body: {{ color_text }}; --color-tabs: {{ color_tabs.rgb | replace: ' ' , ',' }};">
+	<div class="row align-center">
+		<div class="small-12 columns contact-form--form-column">
+
+            <tabbed-content class="tabbed-content tabs-{{ tab_alignment }}" selected-index="0">
+				<div class="tabbed-content--scroll">
+					<div class="tabbed-content--tabs tabs-{{ tab_alignment }}">
+						{%- for block in section.blocks -%}
+						    <button class="{% if forloop.index == 1 %} active{%- endif -%}" {{ block.shopify_attributes }}>
+                                <b class="left">
+                                    <svg width="100%" height="100%" viewBox="0 0 18 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="white"></path>
+                                    </svg>
+                                </b>
+                                {{ block.settings.tab_label }}
+                                <b class="right">
+                                    <svg width="18" height="36" viewBox="0 0 18 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="white"/>
+                                    </svg>
+                                </b>
+                            </button>
+						{%- endfor -%}
+					</div>
+				</div>
+				{%- for block in section.blocks -%}
+                    {%- liquid
+                        assign section_heading = block.settings.tab_label | append: ' - contact form'
+                        assign marker_style = block.settings.marker_style
+                        assign section_description = block.settings.description
+                    -%} 
+					<div class="tabbed-content--content text-{{ text_alignment }}{% if forloop.index == 1 %} active{%- endif -%}" style="--columns: {{ block.settings.text_columns }};">
+						{% render 'section-header', section_heading: section_heading, section_description: section_description, marker_color: marker_color, marker_style: marker_style %}
+                        
+                        {%- case block.type -%}
+                            {%- when 'sales_form' -%}
+                                {% form 'contact', class: form_class %}
+                                    {% if form.posted_successfully? %}
+                                        <div class="form-notification success">
+                                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                                        </div>
+                                        {%- elsif form.errors %}
+                                        <div class="form-notification error">
+                                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="row no-padding">
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormName-{{ block.id }}" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                                                <label for="ContactFormName-{{ block.id }}">{{ 'sections.contact.form.name' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        {%- if show_phone_number -%}
+                                            <div class="small-12 medium-12 columns">
+                                                <div class="field">
+                                                    <input type="tel" id="ContactFormPhone-{{ block.id }}" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                                                    <label for="ContactFormPhone-{{ block.id }}">{{ 'sections.contact.form.phone' | t }}*</label>
+                                                </div>
+                                            </div>
+                                        {%- endif -%}
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input
+                                                    type="email"
+                                                    id="ContactFormEmail-{{ block.id }}"
+                                                    name="contact[email]"
+                                                    class="full"
+                                                    placeholder="{{ 'sections.contact.form.email' | t | escape }}"
+                                                    pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$"
+                                                    required>
+                                                <label for="ContactFormEmail-{{ block.id }}">{{ 'sections.contact.form.email' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormCompany-{{ block.id }}" name="contact[company]" class="full" placeholder="{{ 'sections.contact.form.company' | t | escape }}">
+                                                <label for="ContactFormCompany-{{ block.id }}">{{ 'sections.contact.form.company' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field date">
+                                                <input type="date" id="ContactFormPlannedInstallation-{{ block.id }}" name="contact[Planned Installation]" class="full" placeholder="Planned Installation">
+                                                <label for="ContactFormPlannedInstallation-{{ block.id }}">Planned Installation</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormPlannedPostal-{{ block.id }}" name="contact[Postal]" class="full" placeholder="Installation ZIP/Postal">
+                                                <label for="ContactFormPlannedPostal-{{ block.id }}">Installation ZIP/Postal</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 columns">
+                                            <div class="field select">
+                                                <select id="ContactFormProjectType-{{ block.id }}" class="full" name="contact[Project Type]" title="Project Type">
+                                                    <option value="" disabled="" selected="">Project Type</option>
+                                                    <option value="indoor">Indoor</option>
+                                                    <option value="outdoor">Outdoor</option>
+                                                    <option value="indoor/outdoor">Indoor & Outdoor</option>
+                                                </select>
+                                                <label for="ContactFormProjectType-{{ block.id }}">Project Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <textarea rows="10" id="ContactFormMessage-{{ block.id }}" name="contact[body]" class="full" placeholder="{{ 'sections.contact.form.comment' | t | escape }}"></textarea>
+                                                <label for="ContactFormMessage-{{ block.id }}">{{ 'sections.contact.form.comment' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <button type="submit" class="button full"><span>{{ 'sections.contact.form.send' | t }}</span></button>
+                                        </div>
+                                    </div>
+                                {% endform %}
+                            {%- when 'project_planning_form' -%}
+                                {% form 'contact', class: form_class %}
+                                    {% if form.posted_successfully? %}
+                                        <div class="form-notification success">
+                                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                                        </div>
+                                        {%- elsif form.errors %}
+                                        <div class="form-notification error">
+                                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="row no-padding">
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormName-{{ block.id }}" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                                                <label for="ContactFormName-{{ block.id }}">{{ 'sections.contact.form.name' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        {%- if show_phone_number -%}
+                                            <div class="small-12 medium-12 columns">
+                                                <div class="field">
+                                                    <input type="tel" id="ContactFormPhone-{{ block.id }}" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                                                    <label for="ContactFormPhone-{{ block.id }}">{{ 'sections.contact.form.phone' | t }}*</label>
+                                                </div>
+                                            </div>
+                                        {%- endif -%}
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input
+                                                    type="email"
+                                                    id="ContactFormEmail-{{ block.id }}"
+                                                    name="contact[email]"
+                                                    class="full"
+                                                    placeholder="{{ 'sections.contact.form.email' | t | escape }}"
+                                                    pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$"
+                                                    required>
+                                                <label for="ContactFormEmail-{{ block.id }}">{{ 'sections.contact.form.email' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormCompany-{{ block.id }}" name="contact[company]" class="full" placeholder="{{ 'sections.contact.form.company' | t | escape }}">
+                                                <label for="ContactFormCompany-{{ block.id }}">{{ 'sections.contact.form.company' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field date">
+                                                <input type="date" id="ContactFormPlannedInstallation-{{ block.id }}" name="contact[Planned Installation]" class="full" placeholder="Planned Installation">
+                                                <label for="ContactFormPlannedInstallation-{{ block.id }}">Planned Installation</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormPlannedPostal-{{ block.id }}" name="contact[Postal]" class="full" placeholder="Installation ZIP/Postal">
+                                                <label for="ContactFormPlannedPostal-{{ block.id }}">Installation ZIP/Postal</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 columns">
+                                            <div class="field select">
+                                                <select id="ContactFormProjectType-{{ block.id }}" class="full" name="contact[Project Type]" title="Project Type">
+                                                    <option value="" disabled="" selected="">Project Type</option>
+                                                    <option value="indoor">Indoor</option>
+                                                    <option value="outdoor">Outdoor</option>
+                                                    <option value="indoor/outdoor">Indoor & Outdoor</option>
+                                                </select>
+                                                <label for="ContactFormProjectType-{{ block.id }}">Project Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <textarea rows="10" id="ContactFormMessage-{{ block.id }}" name="contact[body]" class="full" placeholder="{{ 'sections.contact.form.comment' | t | escape }}"></textarea>
+                                                <label for="ContactFormMessage-{{ block.id }}">{{ 'sections.contact.form.comment' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <button type="submit" class="button full"><span>{{ 'sections.contact.form.send' | t }}</span></button>
+                                        </div>
+                                    </div>
+                                {% endform %}
+							{%- when 'support_form' -%}
+                                {% form 'contact', class: form_class %}
+                                    {% if form.posted_successfully? %}
+                                        <div class="form-notification success">
+                                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                                        </div>
+                                        {%- elsif form.errors %}
+                                        <div class="form-notification error">
+                                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="row no-padding text-left">
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormName-{{ block.id }}" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                                                <label for="ContactFormName-{{ block.id }}">{{ 'sections.contact.form.name' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        {%- if show_phone_number -%}
+                                            <div class="small-12 medium-12 columns">
+                                                <div class="field">
+                                                    <input type="tel" id="ContactFormPhone-{{ block.id }}" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                                                    <label for="ContactFormPhone-{{ block.id }}">{{ 'sections.contact.form.phone' | t }}*</label>
+                                                </div>
+                                            </div>
+                                        {%- endif -%}
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input
+                                                    type="email"
+                                                    id="ContactFormEmail-{{ block.id }}"
+                                                    name="contact[email]"
+                                                    class="full"
+                                                    placeholder="{{ 'sections.contact.form.email' | t | escape }}"
+                                                    pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$"
+                                                    required>
+                                                <label for="ContactFormEmail-{{ block.id }}">{{ 'sections.contact.form.email' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field__radio">
+                                                <div class="form__label" for="{{ block.id }}">I already have the system:</div>
+                                                <label class="label">
+                                                    <input type="radio"  name="contact[I already have the system]" value="Yes" checked>
+                                                    <span class="label__text-beside-input">Yes</span>
+                                                </label>
+                                                <label class="label">
+                                                    <input type="radio"  name="contact[I already have the system]" value="No">
+                                                    <span class="label__text-beside-input">No</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormOrderId-{{ block.id }}" name="contact[order_id]" class="full" placeholder="Order Number">
+                                                <label for="ContactFormOrderId-{{ block.id }}">Order Number</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 columns">
+                                            <div class="field select">
+                                                <select id="ContactFormProblemType-{{ block.id }}" class="full" name="contact[problem_type]" title="Problem Type">
+                                                    <option value="" disabled="" selected="">Problem Type</option>
+                                                    <option value="install_questions">Installation Questions</option>
+                                                    <option value="error_codes">Error Codes</option>
+                                                    <option value="damaged_system">Damaged Systems</option>
+                                                    <option value="other_issues">other_issues</option>
+                                                </select>
+                                                <label for="ContactFormProblemType-{{ block.id }}">Problem Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <textarea rows="10" id="ContactFormMessage-{{ block.id }}" name="contact[body]" class="full" placeholder="{{ 'sections.contact.form.comment' | t | escape }}"></textarea>
+                                                <label for="ContactFormMessage-{{ block.id }}">{{ 'sections.contact.form.comment' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <button type="submit" class="button full"><span>{{ 'sections.contact.form.send' | t }}</span></button>
+                                        </div>
+                                    </div>
+                                {% endform %}
+                            {%- when 'billing_form' -%}
+                                {% form 'contact', class: form_class %}
+                                    {% if form.posted_successfully? %}
+                                        <div class="form-notification success">
+                                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                                        </div>
+                                        {%- elsif form.errors %}
+                                        <div class="form-notification error">
+                                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="row no-padding">
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormName-{{ block.id }}" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                                                <label for="ContactFormName-{{ block.id }}">{{ 'sections.contact.form.name' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        {%- if show_phone_number -%}
+                                            <div class="small-12 medium-12 columns">
+                                                <div class="field">
+                                                    <input type="tel" id="ContactFormPhone-{{ block.id }}" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                                                    <label for="ContactFormPhone-{{ block.id }}">{{ 'sections.contact.form.phone' | t }}*</label>
+                                                </div>
+                                            </div>
+                                        {%- endif -%}
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input
+                                                    type="email"
+                                                    id="ContactFormEmail-{{ block.id }}"
+                                                    name="contact[email]"
+                                                    class="full"
+                                                    placeholder="{{ 'sections.contact.form.email' | t | escape }}"
+                                                    pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$"
+                                                    required>
+                                                <label for="ContactFormEmail-{{ block.id }}">{{ 'sections.contact.form.email' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <textarea rows="10" id="ContactFormMessage-{{ block.id }}" name="contact[body]" class="full" placeholder="{{ 'sections.contact.form.comment' | t | escape }}"></textarea>
+                                                <label for="ContactFormMessage-{{ block.id }}">{{ 'sections.contact.form.comment' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <button type="submit" class="button full"><span>{{ 'sections.contact.form.send' | t }}</span></button>
+                                        </div>
+                                    </div>
+                                {% endform %}
+                            {%- when 'solutions_form' -%}
+                                {% form 'contact', class: form_class %}
+                                    {% if form.posted_successfully? %}
+                                        <div class="form-notification success">
+                                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                                        </div>
+                                        {%- elsif form.errors %}
+                                        <div class="form-notification error">
+                                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="row no-padding">
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormName-{{ block.id }}" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                                                <label for="ContactFormName-{{ block.id }}">{{ 'sections.contact.form.name' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        {%- if show_phone_number -%}
+                                            <div class="small-12 medium-12 columns">
+                                                <div class="field">
+                                                    <input type="tel" id="ContactFormPhone-{{ block.id }}" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                                                    <label for="ContactFormPhone-{{ block.id }}">{{ 'sections.contact.form.phone' | t }}*</label>
+                                                </div>
+                                            </div>
+                                        {%- endif -%}
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input
+                                                    type="email"
+                                                    id="ContactFormEmail-{{ block.id }}"
+                                                    name="contact[email]"
+                                                    class="full"
+                                                    placeholder="{{ 'sections.contact.form.email' | t | escape }}"
+                                                    pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$"
+                                                    required>
+                                                <label for="ContactFormEmail-{{ block.id }}">{{ 'sections.contact.form.email' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormCompany-{{ block.id }}" name="contact[company]" class="full" placeholder="{{ 'sections.contact.form.company' | t | escape }}">
+                                                <label for="ContactFormCompany-{{ block.id }}">{{ 'sections.contact.form.company' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <textarea rows="10" id="ContactFormMessage-{{ block.id }}" name="contact[body]" class="full" placeholder="{{ 'sections.contact.form.comment' | t | escape }}"></textarea>
+                                                <label for="ContactFormMessage-{{ block.id }}">{{ 'sections.contact.form.comment' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <button type="submit" class="button full"><span>{{ 'sections.contact.form.send' | t }}</span></button>
+                                        </div>
+                                    </div>
+                                {% endform %}
+                            {%- when 'special_pricing_form' -%}
+                                {% form 'contact', class: form_class %}
+                                    {% if form.posted_successfully? %}
+                                        <div class="form-notification success">
+                                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                                        </div>
+                                        {%- elsif form.errors %}
+                                        <div class="form-notification error">
+                                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="row no-padding">
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormName-{{ block.id }}" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                                                <label for="ContactFormName-{{ block.id }}">{{ 'sections.contact.form.name' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        {%- if show_phone_number -%}
+                                            <div class="small-12 medium-12 columns">
+                                                <div class="field">
+                                                    <input type="tel" id="ContactFormPhone-{{ block.id }}" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                                                    <label for="ContactFormPhone-{{ block.id }}">{{ 'sections.contact.form.phone' | t }}*</label>
+                                                </div>
+                                            </div>
+                                        {%- endif -%}
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input
+                                                    type="email"
+                                                    id="ContactFormEmail-{{ block.id }}"
+                                                    name="contact[email]"
+                                                    class="full"
+                                                    placeholder="{{ 'sections.contact.form.email' | t | escape }}"
+                                                    pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$"
+                                                    required>
+                                                <label for="ContactFormEmail-{{ block.id }}">{{ 'sections.contact.form.email' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <textarea rows="10" id="ContactFormMessage-{{ block.id }}" name="contact[body]" class="full" placeholder="{{ 'sections.contact.form.comment' | t | escape }}"></textarea>
+                                                <label for="ContactFormMessage-{{ block.id }}">{{ 'sections.contact.form.comment' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <button type="submit" class="button full"><span>{{ 'sections.contact.form.send' | t }}</span></button>
+                                        </div>
+                                    </div>
+                                {% endform %}
+                            {%- when 'other_form' -%}
+                                {% form 'contact', class: form_class %}
+                                    {% if form.posted_successfully? %}
+                                        <div class="form-notification success">
+                                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                                        </div>
+                                        {%- elsif form.errors %}
+                                        <div class="form-notification error">
+                                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="row no-padding">
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input type="text" id="ContactFormName-{{ block.id }}" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                                                <label for="ContactFormName-{{ block.id }}">{{ 'sections.contact.form.name' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        {%- if show_phone_number -%}
+                                            <div class="small-12 medium-12 columns">
+                                                <div class="field">
+                                                    <input type="tel" id="ContactFormPhone-{{ block.id }}" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                                                    <label for="ContactFormPhone-{{ block.id }}">{{ 'sections.contact.form.phone' | t }}*</label>
+                                                </div>
+                                            </div>
+                                        {%- endif -%}
+                                        <div class="small-12 columns">
+                                            <div class="field">
+                                                <input
+                                                    type="email"
+                                                    id="ContactFormEmail-{{ block.id }}"
+                                                    name="contact[email]"
+                                                    class="full"
+                                                    placeholder="{{ 'sections.contact.form.email' | t | escape }}"
+                                                    pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$"
+                                                    required>
+                                                <label for="ContactFormEmail-{{ block.id }}">{{ 'sections.contact.form.email' | t }}*</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <div class="field">
+                                                <textarea rows="10" id="ContactFormMessage-{{ block.id }}" name="contact[body]" class="full" placeholder="{{ 'sections.contact.form.comment' | t | escape }}"></textarea>
+                                                <label for="ContactFormMessage-{{ block.id }}">{{ 'sections.contact.form.comment' | t }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 medium-12 columns">
+                                            <button type="submit" class="button full"><span>{{ 'sections.contact.form.send' | t }}</span></button>
+                                        </div>
+                                    </div>
+                                {% endform %}
+                        {%- endcase -%}
+					</div>
+				{%- endfor -%}
+			</tabbed-content>
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+    "name": "Custom contact form",
+  	"class": "section-custom-contact-form",
+    "settings": [
+        
+        {
+            "type": "select",
+            "id": "tab_alignment",
+            "label": "Tab alignment",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ],
+            "default": "left"
+        },
+        {
+            "type": "select",
+            "id": "text_alignment",
+            "label": "Content alignment",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ],
+            "default": "left"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_phone_number",
+            "default": true,
+            "label": "Show phone number"
+        },
+        {
+            "type": "header",
+            "content": "Colors"
+        },
+        {
+            "type": "color",
+            "id": "color_tabs",
+            "label": "Tabs",
+            "default": "#2c2d2e"
+        },
+                {
+            "type": "color",
+            "id": "color_text",
+            "label": "Text",
+            "default": "#2c2d2e"
+        },
+        {
+            "type": "header",
+            "content": "Spacing"
+        },
+        {
+            "type": "checkbox",
+            "id": "disable_top_spacing",
+            "default": false,
+            "label": "Remove top spacing"
+        },
+        {
+            "type": "checkbox",
+            "id": "disable_bottom_spacing",
+            "default": false,
+            "label": "Remove bottom spacing"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "sales_form",
+            "name": "Sales Form",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "tab_label",
+                    "default": "Contact form",
+                    "label": "Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Add a short description for this section</p>"
+                }
+            ]
+        },
+        {
+            "type": "project_planning_form",
+            "name": "Project Planning Form",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "tab_label",
+                    "default": "Contact form",
+                    "label": "Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Add a short description for this section</p>"
+                }
+            ]
+        },
+        {
+            "type": "support_form",
+            "name": "Support Form",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "tab_label",
+                    "default": "Contact form",
+                    "label": "Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Add a short description for this section</p>"
+                }
+            ]
+        },
+        {
+            "type": "billing_form",
+            "name": "Billing Form",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "tab_label",
+                    "default": "Contact form",
+                    "label": "Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Add a short description for this section</p>"
+                }
+            ]
+        },
+        {
+            "type": "solutions_form",
+            "name": "Solutions Form",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "tab_label",
+                    "default": "Contact form",
+                    "label": "Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Add a short description for this section</p>"
+                }
+            ]
+        },
+        {
+            "type": "special_pricing_form",
+            "name": "Special Pricing Form",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "tab_label",
+                    "default": "Contact form",
+                    "label": "Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Add a short description for this section</p>"
+                }
+            ]
+        },
+        {
+            "type": "other_form",
+            "name": "Other Form",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "tab_label",
+                    "default": "Contact form",
+                    "label": "Label"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "default": "<p>Add a short description for this section</p>"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Custom contact form",
+            "blocks": [
+                {
+                    "type": "sales_form"
+                },
+                {
+                    "type": "other_form"
+                }
+            ]
+        }
+    ],
+    "enabled_on": {
+        "templates": ["*"],
+        "groups": [
+            "header", "footer"
+        ]
+    }
+}
+{% endschema %}

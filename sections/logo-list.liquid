@@ -1,0 +1,385 @@
+{{- 'logo-list.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+	assign section_heading = section.settings.heading
+	assign marker_style = section.settings.marker_style
+	assign section_description = section.settings.description
+	assign center_align = section.settings.center_align
+	assign mobile_swipe = section.settings.mobile_swipe
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+	assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+	assign mobile_spacing_top = section.settings.mobile_spacing_top
+	assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+
+	assign marker_color = section.settings.marker_color
+	assign color_logo_bg = section.settings.color_logo_bg | downcase
+	assign color_body_bg = settings.color_body_bg | downcase
+
+	assign has_bg = true
+	if color_body_bg == color_logo_bg or color_logo_bg == 'transparent' or color_logo_bg == 'rgba(0,0,0,0)'
+		assign has_bg = false
+	endif
+-%}
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+  --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+  --section-spacing-desktop-top: {{ desktop_spacing_top | default: '34' | append: 'px' }};
+  --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '34' | append: 'px' }};
+}
+{% endstyle %}
+
+<div class="logo-list logo-list--centered-{{ center_align }} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+	{% render 'section-header', section_heading: section_heading, section_description: section_description, marker_color: marker_color, marker_style: marker_style %}
+	<div class="logo-list--inner{% if mobile_swipe %} swipe-on-mobile{% endif %}" style="--logo-columns: {{ section.settings.columns }}; --logo-bg: {{ color_logo_bg }};">
+		{% for block in section.blocks %}
+		{% if block.settings.video %}	
+			<modal-opener class="logo-list--logo {% if has_bg -%}logo-list--logo--has-bg{% endif %}" data-modal="#ProductPopup-logo-video" data-video-url="{{ block.settings.link | escape }}">
+				<button class="" type="button" aria-haspopup="dialog">
+					{% if block.settings.image %}
+							{% assign image = block.settings.image %}
+								{% assign master_width = '100x60' %}
+								{%- render 'responsive-image', image: image, sizes: master_width -%}
+							{% else %}
+								<div class="thb-placeholder">
+									{{ 'image' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+								</div>
+					{% endif %}
+				</button>
+			</modal-opener> 
+			 <modal-dialog id="ProductPopup-logo-video" class="product-popup-modal logo-list-video">
+				<div role="dialog" aria-label="{{ block.settings.title }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+					<button id="ModalClose-desktop-{{ block.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+					<scroll-shadow>
+					<div class="product-popup-modal__content-info">										
+						<div class="talk-us">
+						<div class="talk-contact-full">
+							<div class="talk-contact-form" id="talkPopup">
+							<div class="align-center">
+								<div class="small-12 contact-form--form-column">
+									<iframe
+										data-video
+										src=""
+										frameborder="0"
+										class="lazyload"
+										allow="autoplay; encrypted-media"
+										allowfullscreen>
+										</iframe>
+								</div>
+							</div>
+							</div>
+						</div>
+						</div>
+					</div>
+					</scroll-shadow>
+				</div>
+				</modal-dialog>   
+		{% else %}
+			<a target="_blank" class="logo-list--logo {% if has_bg -%}logo-list--logo--has-bg{% endif %}" {% if block.settings.link %}href="{{ block.settings.link | escape }}" {% else %}aria-disabled{% endif %} {{ block.shopify_attributes }}>
+				{% if block.settings.image %}
+						{% assign image = block.settings.image %}
+							{% assign master_width = '100x60' %}
+							{%- render 'responsive-image', image: image, sizes: master_width -%}
+						{% else %}
+							<div class="thb-placeholder">
+								{{ 'image' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+							</div>
+				{% endif %}
+			</a>
+		{% endif %}	
+	  {% endfor %}
+	</div>
+</div>
+ <script src="{{ 'modal-dialog.js' | asset_url }}" defer="defer"></script>
+ <script>
+	document.addEventListener("click", function (e) {
+		const opener = e.target.closest("modal-opener[data-video-url]");
+		if (!opener) return;
+
+		const modal = document.querySelector(opener.dataset.modal);
+		if (!modal) return;
+
+		const iframe = modal.querySelector("iframe[data-video]");
+		if (!iframe) return;
+
+		const url = opener.dataset.videoUrl;
+		if (!url) return;
+
+		iframe.src = url + "?autoplay=1&mute=1";
+	});
+
+	
+	function stopPopupVideo(modal) {
+		if (!modal) return;
+
+		const iframe = modal.querySelector("iframe");
+		if (!iframe) return;
+
+		// store original src once
+		if (!iframe.dataset.src) {
+			iframe.dataset.src = iframe.src;
+		}
+
+		// stop & reset video
+		iframe.src = "";
+		setTimeout(() => {
+			iframe.src = iframe.dataset.src;
+		}, 50);
+		}
+
+		document.addEventListener("click", function (e) {
+
+		// ❌ Close button
+		const closeBtn = e.target.closest(".product-popup-modal__toggle");
+		if (closeBtn) {
+			const modal = closeBtn.closest(".product-popup-modal");
+			stopPopupVideo(modal);
+			return;
+		}
+
+		// 🖱️ Overlay / backdrop click
+		const modal = e.target.closest(".product-popup-modal");
+		if (
+			modal &&
+			e.target === modal // click directly on overlay
+		) {
+			stopPopupVideo(modal);
+		}
+		});
+
+		// ⌨️ ESC key support
+		document.addEventListener("keydown", function (e) {
+		if (e.key !== "Escape") return;
+
+		document
+			.querySelectorAll(".product-popup-modal[open]")
+			.forEach(modal => stopPopupVideo(modal));
+		});
+
+	{% comment %} document.addEventListener("DOMContentLoaded", function () {
+	const iframe = modal.querySelector("iframe.youtube-video");
+	const closeBtn = modal.querySelector(".product-popup-modal__toggle");
+	const modalContent = modal.querySelector(".product-popup-modal__content");
+	function stopVideo() {
+			const src = iframe.src;
+			iframe.src = "";
+			setTimeout(() => iframe.src = src, 100);
+    }
+	if (closeBtn) {
+		closeBtn.addEventListener("click", stopVideo);
+		}
+		modal.addEventListener("click", function (e) {
+		if (!modalContent.contains(e.target)) {
+			stopVideo();
+		}
+		});
+}); {% endcomment %}
+
+ </script>
+
+{% schema %}
+  {
+    "name": "Logo list",
+		"class": "section-logo-list",
+    "settings": [
+			{
+				"type": "text",
+				"id": "heading",
+				"label": "Heading",
+				"default": "Logo list",
+				"info": "Wrap your text between | to add animated markers. For example: Animated |marker| will underline marker text."
+			},
+			{
+				"type": "select",
+				"id": "marker_style",
+				"options": [
+					{
+						"value": "style1",
+						"label": "Basic"
+					},
+					{
+						"value": "style2",
+						"label": "Double"
+					},
+					{
+						"value": "style3",
+						"label": "Squiggle"
+					},
+					{
+						"value": "style4",
+						"label": "Zigzag"
+					}
+				],
+				"default": "style1",
+				"label": "Marker"
+			},
+			{
+				"type": "richtext",
+				"id": "description",
+				"label": "Description",
+				"default": "<p>Add a short description for this section</p>"
+			},
+			{
+        "type": "range",
+        "id": "columns",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "label": "Number of columns on desktop",
+        "default": 6
+      },
+			{
+				"type": "checkbox",
+				"id": "mobile_swipe",
+				"default": true,
+				"label": "Enable swipe on mobile"
+			},
+			{
+				"type": "checkbox",
+				"id": "center_align",
+				"label": "Center align logos",
+				"default": true
+			},
+			{
+				"type": "header",
+				"content": "Spacing"
+			},
+			{
+				"type": "checkbox",
+				"id": "disable_top_spacing",
+				"default": false,
+				"label": "Remove top spacing"
+			},
+			{
+				"type": "checkbox",
+				"id": "disable_bottom_spacing",
+				"default": false,
+				"label": "Remove bottom spacing"
+			},
+			{
+				"type": "header",
+				"content": "Desktop spacing"
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_top",
+				"min": 0,
+				"max": 100,
+				"step": 4,
+				"unit": "px",
+				"label": "Desktop spacing top",
+				"default": 32,
+				"info": "Changes the section top spacing in desktop screens."
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_bottom",
+				"min": 0,
+				"max": 100,
+				"step": 4,
+				"unit": "px",
+				"label": "Desktop spacing bottom",
+				"default": 32,
+				"info": "Changes the section bottom spacing in desktop screens."
+			},
+			{
+				"type": "header",
+				"content": "Mobile spacing"
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_top",
+				"min": 0,
+				"max": 50,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing top",
+				"default": 15,
+				"info": "Changes the section top spacing in mobile screens."
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_bottom",
+				"min": 0,
+				"max": 50,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing bottom",
+				"default": 15,
+				"info": "Changes the section bottom spacing in mobile screens."
+			},
+			{
+	      "type": "header",
+	      "content": "Colors"
+	    },
+			{
+        "type": "color",
+        "id": "color_logo_bg",
+        "label": "Logo background",
+        "default": "#ffffff"
+      },
+			{
+				"type": "color",
+				"id": "marker_color",
+				"label": "Marker",
+				"default": "#FD6262"
+			}
+    ],
+    "blocks": [
+      {
+        "type": "logo",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Logo",
+						"info": "240 x 100 px .png recommended."
+          },
+          {
+            "id": "link",
+            "type": "url",
+            "label": "Link",
+            "info": "Select an optional link."
+          },
+		  {
+			"type": "checkbox",
+			"id": "video",
+			"label": "video popup",
+			"default": false
+		  }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Logo list",
+				"blocks": [
+	        {
+	          "type": "logo"
+	        },
+	        {
+	          "type": "logo"
+	        },
+	        {
+	          "type": "logo"
+	        },
+	        {
+	          "type": "logo"
+	        },
+	        {
+	          "type": "logo"
+	        }
+	      ]
+      }
+    ],
+		"enabled_on": {
+			"templates": ["*"],
+			"groups": [
+				"header", "footer"
+			]
+		}
+  }
+{% endschema %}

@@ -1,0 +1,259 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "custom-main-page",
+      "settings": {
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true,
+        "desktop_spacing_top": 100,
+        "desktop_spacing_bottom": 100,
+        "mobile_spacing_top": 50,
+        "mobile_spacing_bottom": 50
+      }
+    },
+    "customer_reviews_testimonials_mHrQqw": {
+      "type": "customer-reviews-testimonials",
+      "blocks": {
+        "element_item_BY84wK": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_4.png",
+            "custom_video": "shopify://files/videos/Matt B, South Dakota.mp4",
+            "video": "https://youtu.be/-hcQ6Pht9eo?si=zFtPxIdjLUDgdrRz",
+            "duration": "2:03 min",
+            "title": "Matt B",
+            "loaction": "South Dakota"
+          }
+        },
+        "element_item_8jgrUM": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_5.png",
+            "custom_video": "shopify://files/videos/Damon and Amanda, Pennsylvania.mp4",
+            "video": "https://youtu.be/-hcQ6Pht9eo?si=zFtPxIdjLUDgdrRz",
+            "duration": "3:28 min",
+            "title": "Damon and Amanda",
+            "loaction": "Pennsylvania"
+          }
+        },
+        "element_item_tCfXBW": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_6.png",
+            "custom_video": "shopify://files/videos/Brad M, Indiana.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "8:46 min",
+            "title": "Brad M",
+            "loaction": "Indiana"
+          }
+        },
+        "element_item_qiXKF4": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_7_6db8aa4b-beac-4683-89d2-58d073ac57a9.png",
+            "custom_video": "shopify://files/videos/Chris K, New Jersey.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "2:15 min",
+            "title": "Chris K",
+            "loaction": "New Jersey"
+          }
+        },
+        "element_item_ydm3Pa": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_8_3d071f0e-a6e3-40f1-a989-14bf9ade387e.png",
+            "custom_video": "shopify://files/videos/David G, Virginia.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "4:28 min",
+            "title": "David G",
+            "loaction": "Virginia"
+          }
+        },
+        "element_item_fiA3jP": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_9.png",
+            "custom_video": "shopify://files/videos/Steve H, Illinois.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "5:09 min",
+            "title": "Steve H",
+            "loaction": "Illinois"
+          }
+        },
+        "element_item_CpYMBB": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_11.png",
+            "custom_video": "shopify://files/videos/Tim and Penny J, Minnesota.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "2:57 min",
+            "title": "Tim & Penny J",
+            "loaction": "Minnesota"
+          }
+        },
+        "element_item_Ktf8pp": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_12.png",
+            "custom_video": "shopify://files/videos/Gary B, Pennsylvania.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "2:57 min",
+            "title": "Gary B",
+            "loaction": "Pennsylvania"
+          }
+        },
+        "element_item_bhPBdU": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_13.png",
+            "custom_video": "shopify://files/videos/Tamra M.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "0:46 min",
+            "title": "Tamra M",
+            "loaction": "California"
+          }
+        },
+        "element_item_WpDNHL": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_14.png",
+            "custom_video": "shopify://files/videos/Weston A, Maine.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "3:05 min",
+            "title": "Weston A",
+            "loaction": "Maine"
+          }
+        },
+        "element_item_9z8GfE": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_15.png",
+            "custom_video": "shopify://files/videos/Yan B, Illinois.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "1:18 min",
+            "title": "Yan B",
+            "loaction": "Illinois"
+          }
+        },
+        "element_item_L8kPcN": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_16.png",
+            "custom_video": "shopify://files/videos/Michael H, Michigan.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "2:36 min",
+            "title": "Michael H",
+            "loaction": "Michigan"
+          }
+        },
+        "element_item_DcXxij": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_17.png",
+            "custom_video": "shopify://files/videos/David L, North Carolina.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "0:36 min",
+            "title": "David L",
+            "loaction": "North Carolina"
+          }
+        },
+        "element_item_xCNyQz": {
+          "type": "element-item",
+          "settings": {
+            "image": "shopify://shop_images/image_18.png",
+            "custom_video": "shopify://files/videos/Brian T, Ohio.mp4",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "duration": "0:51 min",
+            "title": "Brian T",
+            "loaction": "Ohio"
+          }
+        },
+        "element_btns_DM8xET": {
+          "type": "element-btns",
+          "settings": {
+            "btn-link": "shopify://pages/floor-heating-indoor-solution",
+            "btn-text": "Shop Indoor-Floor Heating"
+          }
+        },
+        "element_btns_cq8AEf": {
+          "type": "element-btns",
+          "settings": {
+            "btn-link": "shopify://pages/snow-melting-outdoor-solutions",
+            "btn-text": "Shop Outdoor-Snow Melting"
+          }
+        },
+        "element_btns_NPV6TG": {
+          "type": "element-btns",
+          "settings": {
+            "btn-link": "https://thermosoftonline.myshopify.com/collections",
+            "btn-text": "Shop All Products"
+          }
+        }
+      },
+      "block_order": [
+        "element_item_BY84wK",
+        "element_item_8jgrUM",
+        "element_item_tCfXBW",
+        "element_item_qiXKF4",
+        "element_item_ydm3Pa",
+        "element_item_fiA3jP",
+        "element_item_CpYMBB",
+        "element_item_Ktf8pp",
+        "element_item_bhPBdU",
+        "element_item_WpDNHL",
+        "element_item_9z8GfE",
+        "element_item_L8kPcN",
+        "element_item_DcXxij",
+        "element_item_xCNyQz",
+        "element_btns_DM8xET",
+        "element_btns_cq8AEf",
+        "element_btns_NPV6TG"
+      ],
+      "name": "Customer Reviews Testimonials",
+      "settings": {
+        "heading": "",
+        "marker_style": "style1",
+        "head-size": "h1",
+        "body-size": "body-large",
+        "columns_desktop": 4,
+        "columns_mobile": "1",
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 100,
+        "desktop_spacing_bottom": 65,
+        "mobile_spacing_top": 50,
+        "mobile_spacing_bottom": 50
+      }
+    },
+    "testimonial_blocks_jbGgq9": {
+      "type": "testimonial-blocks",
+      "name": "Customer Testimonials",
+      "settings": {
+        "color_bg": "#efebe2",
+        "color_heading": "#666767",
+        "color_text": "#252626",
+        "color_links": "#2c2d2e",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 50,
+        "desktop_spacing_bottom": 50,
+        "mobile_spacing_top": 50,
+        "mobile_spacing_bottom": 50
+      }
+    }
+  },
+  "order": [
+    "main",
+    "customer_reviews_testimonials_mHrQqw",
+    "testimonial_blocks_jbGgq9"
+  ]
+}

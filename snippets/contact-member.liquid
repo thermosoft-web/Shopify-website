@@ -1,0 +1,236 @@
+<div class="contact-member">
+  <div class="contact-member-content">
+    <modal-opener class="" data-modal="#ProductPopup-contact-member">
+      <button class="contact-member-button" type="button" aria-haspopup="dialog">
+        <div>{% render 'fab-icon' %}</div>
+        <div class="body-extra-small">I am not a member, but I have an urgent order</div>
+      </button>
+    </modal-opener>       
+    <modal-dialog id="ProductPopup-contact-member" class="product-popup-modal">
+      <div role="dialog" aria-label="{{ block.settings.title }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+        <button id="ModalClose-desktop-{{ block.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+        <scroll-shadow>
+          <div class="product-popup-modal__content-info">										
+            <div class="talk-us">
+              <div class="talk-contact-full">
+                <div class="talk-contact-form" id="talkPopup">
+                  <div class="form-header">
+                    <div class="small-12">
+                      <h3 class="h3">Need Help or Have Questions? Call, Chat or Contact Us</h3>
+                      <p class="body-small form-desc">To speak with one of our qualified experts, simply fill out form or call us now.</p>
+                      <p class="body-large form-call">
+                        <a href="tel:+1800.308.8057">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                                <rect x="0.9375" y="0.9375" width="26.125" height="26.125" rx="13.0625" stroke="#900000" stroke-width="1.875"/>
+                                <path d="M10.7256 7.44543C10.0645 6.89996 9.1135 6.99376 8.6416 7.64758V7.64856C8.49392 7.85215 8.33091 8.08721 8.0752 8.422L7.78613 8.79309C7.3018 9.40537 7.01078 10.145 6.94629 10.9181L6.93262 11.2521C6.93377 12.1443 7.23682 13.0097 7.79199 13.7081C8.71839 14.8576 9.68239 16.0067 10.7578 17.0822C11.8314 18.1558 12.9808 19.1197 14.1289 20.047C14.8272 20.6037 15.6939 20.9081 16.5869 20.9093C17.4797 20.9104 18.3472 20.6094 19.0469 20.0548H19.0459C19.6206 19.5955 19.9523 19.374 20.2305 19.172C20.8623 18.7128 20.9643 17.8042 20.4521 17.17V17.1691C19.8646 16.4402 19.1947 15.7481 18.5381 15.0548L18.5391 15.0538C18.394 14.9059 18.1973 14.8194 17.9902 14.8097C17.7815 14.7999 17.5768 14.8702 17.418 15.006C17.116 15.2635 16.8853 15.4509 16.3525 15.9513L16.1426 16.1476L15.8955 16.0011C14.0479 14.904 12.916 13.7587 11.8379 11.9454L11.6914 11.6974L11.8887 11.4884C12.3923 10.9523 12.5794 10.7212 12.8389 10.4161L12.8398 10.4142L12.9297 10.2892C13.0061 10.1559 13.0427 10.0023 13.0352 9.8468C13.0252 9.64096 12.9372 9.44696 12.7891 9.30383C12.1102 8.66945 11.432 8.02778 10.7256 7.44543Z" fill="#900000" stroke="#900000" stroke-width="0.764711"/>
+                                </svg>
+                          <span>800.308.8057</span>
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="align-center">
+                    <div class="small-12 contact-form--form-column">
+                      <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+
+                      <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D8c000002heT1" method="POST">
+
+                          <input type=hidden name="oid" value="00D8c000002heT1">
+                          <input type=hidden name="retURL" value="https://thermosoftonline.myshopify.com/pages/thank-you">
+
+                          <div class="row no-padding">
+                            <div class="small-12 columns">
+                                <div class="field">
+                                  <input class="full" id="first_name" maxlength="40" name="first_name" size="20" type="text" required /><label for="first_name">First Name</label>
+                                </div>
+                            </div> 
+                            <div class="small-12 columns">
+                              <div class="field">
+                                <input class="full" id="last_name" maxlength="80" name="last_name" size="20" type="text" /><label for="last_name">Last Name</label>
+                              </div>
+                            </div>   
+                            <div class="small-12 columns">
+                              <div class="field">
+                                <input class="full" id="email" maxlength="80" name="email" size="20" type="text" required /><label for="email">Email</label>
+                              </div>
+                            </div>
+                            <div class="small-12 columns">
+                              <div class="field">                
+                                {% comment %} placeholder="(555) 555-1234" {% endcomment %}
+                                <input class="full" id="phone" name="phone" type="tel" maxlength="40" required><label for="phone">Phone</label>
+                              </div>
+                            </div>
+                            <div class="small-12 columns">
+                              <div class="field">
+                                <input class="full" id="company" maxlength="40" name="company" size="20" type="text" /><label for="company">Company</label>
+                              </div>
+                            </div>
+                            <div class="small-12 columns">
+                              <div class="field">
+                                <input class="full" id="city" maxlength="40" name="city" size="20" type="text" /><label for="city">City</label>
+                              </div>
+                            </div>
+                            <div class="small-12 columns">
+                              <div class="field">
+                                <input class="full" id="state" maxlength="20" name="state" size="20" type="text" /><label for="state">State/Province</label>
+                              </div>
+                            </div>
+                            <div class="small-12 columns">
+                              <div class="field">
+                                <input class="full" id="zip" maxlength="20" name="zip" size="20" type="text" /><label for="zip">Zip</label>
+                              </div>
+                            </div>
+                            <div class="small-12 medium-12 columns">
+                              <input class="full" type="submit" name="submit">
+                            </div>
+                          </div>
+
+                      </form>
+                      {% comment %} {% form 'contact', class: form_class %}
+                        {% if form.posted_successfully? %}
+                          <div class="form-notification success">
+                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                          </div>
+                        {%- elsif form.errors %}
+                          <div class="form-notification error">
+                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                          </div>
+                        {% endif %}
+                        <div class="row no-padding">
+                          <div class="small-12">
+                            <div class="field">
+                              <input id="ContactFormCompany" type="text" class="full" name="contact[{{ 'sections.contact.form.company' | t | escape }}]" aria-label="{{ 'sections.contact.form.company' | t | escape }}" placeholder="Company (Optional)">
+                              <label for="ContactFormCompany">Company (Optional)</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <div class="field">
+                              <input type="text" id="ContactFormName" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                              <label for="ContactFormName">{{ 'sections.contact.form.name' | t }}*</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <div class="field">
+                              <input type="tel" id="ContactFormPhone" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                              <label for="ContactFormPhone">{{ 'sections.contact.form.phone' | t }}*</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <div class="field email-field">
+                              <input type="email" id="ContactFormEmail" name="contact[email]" class="full" placeholder="{{ 'sections.contact.form.email' | t | escape }}" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$" required>
+                              <label for="ContactFormEmail">{{ 'sections.contact.form.email' | t }}*</label>
+                            </div>
+                          </div>
+                          <div class="small-12">
+                            <div class="field">
+                              <input id="ContactFormPostalCode" type="text" class="full" name="contact[ZIP/Postal Code]" aria-label="ZIP/Postal Code" placeholder="ZIP/Postal Code">
+                              <label for="ContactFormPostalCode">ZIP/Postal Code</label>
+                            </div>
+                          </div>
+                          <div class="small-12">
+                            <div class="field select">
+                              <select class="full" name="Select option" title="Select option" required>
+                                <option value="" disabled selected>I am interested in heating...</option>
+                                <option value="Value 1">Floor Heating</option>
+                                <option value="Value 2">Roof & Gutter Heating</option>
+                                <option value="Value 3">Driveway & Walkway Heating</option>
+                                <option value="Value 4">Soil Heating</option>
+                                <option value="Value 5">Bathtub Heating</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="small-12 ">
+                            <div class="field">
+                              <textarea id="ContactFormProjectDescription" name="contact[Project Description]" cols="15" rows="5" class="full" aria-label="Project Description" placeholder="Project Description"></textarea>
+                              <label for="ContactFormProjectDescription">Project Description</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <button type="submit" class="button full call-btn"><span>Submit</span></button>
+                          </div>
+                        </div>
+                      {% endform %} {% endcomment %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </scroll-shadow>
+      </div>
+    </modal-dialog>
+  </div>
+</div>
+
+{% style %}
+  .contact-member {
+    position: fixed;
+    z-index: 50;
+    width: 100%;
+    bottom: 15%;
+    pointer-events: none;
+  }
+  .contact-member-content {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+  .contact-member-button {
+    max-width: 127px;
+    padding: 13px;
+    border-radius: 4px 0 0 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    background: #900000;
+    color: #FFFFFF;
+    font-variation-settings: "wdth" 80;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .form-call {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.form-call a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--color-accent);
+    position: relative;
+}
+.form-call a::after {
+    position: absolute;
+    content: '';
+    width: 80%;
+    right: 0;
+    bottom: 0;
+    border-bottom: 1px solid;
+}
+  .product-popup-modal__content-info .select select {
+    content: '';
+    background-image: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 10L12 14L8 10" stroke="%23151616" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    padding-right: 40px;
+    background-size: 24px;
+  }
+
+  @media screen and (max-width: 992px) {
+    .contact-member-button {
+        max-width: 84px;
+        padding: 5px 10px;
+        border-radius: 4px 0 0 4px;
+    }
+    .contact-member-button svg {
+        width: 40px;
+        height: 22px;
+    }
+    .contact-member-button .body-extra-small {
+        line-height: 14px;
+    }
+    .contact-member {
+        bottom: 13%;
+    }
+  }
+{% endstyle %}
+<script src="{{ 'modal-dialog.js' | asset_url }}" defer="defer"></script>

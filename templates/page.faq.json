@@ -1,0 +1,295 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {}
+    },
+    "template-header": {
+      "type": "template-header",
+      "settings": {
+        "size": "h1",
+        "show_collection_image": false,
+        "collection_image_ratio": "adapt",
+        "collection_image_width": "standard",
+        "show_collection_description": true,
+        "seo_text_read_more": "Read more",
+        "seo_text_read_less": "Read less",
+        "seo_text_max_height": 150,
+        "show_subcollections": true,
+        "color_subcollection_bg": "#ffffff",
+        "color_subcollection_text": "#2c2d2e",
+        "display_description": true
+      }
+    },
+    "2d069af4-09a1-41c9-9acd-ebe6af0120b5": {
+      "type": "spacer",
+      "settings": {
+        "spacer_mobile": 0,
+        "spacer_desktop": 0,
+        "border_separator": true,
+        "border_separator_full": false
+      }
+    },
+    "main_faq_with_navigation_QKXh4r": {
+      "type": "main-faq-with-navigation",
+      "blocks": {
+        "faq_fzzmg9": {
+          "type": "faq",
+          "settings": {
+            "heading": "How does electric radiant heat work?",
+            "size": "h3",
+            "text": "<p>Electric radiant heat works by arranging conductive heating elements through your floor to provide gentle but noticeable heat traveling up from the floor, providing an efficient and luxurious effect in your home or commercial space. </p><p>By connecting one of our heat systems to a floor heating thermostat, the energy applied to the system is transmitted into heat with 100% efficiency.</p>"
+          }
+        },
+        "faq_Lycxgn": {
+          "type": "faq",
+          "settings": {
+            "heading": "Can I install radiant heat in my home?",
+            "size": "h3",
+            "text": "<p>Yes! Almost anyone can enjoy the warmth and luxury of radiant heat in their home.  ThermoSoft has floor heating systems that are easy to install and compatible with any floor covering.</p>"
+          }
+        },
+        "faq_wiXrrd": {
+          "type": "faq",
+          "settings": {
+            "heading": "What type of floors can be heated with ThermoSoft systems?",
+            "size": "h3",
+            "text": "<p>If you can walk on it, we can heat it! Our diverse array of underfloor heat systems can be applied under any floor covering.  The key is matching the right radiant heating product with the right installation method, and of course, this is just one of the things you can call us to get help with anytime!</p>"
+          }
+        },
+        "faq_taFKbg": {
+          "type": "faq",
+          "settings": {
+            "heading": "What type of floor heating system is right for me?",
+            "size": "h3",
+            "text": "<p>This depends on a few factors.  Before you can fully select the right product for your project, you will need to know the type of floor covering and the intended method of installation for the floor covering.  From there, you can determine a system that matches those two factors.  That is why we have provided Shop By Room options as well as Shop By Floor Type options to help you determine which of our top-quality systems is right for you.  The best way to know what system is right for you?  Talk to one of our in-house experts.</p>"
+          }
+        },
+        "faq_YCfqxQ": {
+          "type": "faq",
+          "settings": {
+            "heading": "Will this be safe to add to my home?",
+            "size": "h3",
+            "text": "<p>Yes!  ThermoSoft radiant heat systems are completely safe additions to your project.  We take pride in the level of engineering and quality control that goes into producing our systems, and we make a point to be available with prompt, informative, helpful support when you have a question about the best way to add heat to your home.</p>"
+          }
+        },
+        "faq_cnx6Bt": {
+          "type": "faq",
+          "settings": {
+            "heading": "Can I install radiant heat in between the joists beneath an already installed floor covering?  Do I need to replace my floors?",
+            "size": "h3",
+            "text": "<p>ThermoSoft only offers products that we know will succeed in their intended application.  Unfortunately, installing radiant heat under an already installed floor between the joists is, at best, inefficient, and often is ineffective and not capable of performing up to the homeowner’s expectations.</p>"
+          }
+        },
+        "faq_rRDq3F": {
+          "type": "faq",
+          "settings": {
+            "heading": "Will I need to insulate my subfloor beneath the heating system?",
+            "size": "h3",
+            "text": "<p>To answer this question accurately, we would need more details on your project.  In many cases, no, you would not need to add an insulating layer beyond your originally intended floor installation materials. <br/> Installing over a concrete slab is the situation that most commonly will call for an insulative layer. A CeraZorb or insulated tile backer board is a great choice. If you are using a floating floor, you can use ThermoFloor which has an insulating underlayment pad built right in!</p>"
+          }
+        },
+        "faq_483jy9": {
+          "type": "faq",
+          "settings": {
+            "heading": "Are ThermoSoft's radiant heat systems low voltage or line voltage?",
+            "size": "h3",
+            "text": "<p>ThermoSoft floor heating systems are line voltage connections, not low voltage.  Low voltage systems do not provide the same level of high performance to satisfy our high standards, and low voltage systems can be siginificantly more expensive for the heating system materials.</p><p>The amount of power your floor system will draw will vary depending on the amount of square footage and the type of system you select. You will almost always need a dedicated circuit to power a system.</p>"
+          }
+        },
+        "faq_Djtk7J": {
+          "type": "faq",
+          "settings": {
+            "heading": "Will my utility bills go up?",
+            "size": "h3",
+            "text": "<p>The addition of radiant heat often results in a net savings on the amount of energy you use because it is so efficient!  Of course, your actual operating cost will depend on a variety of factors, but here in the suburbs of Chicago (brrrrr!), we love putting ThermoSoft radiant heat in our own homes, in part because it reduces our overall utility cost!</p>"
+          }
+        },
+        "faq_MdzTmi": {
+          "type": "faq",
+          "settings": {
+            "heading": "What about hydronic (water based) vs. electric underfloor heat?",
+            "size": "h3",
+            "text": "<p>Hydronic radiant heat is a water-based heat delivery, and electric radiant heat is based on electrical resistance heat production.</p><h5>Some of the reasons you may want to be wary of hydronic radiant heat are:</h5><ul><li>High risk of damage due to leaks</li><li>Complicated repair and service</li><li>Uneven heat distribution (hot spots damage floors!)</li><li>High cost of materials</li><li>High installation cost</li><li>Unwanted added floor height</li><li>Jobsite delays due to complicated installation</li></ul><h5>Electric radiant heat is superior for a few reasons:</h5><ul><li>It is less expensive to add to your home</li><li>It is a maintenance-free system with no moving parts</li><li>ThermoSoft systems apply a uniform distribution of heat, no uncomfortable hot and cold spots damaging your floor</li><li>Total efficiency; all energy input is converted to heat you feel</li><li>Easy in remodel projects as well as building projects</li><li>Simple to install at the same time as your flooring</li></ul>"
+          }
+        },
+        "faq_RYnJKW": {
+          "type": "faq",
+          "settings": {
+            "heading": "What about the difference between underfloor heat and forced air heat?",
+            "size": "h3",
+            "text": "<p>Underfloor heat typically operates as a supplemental heat source in addition to a forced air system (see below to learn about radiant heat as a primary/sole heat source). One of the biggest differences you should be aware of is that electric radiant heat has a longer warmup process. Forced air heat superheats the air and pumps in hot air to your home which can create a quick change in temperature. While this time delay for feeling the effects of radiant heat is something to keep in mind, it is important to recognize that electric radiant heat will not dry out your air, nor will it waste money and energy by filling the space near the ceiling with hot air and struggling to keep the lower portions of the room warm enough.</p>"
+          }
+        },
+        "faq_VNpbid": {
+          "type": "faq",
+          "settings": {
+            "heading": "Can ThermoSoft radiant heat systems function as a primary or sole source of heat?",
+            "size": "h3",
+            "text": "<p>Our radiant heat systems can function as a primary source of heat, but rarely as a sole source of heat. This is a determination relying on multiple factors. The most important is how many BTU’s are put out by the total sum area of your heated floors.  Frequently, our radiant heating is plenty powerful to function as the primary source of heat in a home.</p><p>In most cases, it is possible to make radiant heat a sole source of heat, however, certain municipalities do not allow this.</p><p>Keep in mind that for an area like a sunroom, electric radiant heat makes a chilly space more useable and comfortable when traditional HVAC isn’t required and would be costly to run! However, if using radiant heat as a sole source of heat is prevented by building codes you should remember that the use of electric radiant heat as a supplemental heat source will often still result in a savings on your heating costs, because an electric radiant heat has higher efficiency and is a zero maintenance system.</p>"
+          }
+        },
+        "faq_kpGqCU": {
+          "type": "faq",
+          "settings": {
+            "heading": "How long does a ThermoSoft radiant heat system last?",
+            "size": "h3",
+            "text": "<p>A very long time. Some of our systems carry lifetime warranties, others have shorter periods like ThermoFloor’s 10-year warranty. A key point we like to remind folks of is that none of our systems have failed due to “old age” and have no moving parts and therefore require no regular maintenance. Truly, once properly installed and left undisturbed (not damaged by a careless remodeler or improperly wired) our systems should last indefinitely.  For certain products, like the floor heating thermostats that we carry, we can only warranty for 3 years, but we are confident you will be satisfied with the lifespan of your ThermoSoft radiant heat.</p>"
+          }
+        },
+        "faq_LFmYA6": {
+          "type": "faq",
+          "settings": {
+            "heading": "What are the basic components that I need as part of my heat system?",
+            "size": "h3",
+            "text": "<p>A typical floor heating system includes the heating product itself (either cable or mats), a floor heating thermostat, and a floor sensor that the thermostat uses to monitor the exact temperature of your floor.  The thermostats that we offer include a sensor.</p><p>We highly recommend that every floor heating project includes a backup floor sensor. Sensors rarely fail, but if one does, installing a backup sensor means that a small investment early on will save you time and money in the long run.</p>"
+          }
+        },
+        "faq_7GDUMY": {
+          "type": "faq",
+          "settings": {
+            "heading": "Why do I need to select 120 or 240-volt systems?",
+            "size": "h3",
+            "text": "<p>Floor heating thermostats can only handle a certain amount of power, amperage, at maximum.  Each square foot of heating system applies a certain amp load to your thermostat, which means that there is a limit to how much area can be heated by a single control unit.  By using a 240-volt line in and a heating product designed for 240-volt load, you can double the square footage controlled by a single thermostat.  A 120- or 240-volt system has equal heat output, equal cost to purchase, and equal operating cost.</p><p>In layman’s terms, your project may be best served by one voltage or another saving you money and making installation easier.  Call us today to get help with your selection!</p>"
+          }
+        },
+        "faq_GUFUBU": {
+          "type": "faq",
+          "settings": {
+            "heading": "I want to make sure everything goes well, what should I know before beginning an installation?",
+            "size": "h3",
+            "text": "<p>Reading, or having your installer read the Installation Manual is the number 1 recommendation that we can make.  Also, we make floor heating experts available to you daily to assist with any questions you might have, so make sure to take advantage of our expertise if you have remaining questions to avoid any mistakes!</p><p>Additionally, consider adding an InstAlarm to your order.  The InstAlarm is an inexpensive, reusable device that connects to un-powered mats during installation, and if there is damage to a heat system it will sound an alarm (instantly, of course).</p>"
+          }
+        },
+        "faq_qUYGb4": {
+          "type": "faq",
+          "settings": {
+            "heading": "Why does ThermoSoft dictate that an electrician is to make the final connections?  Can’t I do that myself?",
+            "size": "h3",
+            "text": "<p>National Electric Code dictates that any electrical component running line electric is to be connected by a licensed electrician.  We provide easy-to-follow directions for you to share with your licensed electrician.</p>"
+          }
+        },
+        "faq_cMEbpQ": {
+          "type": "faq",
+          "settings": {
+            "heading": "What else do I need to know to place an order?",
+            "size": "h3",
+            "text": "<p>First, remember that our floor heating experts are available for a call or email almost any time in order to guide you through the process.  However, there are important pieces of information that you will need to share with our in-house experts: the desired floor covering, what installation method you will be using, and the room shape and dimensions.  If you are taking advantage of our free assistance with system design, having a drawing or sketch of how the room is laid out is handy and always helps us give you the best advice.</p>"
+          }
+        },
+        "faq_Mjzhfk": {
+          "type": "faq",
+          "settings": {
+            "heading": "I’m having a tough time understanding the total cost, what should I do?",
+            "size": "h3",
+            "text": "<p>Just give us a call!  We are proud of our products, but even more proud of our people!  One of our floor heating experts can fully explain your options and related costs and will find you the best value matched with the best performance.</p>"
+          }
+        },
+        "faq_LRqNQh": {
+          "type": "faq",
+          "settings": {
+            "heading": "When will my order ship?",
+            "size": "h3",
+            "text": "<p>99% of orders ship within 24 hours.  We stock  enough to satisfy almost any order, but occasionally an order will require a little more time.  As always, call us to get a confirmation on this.</p>"
+          }
+        },
+        "faq_cppTFJ": {
+          "type": "faq",
+          "settings": {
+            "heading": "How much does shipping cost?",
+            "size": "h3",
+            "text": "<p>We offer free shipping (no membership required!).  If you need expedited shipping, we do have those options available.</p>"
+          }
+        },
+        "faq_p7yQgn": {
+          "type": "faq",
+          "settings": {
+            "heading": "When will my order arrive?",
+            "size": "h3",
+            "text": "<p>Orders anywhere in the US will arrive within 1 week of shipment with free shipping.  Check out a shipment time map to get a more specific estimate on this.</p>"
+          }
+        },
+        "faq_yHPY8Y": {
+          "type": "faq",
+          "settings": {
+            "heading": "What do I do if something goes wrong?",
+            "size": "h3",
+            "text": "<p>Our products are tested thoroughly in-house, and the Installation Manuals should lead to a successful installation. However, we have you covered for when things don’t go according to plan. ThermoSoft has lifetime or long-term warranties on all of our products, and we act as the point of contact for third party components like the thermostats that we offer, so you get to take advantage of our friendly service for those items as well. <br/> In the event of damage being done to the system during installation, the course of action will of course depend on the nature of the incident.  Be sure to give us a call as soon as something seems out of place and take a few minutes to familiarize yourself with the Installation Manual before getting started!</p>"
+          }
+        },
+        "faq_x8NPdz": {
+          "type": "faq",
+          "settings": {
+            "heading": "I am still confused.",
+            "size": "h3",
+            "text": "<p>Then give us a call at 1-800-308-8057! Our friendly floor heating experts will be happy to assist you!</p>"
+          }
+        },
+        "faq_bTj6qJ": {
+          "type": "faq",
+          "settings": {
+            "heading": "Radiant Heating Terminology",
+            "size": "h3",
+            "text": "<p>We can help! Some of the terms or phrases we use when talking about radiant heat may be new to homeowners or even new to remodeling professionals that haven’t dealt with floor heat in the past.  We will try to give some working definitions here, but please remember to give us a call if you think that you still aren’t certain about what you are planning for your radiant floor heating.</p><ul><li><strong>FiberThermics - </strong>Our patented heating technology, exclusively available from ThermoSoft. FiberThermics heating elements are extremely flexible, durable, safe and non-combustible, conductive fibers that power our most unique products.</li><li><strong>Watts per square foot - </strong>Also known as watt density or heat density, this is a measure of the amount of heating power that a radiant heat system applies per square foot. More is not always better; we specifically tailor each of our systems to be safe for the intended floor coverings and save you money with optimal energy use.</li><li><strong>Lead wires - </strong>Also referred to as cold lead wires, these are basic insulated copper wires that connect the floor heating system to the floor heating thermostat. These do not produce heat, and can be extended or shortened by your electrician, unlike the heating cables.</li><li><strong>Floor sensor - </strong>A small sensor component that is placed under your floor covering providing your floor heating thermostat with accurate and precise data regarding your floor's temperature. This is a vital element to control your floor heating system properly.</li><li><strong>Backup floor sensor - </strong>The Backup Sensor is installed in the floor just like the primary sensor. If your primary sensor should fail, connecting the backup is easy and inexpensive.</li><li><strong>Embedded - </strong>In the flooring industry, this refers to a heating system that is installed fully immersed in some sort of mortar, thinset, self leveler, or other cementatious non-combustible material.</li><li><strong>Non-embedded - </strong>This refers to a heating system that sits between the subfloor and the floor covering, not within a cementatious material. Examples would be a nail down, glue down, or floating floor application. Compatible heat systems include ThermoSoft's ThermoFloor, ThermoFilm, or WarmStep heating systems.</li><li><strong>GFCI - </strong>The ground-fault circuit interrupter, or GFCI, is a fast-acting circuit breaker designed to shut off electric power in the event of a ground-fault within as little as 1/40 of a second. It works by comparing the amount of current going to and returning from equipment along the circuit conductors.</li><li><strong>Line voltage - </strong>Line voltage is the standard voltage that’s found in outlets and junction boxes in the United States and Canada. Line voltage is either 120- or 240-Volt in most residential buildings.</li><li><strong>Low voltage - </strong>Low voltage most commonly refers to the main voltages as used by domestic and light industrial and commercial consumers.</li><li><strong>Parallel vs series wiring - </strong>The method of connecting multiple electrical components together to connect them to a single voltage, or power source. It is important to only connect our heaters in parallel, as their performance is reliant on equal distribution of power and operating at their intended resistances.</li><li><strong>Fiberglass mesh - </strong>Typically used in any floor installation that needs additional structural stability, our ThemoTile Mats are built with heavy duty construction grade fiberglass mesh as an anti-fracture layer.</li><li><strong>Uncoupling membrane - </strong>Membranes such as DITRA Heat, Prodessa, or Prova provide a structural break between the subfloor and a tile floor covering, adding durability and longevity to the tile and grout used. Uncoupling membranes that we offer also aid you in spacing out the heating cable precisely.</li><li><strong>Underlayment - </strong>Usually a pad or other flexible material used between a subfloor and a floor covering to provide benefits like sound isolation, softening impact under floating floors, moisture control, or a combination of those and other benefits.</li><li><strong>Resistance reading - </strong>This is a measurement of the electrical resistance provided through an electrical circuit or component. Each heating system from ThermoSoft will come with labels indicating a factory tested resistance range which you should measure, verify, and record these values before, during, and after your installation to ensure that your heating system has not been damaged during shipment or installation.</li><li><strong>Floating floor - </strong>Refers to a flooring installation in which the floor covering is not directly attached to the subfloor. Such installation usually includes an uderlayment between the subfloor and the flooring material. ThermoFloor is an all-in-one heater and underlayment, and WarmStep is a heating system that pairs perfectly with any underlayment. Both of these heating systems are excellent options for a floating floor.</li><li><strong>Glue down - </strong>Wood flooring is frequently installed with a wood flooring-specific adhesive. This is a popular option because a glue down application works with any subfloor, provides a better hold for wider plank wood floors versus nail down installation, and can provide sound and moisture control properties to a wood floor.</li><li><strong>Nail down - </strong>The most traditional method of wood flooring installation, nail down can refer to using a variety of fasteners such as nails, cleats, or staples driven through the wood flooring into the subfloor. A fast and inexpensive method, nail down installation is limited by only being compatible with wooden subfloors, and not providing other benefits to the wood floor.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_fzzmg9",
+        "faq_Lycxgn",
+        "faq_wiXrrd",
+        "faq_taFKbg",
+        "faq_YCfqxQ",
+        "faq_cnx6Bt",
+        "faq_rRDq3F",
+        "faq_483jy9",
+        "faq_Djtk7J",
+        "faq_MdzTmi",
+        "faq_RYnJKW",
+        "faq_VNpbid",
+        "faq_kpGqCU",
+        "faq_LFmYA6",
+        "faq_7GDUMY",
+        "faq_GUFUBU",
+        "faq_qUYGb4",
+        "faq_cMEbpQ",
+        "faq_Mjzhfk",
+        "faq_LRqNQh",
+        "faq_cppTFJ",
+        "faq_p7yQgn",
+        "faq_yHPY8Y",
+        "faq_x8NPdz",
+        "faq_bTj6qJ"
+      ],
+      "name": "FAQs with navigation",
+      "settings": {
+        "heading": "",
+        "description": "",
+        "color_heading": "#252626",
+        "color_text": "#252626",
+        "color_links": "#900000",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 130,
+        "mobile_spacing_top": 40,
+        "mobile_spacing_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "template-header",
+    "2d069af4-09a1-41c9-9acd-ebe6af0120b5",
+    "main_faq_with_navigation_QKXh4r"
+  ]
+}

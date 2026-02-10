@@ -1,0 +1,415 @@
+{{ 'shop-the-look.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product.js' | asset_url }}" defer="defer"></script>
+{%- liquid
+	assign full_width = section.settings.full_width
+	assign image = section.settings.image
+	assign image_mobile = section.settings.image_mobile
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+	assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+	assign mobile_spacing_top = section.settings.mobile_spacing_top
+	assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom	
+
+	unless image_mobile
+		assign image_mobile = image
+	endunless
+-%}
+{% style %}
+#shopify-section-{{ section.id }} {
+  --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+  --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+  --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+  --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+}
+{% endstyle %}
+<shop-the-look class="shop-the-look section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+	<div class="row{% if full_width %} full-width-row-full{% endif %}">
+		<div class="small-12 columns">
+			{% if section.settings.title != blank %} <div class="section-header--title-wrapper"><h2 class="h2 text-center">{{ section.settings.title }}</h2></div> {% endif %}
+			<figure class="shop-the-look--area shop-the-look--mobile shop-the-look--full-width-{{ full_width }}">
+				{%- if image_mobile -%}
+					{% assign small_height = image_mobile.src.height | times: '750' | divided_by: image_mobile.src.width %}
+					{% assign master_width = image_mobile.src.width | append: 'x' | append: image_mobile.src.height %}
+					{% assign sizes = '750x' | append: small_height | append: ',' | append: master_width %}
+					{% render 'responsive-image', image: image_mobile, sizes: sizes %}
+				{%- else -%}
+					<div class="thb-placeholder">
+						{{ 'collection-1' | placeholder_svg_tag }}
+					</div>
+				{%- endif -%}
+        {% for block in section.blocks %}
+					{%- assign hotspot_product = all_products[block.settings.product_handle] -%}
+					{%- if hotspot_product != blank -%}
+						<quick-view class="thb-hotspot pin-white" style="left: {{- block.settings.x_position_mobile | append: '%' -}}; top: {{- block.settings.y_position_mobile | append: '%' -}};" data-product-handle="{{ hotspot_product.handle }}">
+							<div class="thb-hotspot-content thb-pulsate">
+									<div class="loading-overlay">
+										{% render 'svg-icons' with 'thb-loading' %}
+									</div>
+								</div>
+						</quick-view>							
+					{%- else -%}
+						<modal-opener class="thb-hotspot pin-white" style="left: {{- block.settings.x_position_mobile | append: '%' -}}; top: {{- block.settings.y_position_mobile | append: '%' -}};" data-product-handle="{{ hotspot_product.handle }}" data-modal="#ProductPopup-mobile-{{ block.id }}">							
+								<button class="thb-hotspot-content thb-pulsate" aria-haspopup="dialog" type="button">
+									<div class="loading-overlay">
+										{% render 'svg-icons' with 'thb-loading' %}
+									</div>
+								</button>
+						</modal-opener>	
+					{%- endif -%}
+        {% endfor %}
+			</figure>
+			<figure class="shop-the-look--area shop-the-look--desktop shop-the-look--full-width-{{ full_width }}">
+				{%- if image -%}
+					{% assign master_width = image.src.width | append: 'x' | append: image.src.height %}
+					{% render 'responsive-image', image: image, sizes: master_width %}
+				{%- else -%}
+					<div class="thb-placeholder">
+						{{ 'lifestyle-1' | placeholder_svg_tag }}
+					</div>
+				{%- endif -%}
+        {% for block in section.blocks %}
+					{%- assign hotspot_product = all_products[block.settings.product_handle] -%}
+					{% if hotspot_product and block.settings.product_handle != blank %}
+						<quick-view class="thb-hotspot pin-white" style="left: {{- block.settings.x_position | append: '%' -}}; top: {{- block.settings.y_position | append: '%' -}};" data-product-handle="{{ hotspot_product.handle }}" {{ block.shopify_attributes }}>
+							<div class="thb-hotspot-content thb-pulsate">
+								{%- if block.settings.product_handle != blank -%}
+									<div class="loading-overlay">
+										{% render 'svg-icons' with 'thb-loading' %}
+									</div>
+									<div class="thb-hotspot-arrow"></div>
+									<div class="thb-hotspot-bubble">
+										{% if hotspot_product.featured_image and block.settings.product_handle != blank %}
+											<a href="{{ hotspot_product.url }}" title="{{ hotspot_product.title | escape }}" class="thb-hotspot-product-image">
+												{%- render 'responsive-image', image: hotspot_product.featured_image, sizes: '150x0' -%}
+											</a>										
+										{% endif %}
+										<div class="thb-hotspot-product-content">
+											<div class="thb-hotspot-product-title">
+												{% if hotspot_product and block.settings.product_handle != blank %}
+													{{ hotspot_product.title }}												
+												{% endif %}	
+											</div>
+											{% if block.settings.product_handle != blank %}
+												{% render 'product-price', product: hotspot_product %}
+											{% endif %}
+											{% if block.settings.product_handle != blank %}
+												{% assign text_button_title = 'sections.shop_the_look.view_product' | t %}
+												{% render 'text-button', url: hotspot_product.url, title: text_button_title %}											
+											{% endif %}	
+										</div>
+									</div>
+								{%- endif -%}
+							</div>
+						</quick-view>
+					{% else %}
+						<modal-opener class="thb-hotspot pin-white" style="left: {{- block.settings.x_position | append: '%' -}}; top: {{- block.settings.y_position | append: '%' -}};" data-modal="#ProductPopup-desktop-{{ block.id }}" {{ block.shopify_attributes }}>
+							<button class="thb-hotspot-content thb-pulsate" type="button" aria-haspopup="dialog">
+								{%- if hotspot_product != blank or block.settings.image != blank or block.settings.title != blank -%}
+									<div class="loading-overlay">
+										{% render 'svg-icons' with 'thb-loading' %}
+									</div>
+									<div class="thb-hotspot-arrow"></div>
+									<div class="thb-hotspot-bubble">
+										{% if hotspot_product.featured_image and block.settings.product_handle != blank %}
+											<a href="{{ hotspot_product.url }}" title="{{ hotspot_product.title | escape }}" class="thb-hotspot-product-image">
+												{%- render 'responsive-image', image: hotspot_product.featured_image, sizes: '150x0' -%}
+											</a>
+										{% else %}	
+											<a href="{{ block.settings.url }}" title="{{ block.settings.title | escape }}" class="thb-hotspot-product-image">
+												{%- render 'responsive-image', image: block.settings.image, sizes: '150x0' -%}
+											</a>
+										{% endif %}
+										<div class="thb-hotspot-product-content">
+											<div class="thb-hotspot-product-title">
+												{% if hotspot_product and block.settings.product_handle != blank %}
+													{{ hotspot_product.title }}
+												{% else %}
+													{{ block.settings.title }}
+												{% endif %}	
+											</div>
+											{% if block.settings.product_handle != blank %}
+												{% render 'product-price', product: hotspot_product %}
+											{% endif %}
+											{% if block.settings.product_handle != blank %}
+												{% assign text_button_title = 'sections.shop_the_look.view_product' | t %}
+												{% render 'text-button', url: hotspot_product.url, title: text_button_title %}
+											{% else %}	
+												{% assign text_button_title = block.settings.button_label %}
+												{% render 'text-button', url: block.settings.url, title: text_button_title %}
+											{% endif %}	
+										</div>
+									</div>
+								{%- endif -%}
+							</button>
+						</modal-opener>       
+						<modal-dialog id="ProductPopup-desktop-{{ block.id }}" class="product-popup-modal shop-the-look-model">
+							<div role="dialog" aria-label="{{ block.settings.title }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+								<div class="product-popup-modal__content-header">
+									<h5>{{ block.settings.title }}</h5>
+									<button id="ModalClose-desktop-{{ block.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+								</div>
+								<scroll-shadow>
+									<div class="product-popup-modal__content-info">										
+										{% if block.settings.image != blank %}	
+											<a href="{{ block.settings.url }}" title="{{ block.settings.title | escape }}" class="thb-hotspot-product-image">
+												{%- render 'responsive-image', image: block.settings.image, sizes: '150x0' -%}
+											</a>
+										{% endif %}
+										<div class="thb-hotspot-product-content">
+											<div class="thb-hotspot-product-title">												
+												{% if block.settings.title != blank %}
+													{{ block.settings.title }}
+												{% endif %}	
+											</div>																						
+											{% if block.settings.button_label != blank %}	
+												{% assign text_button_title = block.settings.button_label %}
+												{% render 'text-button', url: block.settings.url, title: text_button_title %}
+											{% endif %}	
+										</div>
+									</div>
+								</scroll-shadow>
+							</div>
+						</modal-dialog>
+						<modal-dialog id="ProductPopup-mobile-{{ block.id }}" class="product-popup-modal shop-the-look-model">
+							<div role="dialog" aria-label="{{ block.settings.title }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+								{% comment %} <div class="product-popup-modal__content-header">
+									<h5>{{ block.settings.title }}</h5>
+									<button id="ModalClose-desktop-{{ block.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+								</div> {% endcomment %}
+								<scroll-shadow>
+									<div class="product-popup-modal__content-info">										
+										{% if block.settings.image != blank %}	
+											<a href="{{ block.settings.url }}" title="{{ block.settings.title | escape }}" class="thb-hotspot-product-image">
+												{%- render 'responsive-image', image: block.settings.image, sizes: '150x0' -%}
+											</a>
+										{% endif %}
+										<div class="thb-hotspot-product-content">
+											<div class="thb-hotspot-product-title">												
+												{% if block.settings.title != blank %}
+													{{ block.settings.title }}
+												{% endif %}	
+											</div>																						
+											{% if block.settings.button_label != blank %}	
+												{% assign text_button_title = block.settings.button_label %}
+												{% render 'text-button', url: block.settings.url, title: text_button_title, arrow: true %}
+											{% endif %}	
+										</div>
+									</div>
+								</scroll-shadow>
+							</div>
+						</modal-dialog>
+					{% endif %}
+        {% endfor %}
+			</figure>
+		</div>
+	</div>
+</shop-the-look>
+<script src="{{ 'shop-the-look.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'modal-dialog.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+  {
+    "name": "Shop the look",
+		"class": "section-shop-the-look",
+    "settings": [
+			{
+				"type": "text",
+				"id": "title",
+				"label": "Title"
+			},
+      {
+        "type": "paragraph",
+				"content": "Learn more about how to set up the [shop the look section](https://documentation.fuelthemes.net/kb/how-to-set-up-shop-the-look-section-in-vision/)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "1280 x 650 px .jpg recommended."
+      },
+			{
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Mobile image",
+        "info": "750 x 800 px .jpg recommended. Default image is used if none is selected. To position the hotspots precisely, switch to mobile mode."
+      },
+			{
+				"type": "checkbox",
+				"id": "full_width",
+				"label": "Make section full width",
+				"default": false
+			},
+			{
+				"type": "header",
+				"content": "Spacing"
+			},
+			{
+				"type": "checkbox",
+				"id": "disable_top_spacing",
+				"default": false,
+				"label": "Remove top spacing"
+			},
+			{
+				"type": "checkbox",
+				"id": "disable_bottom_spacing",
+				"default": false,
+				"label": "Remove bottom spacing"
+			},
+			{
+				"type": "header",
+				"content": "Desktop spacing"
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_top",
+				"min": 0,
+				"max": 100,
+				"step": 5,
+				"unit": "px",
+				"label": "Desktop spacing top",
+				"default": 30,
+				"info": "Changes the section top spacing in desktop screens."
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_bottom",
+				"min": 0,
+				"max": 100,
+				"step": 5,
+				"unit": "px",
+				"label": "Desktop spacing bottom",
+				"default": 30,
+				"info": "Changes the section bottom spacing in desktop screens."
+			},
+			{
+				"type": "header",
+				"content": "Mobile spacing"
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_top",
+				"min": 0,
+				"max": 50,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing top",
+				"default": 15,
+				"info": "Changes the section top spacing in mobile screens."
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_bottom",
+				"min": 0,
+				"max": 50,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing bottom",
+				"default": 15,
+				"info": "Changes the section bottom spacing in mobile screens."
+			}
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product_handle",
+            "label": "Product"
+          },
+					{
+						"type": "image_picker",
+						"id": "image",
+						"label": "Image"
+					},
+					{
+						"type": "text",
+						"id": "title",
+						"label": "Title"
+					},
+					{
+						"type": "text",
+						"id": "button_label",
+						"label": "Button Label"
+					},
+					{
+						"type": "url",
+						"id": "url",
+						"label": "URL"
+					},
+					{
+						"type": "header",
+						"content": "Position"
+					},
+					{
+						"type": "range",
+						"id": "x_position",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Horizontal",
+						"default": 20,
+						"info": "Horizontal position of the hot spot"
+					},
+					{
+						"type": "range",
+						"id": "y_position",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Vertical",
+						"default": 20,
+						"info": "Vertical position of the hot spot"
+					},
+					{
+						"type": "header",
+						"content": "Mobile position"
+					},
+					{
+						"type": "range",
+						"id": "x_position_mobile",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Horizontal",
+						"default": 20,
+						"info": "Horizontal position of the hot spot on mobile screens"
+					},
+					{
+						"type": "range",
+						"id": "y_position_mobile",
+						"min": 0,
+						"max": 100,
+						"step": 1,
+						"unit": "%",
+						"label": "Vertical",
+						"default": 20,
+						"info": "Vertical position of the hot spot on mobile screens"
+					}
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shop the look",
+				"blocks": [
+					{
+						"type": "product"
+					}
+				]
+      }
+    ],
+		"enabled_on": {
+			"templates": ["*"],
+			"groups": [
+				"header", "footer"
+			]
+		}
+  }
+{% endschema %}

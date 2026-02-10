@@ -1,0 +1,472 @@
+{{- 'manual-documents.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+	assign section_heading = section.settings.heading
+	assign marker_style = section.settings.marker_style
+	assign section_description = section.settings.description
+
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+	assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+	assign mobile_spacing_top = section.settings.mobile_spacing_top
+	assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+-%}
+
+{% style %}
+	#shopify-section-{{ section.id }} {
+		--section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+		--section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+		--section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+		--section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+	}
+{% endstyle %}
+
+<div class="row">
+	<div class="small-12 columns">
+    <div class="section-manual-documents-wrapp section-spacing {% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+      {%- if section_heading != blank or section_description != blank -%}
+        <div class="section-header">
+          <div class="section-header--content">
+            {%- if section_heading -%}
+              <h3 class="section-header--title {{section.settings.head-size}}">
+                {% render 'animated-marker-heading', heading: section_heading, style: marker_style, color: marker_color %}
+              </h3>
+            {%- endif -%}
+            {%- if section_description != blank -%}
+              <div class="section-header--description rte {{ section.settings.body-size }}">
+                {{ section_description }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+      <div class="manual-documents-content">
+        <div class="manual-documents-lists columns_desktop_show_{{section.settings.columns_desktop}} columns_mobile_show_{{section.settings.columns_mobile}}">
+          {%- for block in section.blocks -%}
+            <div class="manual-documents-item">
+               {%- if block.settings.image != blank -%}
+                <div class="manual-documents-item-img">
+                  {%- liquid
+                    assign image = block.settings.image
+                    assign width = image.src.width | append: 'x' | append: image.src.height
+                  -%}
+                  {%- render 'responsive-image', image: image, sizes: width, class: 'slideshow-image--mobile', priority: priority -%}
+                </div>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <h6 class="manual-documents-item-head">{{ block.settings.title }}</h6>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <div class="manual-documents-item-desk body-small">
+                  {{ block.settings.description }}
+                </div>
+              {%- endif -%}
+              {% assign has_any_doc = false %}
+
+              {% for i in (1..10) %}
+                {% assign text_key = 'man-doc-' | append: i %}
+                {% assign link_key = 'man-doc-link-' | append: i %}
+                {% assign doc_text = block.settings[text_key] %}
+                {% assign doc_link = block.settings[link_key] %}
+
+                {% if doc_text != blank or doc_link != blank %}
+                  {% assign has_any_doc = true %}
+                {% endif %}
+              {% endfor %}
+
+              {%- if has_any_doc -%}
+                <div class="manual-documents-wrapper">
+                  <ul class="manual-doc-list">
+                    {% for i in (1..10) %}
+                      {% assign text_setting = 'man-doc-' | append: i %}
+                      {% assign link_setting = 'man-doc-link-' | append: i %}
+                      {% assign doc_text = block.settings[text_setting] %}
+                      {% assign doc_link = block.settings[link_setting] %}
+
+                      {% if doc_text != blank and doc_link != blank %}
+                        <li class="manual-doc-item">
+                          <a href="{{ doc_link }}" class="manual-doc-link body-extra-small" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                              <path d="M5.51167 9.78711C5.38901 9.78711 5.30634 9.79911 5.26367 9.81111V10.5964C5.31434 10.6084 5.37767 10.6118 5.465 10.6118C5.78434 10.6118 5.98101 10.4504 5.98101 10.1778C5.98101 9.93378 5.81167 9.78711 5.51167 9.78711ZM7.83634 9.79511C7.703 9.79511 7.61634 9.80711 7.56501 9.81911V11.5591C7.61634 11.5711 7.699 11.5711 7.77367 11.5711C8.31834 11.5751 8.673 11.2751 8.673 10.6404C8.677 10.0871 8.35367 9.79511 7.83634 9.79511Z" fill="#900000"/>
+                              <path d="M9.33268 1.33398H3.99935C3.64573 1.33398 3.30659 1.47446 3.05654 1.72451C2.80649 1.97456 2.66602 2.3137 2.66602 2.66732V13.334C2.66602 13.6876 2.80649 14.0267 3.05654 14.2768C3.30659 14.5268 3.64573 14.6673 3.99935 14.6673H11.9993C12.353 14.6673 12.6921 14.5268 12.9422 14.2768C13.1922 14.0267 13.3327 13.6876 13.3327 13.334V5.33398L9.33268 1.33398ZM6.33135 10.794C6.12535 10.9873 5.82135 11.074 5.46735 11.074C5.3987 11.0753 5.33005 11.0713 5.26202 11.062V12.0127H4.66602V9.38865C4.935 9.34865 5.20677 9.33037 5.47868 9.33398C5.85002 9.33398 6.11402 9.40465 6.29202 9.54665C6.46135 9.68132 6.57602 9.90198 6.57602 10.162C6.57535 10.4233 6.48868 10.644 6.33135 10.794ZM8.86935 11.6973C8.58935 11.93 8.16335 12.0407 7.64268 12.0407C7.33068 12.0407 7.11002 12.0207 6.96002 12.0007V9.38932C7.2291 9.35018 7.50078 9.33169 7.77268 9.33398C8.27735 9.33398 8.60535 9.42465 8.86135 9.61798C9.13802 9.82332 9.31135 10.1507 9.31135 10.6207C9.31135 11.1293 9.12535 11.4807 8.86935 11.6973ZM11.3327 9.84732H10.3113V10.4546H11.266V10.944H10.3113V12.0133H9.70735V9.35398H11.3327V9.84732ZM9.33268 6.00065H8.66602V2.66732L11.9993 6.00065H9.33268Z" fill="#900000"/>
+                            </svg>
+                            <span>{{ doc_text }}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              {%- endif -%}
+
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+	</div>
+</div>
+
+{% schema %}
+  {
+    "name": "Manual Documents",
+    "class": "section-manual-documents",
+    "settings": [
+			{
+				"type": "text",
+				"id": "heading",
+				"label": "Heading",
+				"default": "Toggle boxes",
+				"info": "Wrap your text between | to add animated markers. For example: Animated |marker| will underline marker text."
+			},
+			{
+				"type": "select",
+				"id": "marker_style",
+				"options": [
+					{
+						"value": "style1",
+						"label": "Basic"
+					},
+					{
+						"value": "style2",
+						"label": "Double"
+					},
+					{
+						"value": "style3",
+						"label": "Squiggle"
+					},
+					{
+						"value": "style4",
+						"label": "Zigzag"
+					}
+				],
+				"default": "style1",
+				"label": "Marker"
+			},
+      {
+        "type": "select",
+        "id": "head-size",
+        "label": "Size",
+        "options": [
+          {
+            "value": "h1",
+            "label": "Extra Large"
+          },
+                {
+            "value": "h2",
+            "label": "Large"
+          },
+                {
+            "value": "h3",
+            "label": "Medium"
+          },
+                {
+            "value": "h4",
+            "label": "Small"
+          }
+        ],
+        "default": "h1"
+      },
+			{
+				"type": "richtext",
+				"id": "description",
+				"label": "Description",
+				"default": "<p>Add a short description for this section</p>"
+			},
+      {
+        "type": "select",
+        "id": "body-size",
+        "label": "Size",
+        "options": [
+              {
+          "value": "body-large",
+          "label": "Large"
+        },
+        {
+          "value": "body-regular",
+          "label": "Medium"
+        },
+        {
+          "value": "body-small",
+          "label": "Small"
+        },
+        {
+          "value": "body-extra-small",
+          "label": "XSmall"
+        }
+        ],
+        "default": "body-large"
+      },
+      {
+        "type": "range",
+        "id": "columns_desktop",
+        "min": 2,
+        "max": 5,
+        "step": 1,
+        "default": 5,
+        "label": "Number of columns on desktop"
+      },
+      {
+        "type": "select",
+        "id": "columns_mobile",
+        "options": [
+          {
+            "value": "1",
+            "label": "One"
+          },
+          {
+            "value": "2",
+            "label": "Two"
+          }
+        ],
+        "default": "1",
+        "label": "Number of columns on mobile"
+      },
+      {
+	      "type": "header",
+	      "content": "Spacing"
+	    },
+			{
+				"type": "checkbox",
+				"id": "disable_top_spacing",
+				"default": false,
+				"label": "Remove top spacing"
+			},
+			{
+				"type": "checkbox",
+				"id": "disable_bottom_spacing",
+				"default": false,
+				"label": "Remove bottom spacing"
+			},
+      {
+				"type": "header",
+				"content": "Desktop spacing"
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_top",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Desktop spacing top",
+				"default": 100,
+				"info": "Changes the section top spacing in desktop screens."
+			},
+			{
+				"type": "range",
+				"id": "desktop_spacing_bottom",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Desktop spacing bottom",
+				"default": 100,
+				"info": "Changes the section bottom spacing in desktop screens."
+			},
+			{
+				"type": "header",
+				"content": "Mobile spacing"
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_top",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing top",
+				"default": 50,
+				"info": "Changes the section top spacing in mobile screens."
+			},
+			{
+				"type": "range",
+				"id": "mobile_spacing_bottom",
+				"min": 0,
+				"max": 200,
+				"step": 5,
+				"unit": "px",
+				"label": "Mobile spacing bottom",
+				"default": 50,
+				"info": "Changes the section bottom spacing in mobile screens."
+			}
+    ],
+		"blocks": [
+      {
+        "type": "element-item",
+        "name": "Element",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "240 x 170 .jpg recommended for layouts."
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 1"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-1",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-1",
+            "label": "Manuals Documents Link"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 2"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-2",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-2",
+            "label": "Manuals Documents Link"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 3"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-3",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-3",
+            "label": "Manuals Documents Link"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 4"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-4",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-4",
+            "label": "Manuals Documents Link"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 5"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-5",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-5",
+            "label": "Manuals Documents Link"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 6"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-6",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-6",
+            "label": "Manuals Documents Link"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 7"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-7",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-7",
+            "label": "Manuals Documents Link"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 8"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-8",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-8",
+            "label": "Manuals Documents Link"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 9"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-9",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-9",
+            "label": "Manuals Documents Link"
+          },
+          {
+            "type": "header",
+            "content": "Manuals Documents 10"
+          },
+          {
+            "type": "text",
+            "id": "man-doc-10",
+            "label": "Manuals Documents Text"
+          },
+          {
+            "type": "url",
+            "id": "man-doc-link-10",
+            "label": "Manuals Documents Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+			{
+				"name": "Manual Documents",
+				"blocks": [
+				]
+			}
+		],
+		"enabled_on": {
+			"templates": ["*"],
+			"groups": [
+				"header", "footer"
+			]
+		}
+  }
+{% endschema %}

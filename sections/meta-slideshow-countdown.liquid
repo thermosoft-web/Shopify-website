@@ -1,0 +1,1110 @@
+{{- 'slideshow.css' | asset_url | stylesheet_tag -}}
+{{ 'countdown-banner.css' | asset_url | stylesheet_tag }}
+{{ 'slideshow-countdown.css' | asset_url | stylesheet_tag }}
+{%- liquid
+	assign desktop_height = section.settings.desktop_height
+	assign mobile_height = section.settings.mobile_height
+	assign full_width = section.settings.full_width
+	assign desktop_spacing_top = section.settings.desktop_spacing_top
+  assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+  assign mobile_spacing_top = section.settings.mobile_spacing_top
+  assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+
+
+
+
+  assign subheading = section.settings.subheading
+	assign heading = section.settings.heading
+	assign heading_size = section.settings.heading_size
+	assign content = section.settings.content
+	assign button_text = section.settings.button_text
+	assign button_link = section.settings.button_link
+	assign button_text_1 = section.settings.button_text_1
+	assign button_link_1 = section.settings.button_link_1
+
+	assign timer_year = section.settings.timer_year
+	assign timer_month = section.settings.timer_month
+	assign timer_day = section.settings.timer_day
+	assign timer_hour = section.settings.timer_hour
+	assign timer_minute = section.settings.timer_minute
+
+	assign timezone = 1 | date: '%z'
+
+	capture date
+		echo timer_day | append: '-' | append: timer_month | append: '-' | append: timer_year
+	endcapture
+
+	capture time
+		echo timer_hour | append: ':' | append: timer_minute
+	endcapture
+
+	case mobile_height
+		when 'mobile-height-400'
+			assign mobile_image_height = 400
+		when 'mobile-height-450'
+			assign mobile_image_height = 450
+		when 'mobile-height-500'
+			assign mobile_image_height = 500
+		else
+			assign mobile_image_height = 500
+	endcase
+
+-%}
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+  --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+  --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+  --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+}
+{% endstyle %}
+
+{% if page.metafields.custom.countdown_banner.value != blank %}
+<div class="row{% if full_width %} full-width-row{% endif %}">
+	<div class="small-12 columns">
+    <div class="countdown-banner-relative section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+      <slide-show class="slideshow main-slideshow slideshow--full-width-{{ full_width }} {{ mobile_height }} {{ desktop_height }} "  style="--color-text: #fff;">
+        {%- for countdown in page.metafields.custom.countdown_banner.value -%}
+          <div class="slideshow__slide mobile-height-image desktop-height-450 text-left text-mobile-left content-size-large is-selected" >
+            <div class="slideshow__slide-bg">
+              {%- if countdown.banner_image -%}
+                <img src="{{ countdown.banner_image | img_url: 'master' }}" loading="lazy" alt="{{ room.title | escape }}" class="slideshow-image--desktop lazyautosizes ls-is-cached lazyloaded">
+              {%- else -%}
+                {%- assign index = forloop.index | modulo: 2 | plus: 1 -%}
+                  {{ 'hero-apparel-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
+              {%- endif -%}
+              {%- if countdown.banner_mobile_image != blank -%}
+                <img src="{{ countdown.banner_mobile_image | img_url: 'master' }}" loading="lazy" alt="{{ room.title | escape }}" class="slideshow-image--mobile lazyautosizes ls-is-cached lazyloaded">
+              {%- endif -%}
+            </div>
+            {%- if desktop_height == 'desktop-height-image' or mobile_height == 'mobile-height-image' -%}
+              <div class="slideshow__slide-adapt-to-image">
+                {%- if countdown.banner_image -%}
+                  <img src="{{ countdown.banner_image | img_url: 'master' }}" loading="lazy" alt="{{ room.title | escape }}" class="slideshow-image--desktop lazyautosizes ls-is-cached lazyloaded">
+                {%- else -%}
+                  {%- assign index = forloop.index | modulo: 2 | plus: 1 -%}
+                  {{ 'hero-apparel-' | append: index | placeholder_svg_tag: 'placeholder_svg_tag' }}
+                {%- endif -%}
+                {%- if countdown.banner_mobile_image -%}
+                  <img src="{{ countdown.banner_mobile_image | img_url: 'master' }}" loading="lazy" alt="{{ room.title | escape }}" class="slideshow-image--mobile lazyautosizes ls-is-cached lazyloaded">
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+            <div class="slideshow__slide-inner content-has-bg--false content-bottom-left content-mobile-bottom-left">
+              <div class="slideshow__slide-content">
+                {% if countdown.banner_heading != blank %}
+                  <div class="slideshow__slide-head h1">
+                    {{ countdown.banner_heading }}
+                  </div>
+                {% endif %}
+                {% if countdown.banner_description != blank %}
+                <p class="description-size--large">{{ countdown.banner_description }}</p>
+                {% endif %}
+              </div>
+              {% if full_width %}
+                {%- liquid
+                  assign color_bg = section.settings.color_bg
+                  assign color_text = section.settings.color_text
+                -%}
+                <div class="countdown-banner countdown_full countdown-banner-fixed countdown-banner--full-width-{{ full_width }}" style="--color-bg: {{ color_bg }}; --color-bg-rgb: {{ color_bg.rgb | replace: ' ' , ',' }}; --color-text: {{ color_text }}; --bg-body: {{ color_bg }}; --bg-body-rgb: {{ color_bg.rgb | replace: ' ' , ',' }};">
+                  <div class="countdown-banner--inner layout--vertical">
+                    <div class="countdown-banner--timer">
+                      {%- if subheading != blank -%}
+                        <p class="subheading">{{ subheading }}</p>
+                      {%- endif -%}
+                      {% unless template.suffix == 'floor-heating-type' or template.suffix == 'room-type' %}
+                      <countdown-timer class="countdown-timer" data-date="{{ date }}" data-time="{{ time }}" data-timezone="{{ timezone }}">
+                        <div class="countdown-timer--column days">
+                          <span class="countdown-timer--column--number"></span>
+                          <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.days' | t }}</span>
+                        </div>
+                        <div class="countdown-timer--column hours">
+                          <span class="countdown-timer--column--number"></span>
+                          <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.hours' | t }}</span>
+                        </div>
+                        <div class="countdown-timer--column minutes">
+                          <span class="countdown-timer--column--number"></span>
+                          <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.minutes' | t }}</span>
+                        </div>
+                        <div class="countdown-timer--column seconds">
+                          <span class="countdown-timer--column--number"></span>
+                          <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.seconds' | t }}</span>
+                        </div>
+                      </countdown-timer>
+                    {% endunless %}
+                      {%- if button_text_1 != blank -%}
+                        <a href="{{ section.settings.button_link_1 }}" class="second_btn small white" data-modal="#ProductPopup-contact-expert">
+                          <button class="contact-guide" type="button" aria-haspopup="dialog">{{ button_text_1 }}</button>  
+                        </a>
+                      {%- endif -%}
+                    </div>
+                    <div class="countdown-banner--content">
+                      {%- if heading != blank -%}
+                        <h2 class="{{ heading_size }}">{{ heading }}</h2>
+                      {% endif %}
+                      {%- if content != blank -%}
+                        <div class="description body-regular">{{ content }}</div>
+                      {%- endif -%}
+                    <div class="countdown_btn">
+                      {%- if button_text != blank -%}
+                        <modal-opener class="small white" data-modal="#ProductPopup-contact-expert">
+                          <button class="contact-guide" type="button" aria-haspopup="dialog">{{ button_text }}</button>  
+                        </modal-opener>
+                      {%- endif -%}
+                      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {%- endfor -%}
+      </slide-show>
+      {%- liquid
+        assign color_bg = section.settings.color_bg
+        assign color_text = section.settings.color_text
+      -%}
+      <div class="countdown-banner countdown-banner-fixed {% if full_width %}count-full-width{% endif %} countdown-banner--full-width-{{ full_width }}" style="--color-bg: {{ color_bg }}; --color-bg-rgb: {{ color_bg.rgb | replace: ' ' , ',' }}; --color-text: {{ color_text }}; --bg-body: {{ color_bg }}; --bg-body-rgb: {{ color_bg.rgb | replace: ' ' , ',' }};">
+        <div class="countdown-banner--inner layout--vertical">
+          <div class="countdown-banner--timer">
+            {%- if subheading != blank -%}
+              <p class="subheading">{{ subheading }}</p>
+            {%- endif -%}
+            {% unless template.suffix == 'floor-heating-type' or template.suffix == 'room-type' %}
+              <countdown-timer class="countdown-timer" data-date="{{ date }}" data-time="{{ time }}" data-timezone="{{ timezone }}">
+                <div class="countdown-timer--column days">
+                  <span class="countdown-timer--column--number"></span>
+                  <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.days' | t }}</span>
+                </div>
+                <div class="countdown-timer--column hours">
+                  <span class="countdown-timer--column--number"></span>
+                  <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.hours' | t }}</span>
+                </div>
+                <div class="countdown-timer--column minutes">
+                  <span class="countdown-timer--column--number"></span>
+                  <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.minutes' | t }}</span>
+                </div>
+                <div class="countdown-timer--column seconds">
+                  <span class="countdown-timer--column--number"></span>
+                  <span class="countdown-timer--column--text">{{ 'sections.countdown_banner.seconds' | t }}</span>
+                </div>
+              </countdown-timer>
+            {% endunless %}
+          </div>
+          <div class="countdown-banner--content">
+            {%- if heading != blank -%}
+              <h2 class="{{ heading_size }}">{{ heading }}</h2>
+            {% endif %}
+            {%- if content != blank -%}
+              <p class="description body-regular">{{ content }}</p>
+            {%- endif -%}
+            {%- if button_text != blank -%}
+              {%- if button_link == blank -%}
+                <modal-opener class="" data-modal="#ProductPopup-contact-member">
+                  <button class="button small white" type="button" aria-haspopup="dialog">
+                    <span>{{ button_text }}</span>
+                  </button>
+                </modal-opener>       
+              {%- else -%}
+                <a class="button small white" href="{{ button_link }}" role="button" title="{{ button_text | escape }}"><span>{{ button_text }}</span></a>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<modal-dialog id="ProductPopup-contact-expert" class="product-popup-modal">
+      <div role="dialog" aria-label="{{ block.settings.title }}" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+        <button id="ModalClose-desktop-{{ block.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+        <scroll-shadow>
+          <div class="product-popup-modal__content-info">										
+            <div class="talk-us">
+              <div class="talk-contact-full">
+                <div class="talk-contact-form" id="talkPopup">
+                  <div class="form-header">
+                    <div class="small-12">
+                      <h3 class="h3">Need Help With Your Or Project?</h3>
+                      <p class="body-small form-desc">Or our experts will call you back</p>
+                      <p class="body-large form-call">
+                        <a href="tel:+1800.308.8057">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                                <rect x="0.9375" y="0.9375" width="26.125" height="26.125" rx="13.0625" stroke="#900000" stroke-width="1.875"/>
+                                <path d="M10.7256 7.44543C10.0645 6.89996 9.1135 6.99376 8.6416 7.64758V7.64856C8.49392 7.85215 8.33091 8.08721 8.0752 8.422L7.78613 8.79309C7.3018 9.40537 7.01078 10.145 6.94629 10.9181L6.93262 11.2521C6.93377 12.1443 7.23682 13.0097 7.79199 13.7081C8.71839 14.8576 9.68239 16.0067 10.7578 17.0822C11.8314 18.1558 12.9808 19.1197 14.1289 20.047C14.8272 20.6037 15.6939 20.9081 16.5869 20.9093C17.4797 20.9104 18.3472 20.6094 19.0469 20.0548H19.0459C19.6206 19.5955 19.9523 19.374 20.2305 19.172C20.8623 18.7128 20.9643 17.8042 20.4521 17.17V17.1691C19.8646 16.4402 19.1947 15.7481 18.5381 15.0548L18.5391 15.0538C18.394 14.9059 18.1973 14.8194 17.9902 14.8097C17.7815 14.7999 17.5768 14.8702 17.418 15.006C17.116 15.2635 16.8853 15.4509 16.3525 15.9513L16.1426 16.1476L15.8955 16.0011C14.0479 14.904 12.916 13.7587 11.8379 11.9454L11.6914 11.6974L11.8887 11.4884C12.3923 10.9523 12.5794 10.7212 12.8389 10.4161L12.8398 10.4142L12.9297 10.2892C13.0061 10.1559 13.0427 10.0023 13.0352 9.8468C13.0252 9.64096 12.9372 9.44696 12.7891 9.30383C12.1102 8.66945 11.432 8.02778 10.7256 7.44543Z" fill="#900000" stroke="#900000" stroke-width="0.764711"/>
+                                </svg>
+                          <span>800.308.8057</span>
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="align-center">
+                    <div class="small-12 contact-form--form-column">
+                      {% form 'contact', class: form_class %}
+                        {% if form.posted_successfully? %}
+                          <div class="form-notification success">
+                            {% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
+                          </div>
+                        {%- elsif form.errors %}
+                          <div class="form-notification error">
+                            {% render 'svg-icons' with 'thb-error' %} {{ 'sections.contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+                          </div>
+                        {% endif %}
+                        <div class="row no-padding">
+                          <div class="small-12">
+                            <div class="field">
+                              <input id="ContactFormCompany" type="text" class="full" name="contact[{{ 'sections.contact.form.company' | t | escape }}]" aria-label="{{ 'sections.contact.form.company' | t | escape }}" placeholder="Company (Optional)">
+                              <label for="ContactFormCompany">Company (Optional)</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <div class="field">
+                              <input type="text" id="ContactFormName" name="contact[name]" class="full" placeholder="{{ 'sections.contact.form.name' | t | escape }}" required>
+                              <label for="ContactFormName">{{ 'sections.contact.form.name' | t }}*</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <div class="field">
+                              <input type="tel" id="ContactFormPhone" name="contact[phone]" class="full" placeholder="{{ 'sections.contact.form.phone' | t | escape }}" required>
+                              <label for="ContactFormPhone">{{ 'sections.contact.form.phone' | t }}*</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <div class="field email-field">
+                              <input type="email" id="ContactFormEmail" name="contact[email]" class="full" placeholder="{{ 'sections.contact.form.email' | t | escape }}" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,10})(\]?)$" required>
+                              <label for="ContactFormEmail">{{ 'sections.contact.form.email' | t }}*</label>
+                            </div>
+                          </div>
+                          <div class="small-12 medium-12">
+                            <button type="submit" class="button full call-btn"><span>Call Me Back</span></button>
+                          </div>
+                        </div>
+                      {% endform %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </scroll-shadow>
+      </div>
+    </modal-dialog>
+
+<script src="{{ 'countdown-banner.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'modal-dialog.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+  {
+    "name": "Meta Slideshow countdown",
+		"class": "section-slideshow",
+    "settings": [
+			{
+				"type": "select",
+				"id": "desktop_height",
+				"label": "Desktop height",
+				"options": [
+					{
+						"value": "desktop-height-image",
+						"label": "Adapt to image"
+					},
+					{
+						"value": "desktop-height-auto",
+						"label": "Adapt to content"
+					},
+					{
+						"value": "desktop-height-450",
+						"label": "450px"
+					},
+					{
+						"value": "desktop-height-550",
+						"label": "550px"
+					},
+					{
+						"value": "desktop-height-650",
+						"label": "650px"
+					},
+					{
+						"value": "desktop-height-750",
+						"label": "750px"
+					},
+					{
+						"value": "desktop-height-full",
+						"label": "Full screen"
+					}
+				],
+				"default": "desktop-height-650"
+			},
+			{
+				"type": "select",
+				"id": "mobile_height",
+				"label": "Mobile height",
+				"options": [
+					{
+						"value": "mobile-height-image",
+						"label": "Adapt to image"
+					},
+					{
+						"value": "mobile-height-auto",
+						"label": "Adapt to content"
+					},
+					{
+						"value": "mobile-height-400",
+						"label": "400px"
+					},
+					{
+						"value": "mobile-height-450",
+						"label": "450px"
+					},
+					{
+						"value": "mobile-height-500",
+						"label": "500px"
+					},
+					{
+						"value": "mobile-height-full",
+						"label": "Full screen"
+					}
+				],
+				"default": "mobile-height-500"
+			},
+			{
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Make section full width",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Countdown Content"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Add a tagline"
+      },
+      {
+        "type": "textarea",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Countdown heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size",
+        "label": "Heading size",
+        "options": [
+          {
+            "value": "h1-xlarge",
+            "label": "Extra large"
+          },
+          {
+            "value": "h1-large",
+            "label": "Large"
+          },
+          {
+            "value": "h1",
+            "label": "Medium"
+          },
+          {
+            "value": "h2",
+            "label": "Small"
+          }
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "textarea",
+        "id": "content",
+        "label": "Description",
+        "default": "Add descriptive text for your countdown here."
+      },
+      {
+        "id": "button_text",
+        "type": "text",
+        "label": "Label",
+        "default": "Shop Now",
+        "info": "Leave the label blank to hide the button."
+      },
+      {
+        "id": "button_link",
+        "type": "url",
+        "label": "Link"
+      },
+      {
+        "id": "button_text_1",
+        "type": "text",
+        "label": "Label",
+        "default": "Shop Now",
+        "info": "Leave the label blank to hide the button."
+      },
+      {
+        "id": "button_link_1",
+        "type": "url",
+        "label": "Link"
+      },
+      {
+        "type": "header",
+        "content": "Timer"
+      },
+      {
+        "type": "number",
+        "id": "timer_year",
+        "label": "Year",
+        "default": 2022
+      },
+      {
+        "type": "select",
+        "id": "timer_month",
+        "label": "Month",
+        "options": [
+          {
+            "value": "01",
+            "label": "January"
+          },
+          {
+            "value": "02",
+            "label": "February"
+          },
+          {
+            "value": "03",
+            "label": "March"
+          },
+          {
+            "value": "04",
+            "label": "April"
+          },
+          {
+            "value": "05",
+            "label": "May"
+          },
+          {
+            "value": "06",
+            "label": "June"
+          },
+          {
+            "value": "07",
+            "label": "July"
+          },
+          {
+            "value": "08",
+            "label": "August"
+          },
+          {
+            "value": "09",
+            "label": "September"
+          },
+          {
+            "value": "10",
+            "label": "October"
+          },
+          {
+            "value": "11",
+            "label": "November"
+          },
+          {
+            "value": "12",
+            "label": "December"
+          }
+        ],
+        "default": "01"
+      },
+      {
+        "type": "select",
+        "id": "timer_day",
+        "label": "Day",
+        "options": [
+          {
+            "value": "01",
+            "label": "01"
+          },
+          {
+            "value": "02",
+            "label": "02"
+          },
+          {
+            "value": "03",
+            "label": "03"
+          },
+          {
+            "value": "04",
+            "label": "04"
+          },
+          {
+            "value": "05",
+            "label": "05"
+          },
+          {
+            "value": "06",
+            "label": "06"
+          },
+          {
+            "value": "07",
+            "label": "07"
+          },
+          {
+            "value": "08",
+            "label": "08"
+          },
+          {
+            "value": "09",
+            "label": "09"
+          },
+          {
+            "value": "10",
+            "label": "10"
+          },
+          {
+            "value": "11",
+            "label": "11"
+          },
+          {
+            "value": "12",
+            "label": "12"
+          },
+          {
+            "value": "13",
+            "label": "13"
+          },
+          {
+            "value": "14",
+            "label": "14"
+          },
+          {
+            "value": "15",
+            "label": "15"
+          },
+          {
+            "value": "16",
+            "label": "16"
+          },
+          {
+            "value": "17",
+            "label": "17"
+          },
+          {
+            "value": "18",
+            "label": "18"
+          },
+          {
+            "value": "19",
+            "label": "19"
+          },
+          {
+            "value": "20",
+            "label": "20"
+          },
+          {
+            "value": "21",
+            "label": "21"
+          },
+          {
+            "value": "22",
+            "label": "22"
+          },
+          {
+            "value": "23",
+            "label": "23"
+          },
+          {
+            "value": "24",
+            "label": "24"
+          },
+          {
+            "value": "25",
+            "label": "25"
+          },
+          {
+            "value": "26",
+            "label": "26"
+          },
+          {
+            "value": "27",
+            "label": "27"
+          },
+          {
+            "value": "28",
+            "label": "28"
+          },
+          {
+            "value": "29",
+            "label": "29"
+          },
+          {
+            "value": "30",
+            "label": "30"
+          },
+          {
+            "value": "31",
+            "label": "31"
+          }
+        ],
+        "default": "01"
+      },
+      {
+        "type": "select",
+        "id": "timer_hour",
+        "label": "Hour",
+        "options": [
+          {
+            "value": "00",
+            "label": "12 AM (Midnight)"
+          },
+          {
+            "value": "01",
+            "label": "01 AM"
+          },
+          {
+            "value": "02",
+            "label": "02 AM"
+          },
+          {
+            "value": "03",
+            "label": "03 AM"
+          },
+          {
+            "value": "04",
+            "label": "04 AM"
+          },
+          {
+            "value": "05",
+            "label": "05 AM"
+          },
+          {
+            "value": "06",
+            "label": "06 AM"
+          },
+          {
+            "value": "07",
+            "label": "07 AM"
+          },
+          {
+            "value": "08",
+            "label": "08 AM"
+          },
+          {
+            "value": "09",
+            "label": "09 AM"
+          },
+          {
+            "value": "10",
+            "label": "10 AM"
+          },
+          {
+            "value": "11",
+            "label": "11 AM"
+          },
+          {
+            "value": "12",
+            "label": "12 PM (Noon)"
+          },
+          {
+            "value": "13",
+            "label": "01 PM"
+          },
+          {
+            "value": "14",
+            "label": "02 PM"
+          },
+          {
+            "value": "15",
+            "label": "03 PM"
+          },
+          {
+            "value": "16",
+            "label": "04 PM"
+          },
+          {
+            "value": "17",
+            "label": "05 PM"
+          },
+          {
+            "value": "18",
+            "label": "06 PM"
+          },
+          {
+            "value": "19",
+            "label": "07 PM"
+          },
+          {
+            "value": "20",
+            "label": "08 PM"
+          },
+          {
+            "value": "21",
+            "label": "09 PM"
+          },
+          {
+            "value": "22",
+            "label": "10 PM"
+          },
+          {
+            "value": "23",
+            "label": "11 PM"
+          }
+        ],
+        "default": "00"
+      },
+      {
+        "type": "select",
+        "id": "timer_minute",
+        "label": "Minute",
+        "options": [
+          {
+            "value": "00",
+            "label": "00"
+          },
+          {
+            "value": "01",
+            "label": "01"
+          },
+          {
+            "value": "02",
+            "label": "02"
+          },
+          {
+            "value": "03",
+            "label": "03"
+          },
+          {
+            "value": "04",
+            "label": "04"
+          },
+          {
+            "value": "05",
+            "label": "05"
+          },
+          {
+            "value": "06",
+            "label": "06"
+          },
+          {
+            "value": "07",
+            "label": "07"
+          },
+          {
+            "value": "08",
+            "label": "08"
+          },
+          {
+            "value": "09",
+            "label": "09"
+          },
+          {
+            "value": "10",
+            "label": "10"
+          },
+          {
+            "value": "11",
+            "label": "11"
+          },
+          {
+            "value": "12",
+            "label": "12"
+          },
+          {
+            "value": "13",
+            "label": "13"
+          },
+          {
+            "value": "14",
+            "label": "14"
+          },
+          {
+            "value": "15",
+            "label": "15"
+          },
+          {
+            "value": "16",
+            "label": "16"
+          },
+          {
+            "value": "17",
+            "label": "17"
+          },
+          {
+            "value": "18",
+            "label": "18"
+          },
+          {
+            "value": "19",
+            "label": "19"
+          },
+          {
+            "value": "20",
+            "label": "20"
+          },
+          {
+            "value": "21",
+            "label": "21"
+          },
+          {
+            "value": "22",
+            "label": "23"
+          },
+          {
+            "value": "24",
+            "label": "24"
+          },
+          {
+            "value": "25",
+            "label": "25"
+          },
+          {
+            "value": "26",
+            "label": "26"
+          },
+          {
+            "value": "27",
+            "label": "27"
+          },
+          {
+            "value": "28",
+            "label": "28"
+          },
+          {
+            "value": "29",
+            "label": "29"
+          },
+          {
+            "value": "30",
+            "label": "30"
+          },
+          {
+            "value": "31",
+            "label": "31"
+          },
+          {
+            "value": "32",
+            "label": "32"
+          },
+          {
+            "value": "33",
+            "label": "33"
+          },
+          {
+            "value": "34",
+            "label": "34"
+          },
+          {
+            "value": "35",
+            "label": "35"
+          },
+          {
+            "value": "36",
+            "label": "36"
+          },
+          {
+            "value": "37",
+            "label": "37"
+          },
+          {
+            "value": "38",
+            "label": "38"
+          },
+          {
+            "value": "39",
+            "label": "39"
+          },
+          {
+            "value": "40",
+            "label": "40"
+          },
+          {
+            "value": "41",
+            "label": "41"
+          },
+          {
+            "value": "42",
+            "label": "42"
+          },
+          {
+            "value": "43",
+            "label": "43"
+          },
+          {
+            "value": "44",
+            "label": "44"
+          },
+          {
+            "value": "45",
+            "label": "45"
+          },
+          {
+            "value": "46",
+            "label": "46"
+          },
+          {
+            "value": "47",
+            "label": "47"
+          },
+          {
+            "value": "48",
+            "label": "48"
+          },
+          {
+            "value": "49",
+            "label": "49"
+          },
+          {
+            "value": "50",
+            "label": "50"
+          },
+          {
+            "value": "51",
+            "label": "51"
+          },
+          {
+            "value": "52",
+            "label": "52"
+          },
+          {
+            "value": "53",
+            "label": "53"
+          },
+          {
+            "value": "54",
+            "label": "54"
+          },
+          {
+            "value": "55",
+            "label": "55"
+          },
+          {
+            "value": "56",
+            "label": "56"
+          },
+          {
+            "value": "57",
+            "label": "57"
+          },
+          {
+            "value": "58",
+            "label": "58"
+          },
+          {
+            "value": "59",
+            "label": "59"
+          }
+        ],
+        "default": "00"
+      },
+      {
+        "type": "header",
+        "content": "Countdown Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Background",
+        "default": "#f5f3ef"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#2c2d2e"
+      },
+      {
+        "type": "color",
+        "id": "overlay_color",
+        "label": "Overlay",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Overlay opacity",
+        "default": 10
+      },
+			{
+	      "type": "header",
+	      "content": "Spacing"
+	    },
+      {
+        "type": "checkbox",
+        "id": "disable_top_spacing",
+        "default": false,
+        "label": "Remove top spacing"
+      },
+      {
+        "type": "checkbox",
+        "id": "disable_bottom_spacing",
+        "default": false,
+        "label": "Remove bottom spacing"
+      },
+      {
+        "type": "header",
+        "content": "Desktop spacing"
+      },
+      {
+        "type": "range",
+        "id": "desktop_spacing_top",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Desktop spacing top",
+        "default": 30,
+        "info": "Changes the section top spacing in desktop screens."
+      },
+      {
+        "type": "range",
+        "id": "desktop_spacing_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Desktop spacing bottom",
+        "default": 30,
+        "info": "Changes the section bottom spacing in desktop screens."
+      },
+      {
+        "type": "header",
+        "content": "Mobile spacing"
+      },
+      {
+        "type": "range",
+        "id": "mobile_spacing_top",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Mobile spacing top",
+        "default": 15,
+        "info": "Changes the section top spacing in mobile screens."
+      },
+      {
+        "type": "range",
+        "id": "mobile_spacing_bottom",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Mobile spacing bottom",
+        "default": 15,
+        "info": "Changes the section bottom spacing in mobile screens."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Meta Slideshow countdown"
+      }
+    ],
+		"enabled_on": {
+			"templates": ["*"],
+			"groups": [
+				"header", "footer"
+			]
+		}
+  }
+{% endschema %}

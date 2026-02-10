@@ -1,0 +1,391 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs": {
+      "type": "Breadcrumbs",
+      "settings": {}
+    },
+    "image_with_text_overlay_ePHKjq": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_Aw6M7n": {
+          "type": "heading",
+          "settings": {
+            "text": "{{ page.title }}",
+            "heading_size": "h1-xlarge"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Aw6M7n"
+      ],
+      "name": "Image with text overlay",
+      "settings": {
+        "image": "shopify://shop_images/our_tech_banner.png",
+        "image_parallax": false,
+        "desktop_height": "desktop-height-400",
+        "mobile_height": "mobile-height-400",
+        "full_width": true,
+        "content_width": "medium",
+        "content_position": "bottom-left",
+        "text_alignment": "left",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": true
+      }
+    },
+    "media_grid_cCMVAe": {
+      "type": "media-grid",
+      "disabled": true,
+      "settings": {
+        "heading": "FiberThermics®<span>Technology</span>",
+        "description": "<p>FiberThermics® is a registered trademark of patented ThermoSoft heating technology. FiberThermics® heating elements conduct heat through their ultra-flexible, electroconductive filaments the same way fiber optics conducts light through fibers.</p><p>FiberThermics® is the only heating system which provides an inherent Thermal Cut Off (TCO) for overheat protection across the entire length of the heating element. Therefore, self-fusing FiberThermics® offers major safety advantages over traditional metal heating wires and carbon heaters which are prone to overheat and create fire hazards.</p><p>Explore heating solutions powered by FiberThermics®</p>",
+        "desktop_height": 235,
+        "mobile_height": 340,
+        "column_spacing": "medium",
+        "mobile_swipe": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "color_heading": "#3b352b",
+        "color_heading_secondary": "#7f766e",
+        "color_text": "#252626",
+        "color_links": "#252626",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": true,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 60,
+        "mobile_spacing_bottom": 60
+      }
+    },
+    "image_with_text_Cbcrx3": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_YYWLFf": {
+          "type": "heading",
+          "settings": {
+            "text": "FiberThermics®Technology",
+            "marker_style": "style1",
+            "heading_size": "h3",
+            "marker_color": "#fd6262"
+          }
+        },
+        "text_pgJWQV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>FiberThermics® is a registered trademark of patented ThermoSoft heating technology. FiberThermics® heating elements conduct heat through their ultra-flexible, electroconductive filaments the same way fiber optics conducts light through fibers.</p><p><br/>FiberThermics® is the only heating system which provides an inherent Thermal Cut Off (TCO) for overheat protection across the entire length of the heating element. Therefore, self-fusing FiberThermics® offers major safety advantages over traditional metal heating wires and carbon heaters which are prone to overheat and create fire hazards.</p><p>Explore heating solutions powered by FiberThermics®</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_YYWLFf",
+        "text_pgJWQV"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/Untitled-7.png",
+        "use_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "full_width": false,
+        "layout": "text_first",
+        "content_position": "text-left",
+        "column_spacing": "medium",
+        "color_bg": "rgba(0,0,0,0)",
+        "color_text": "#252626",
+        "color_border": "#e2e2e2",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 60,
+        "mobile_spacing_bottom": 60
+      }
+    },
+    "image_with_text_yULCnV": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_mz8QTJ": {
+          "type": "heading",
+          "settings": {
+            "text": "Tailored Applications",
+            "marker_style": "style1",
+            "heading_size": "h2",
+            "marker_color": "#fd6262"
+          }
+        },
+        "text_9KBmyh": {
+          "type": "text",
+          "settings": {
+            "text": "<p>There is no one-size-fits-all solution to every project, just like there is no single heating method appropriate for all floor coverings. That is why ThermoSoft continuously develops advanced new technologies for simple installations, tailored for all kinds of projects.<br/><br/>While working with the National Wood Flooring Association’s Radiant Heat Task Force, WarmStep® was established as a Fabric Heating Mat with Thermal Cut-Off . WarmStep® powered by FiberThermics® has become the most tested and approved in-floor heating system for wood, laminate and SPC Click.<br/><br/>ThermoSoft strives to create better, safer, and more user-friendly heating systems that are the best suited in the industry for any project.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_mz8QTJ",
+        "text_9KBmyh"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/image_2_284bafaf-4dfa-48f0-8ed1-b065ba38c0a2.png",
+        "use_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "full_width": false,
+        "layout": "image_first",
+        "content_position": "text-left",
+        "column_spacing": "medium",
+        "color_bg": "#f2efe7",
+        "color_text": "#252626",
+        "color_border": "#e2e2e2",
+        "disable_top_spacing": true,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 10,
+        "mobile_spacing_top": 40,
+        "mobile_spacing_bottom": 25
+      }
+    },
+    "image_with_text_W79pap": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_XKm7Gz": {
+          "type": "heading",
+          "settings": {
+            "text": "Patents",
+            "marker_style": "style1",
+            "heading_size": "h2",
+            "marker_color": "#fd6262"
+          }
+        },
+        "text_K9e7Xy": {
+          "type": "text",
+          "settings": {
+            "text": "<p>ThermoSoft FiberThermics® technology is patented and patent pending in the USA, Canada and Mexico. In addition, Patent Cooperation Treaty (PCT) Applications are pending in countries worldwide.<br/><br/>ThermoSoft patents are part of comprehensive and exclusive know-how which involves constant research and development of cutting-edge FiberThermics® heating technology and fully integrated heating product manufacturing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_XKm7Gz",
+        "text_K9e7Xy"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/Untitled-4_5.png",
+        "use_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "full_width": false,
+        "layout": "text_first",
+        "content_position": "text-left",
+        "column_spacing": "medium",
+        "color_bg": "#f2efe7",
+        "color_text": "#252626",
+        "color_border": "#e2e2e2",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 10,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 25,
+        "mobile_spacing_bottom": 40
+      }
+    },
+    "custom_solution_wiffTD": {
+      "type": "custom-solution",
+      "blocks": {
+        "element_item_bJVck9": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<ul><li>Comprehensive engineering design analysis.</li></ul>"
+          }
+        },
+        "element_item_YJRnPm": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<ul><li>Experienced design engineers that advise the best material combinations and electrical parameters for your heating products.</li></ul>"
+          }
+        },
+        "element_item_dhPggN": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<ul><li>Custom controller design and manufacturing.</li></ul>"
+          }
+        },
+        "element_item_CFmnKr": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<ul><li>Unique heater performance testing equipment and software.</li></ul>"
+          }
+        },
+        "element_item_EBBme4": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<ul><li>Safety certification testing and supervision of the OSHA National Testing Laboratory safety certification and listing process and/or the Canadian or European equivalent.</li></ul>"
+          }
+        },
+        "element_item_bCFcbf": {
+          "type": "element-item",
+          "settings": {
+            "title": "",
+            "description": "<ul><li>Custom heating element manufacturing and assembly.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "element_item_bJVck9",
+        "element_item_YJRnPm",
+        "element_item_dhPggN",
+        "element_item_CFmnKr",
+        "element_item_EBBme4",
+        "element_item_bCFcbf"
+      ],
+      "custom_css": [
+        "modal-opener button {justify-content: center; width: 100%; background: transparent;}"
+      ],
+      "name": "Custom Solution Grid",
+      "settings": {
+        "heading": "Custom Solutions",
+        "marker_style": "style1",
+        "head-size": "h2",
+        "description": "<p>ThermoSoft offers in-house analysis, design, and prototype testing services for heating elements and warming products. Our years of experience in engineering design and heating element production make ThermoSoft an invaluable resource for developing unique solutions for warming products and any manufacturing challenges.</p>",
+        "body-size": "body-regular",
+        "grid-head": "Our Custom Solutions include, but not limited to:",
+        "bottom-description": "<p>ThermoSoft’s core competencies will quickly move your heating project from design inception to prototype to product testing and safety certification.</p><p>We offer custom design and testing services to original equipment manufacturers (OEM) in a dozen industries. If you are an OEM with a new or existing heating element or warming product requirement, we invite you to submit a Custom Solutions Request for immediate consideration. Let our engineering team go to work to develop an innovative, cost effective heating system solution tailored to your needs.</p>",
+        "body-bottom-size": "body-regular",
+        "link_label": "Get Started",
+        "link": "",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 40,
+        "desktop_spacing_bottom": 40,
+        "mobile_spacing_top": 40,
+        "mobile_spacing_bottom": 0
+      }
+    },
+    "custom_icon_text_columns_xrF6J4": {
+      "type": "custom-icon-text-columns",
+      "blocks": {
+        "column_PQ9wXG": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Real_People.svg",
+            "title": "Real People, Real Support",
+            "text": "<p>Behind every system is a US-Based team that listens, solves, and supports—because great products deserve even better service backed by the highest level of quality control possible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_d9TFbT": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Our_Mission.svg",
+            "title": "Our Mission is Your Comfort",
+            "text": "<p>We’re here to make your home feel amazing. Every system we build is designed to deliver joy, warmth, and lasting satisfaction while also offering an unsurpassed best-in-class safety record.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_nLxULD": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Unmatched_Value.svg",
+            "title": "Unmatched Value, USA Based Manufacturer",
+            "text": "<p>Using only premium materials, patented technology, and superior engineering—all at a price that makes luxury heating and accessible.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_YmCgDp": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Innovation.svg",
+            "title": "Innovation You Can Trust",
+            "text": "<p>We don’t follow trends—we set them. With proprietary tech like FiberThermics®, our systems have been installed and delivering reliable electric radiant heat to homeowners for 30 years.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bDWpXY": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Designed_Around_You.svg",
+            "title": "Designed Around You",
+            "text": "<p>We listen first to your needs, then guide. Whether it’s a single room or a full-home project, we tailor solutions to your needs and budgets.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bcnVXW": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Integrity.svg",
+            "title": "Integrity in Every Detail",
+            "text": "<p>We’ve earned our reputation by keeping promises. From product quality to customer care, we stand behind everything we do.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_PQ9wXG",
+        "column_d9TFbT",
+        "column_nLxULD",
+        "column_YmCgDp",
+        "column_bDWpXY",
+        "column_bcnVXW"
+      ],
+      "name": "Custom icon text columns",
+      "settings": {
+        "subtitle": "Thermosoft",
+        "heading": "Cozy, Affordable and Reliable Electric Radiant Heating—<span>Inside and Out</span>",
+        "marker_style": "style1",
+        "description": "<p>At ThermoSoft, electric radiant heating is about more than just warmth—it’s about comfort, safety, and peace of mind throughout your home. Indoors, our systems integrate seamlessly wherever you need them—bathrooms, kitchens, basements, or your entire living space. Outdoors, we empower you to be fully in control, keeping driveways and walkways clear, roofs and gutters snow and ice-free, and exposed pipes protected. Across every corner of your property, ThermoSoft’s electric radiant heating delivers consistent, energy-efficient performance—right where it matters most.<br/><br/>For over 30 years, homeowners have trusted ThermoSoft for safe, dependable indoor and outdoor heating solutions. With patented technologies like FiberThermics®, our systems offer unmatched performance, proven durability, minimal EMF emissions, and fast, even heat distribution on demand.<br/><br/>As a US based manufacturer proudly based in Vernon Hills, Illinois, our systems ensure faster heat delivery, easier maintenance, and long-term reliability. From floor heating under any floor type— including tile, laminate, vinyl, and wood—to deicing and snow-melting systems for concrete, asphalt, and pavers, as well as roof, gutter, and water pipe protection solutions, we provide systems that are built to last and backed by expert support.<br/><br/>Join the millions of homeowners who trust ThermoSoft to bring warmth to every step, inside and out.</p>",
+        "heading_size": "body-regular",
+        "color_heading": "#1a1c1d",
+        "marker_color": "#fd6262",
+        "color_text": "#896f57",
+        "color_links": "#2c2d2e",
+        "image_bg": "#eeeade",
+        "image_inner_bg": "#ffffff",
+        "disable_top_spacing": false,
+        "disable_bottom_spacing": false,
+        "desktop_spacing_top": 80,
+        "desktop_spacing_bottom": 80,
+        "mobile_spacing_top": 50,
+        "mobile_spacing_bottom": 50
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs",
+    "image_with_text_overlay_ePHKjq",
+    "media_grid_cCMVAe",
+    "image_with_text_Cbcrx3",
+    "image_with_text_yULCnV",
+    "image_with_text_W79pap",
+    "custom_solution_wiffTD",
+    "custom_icon_text_columns_xrF6J4"
+  ]
+}

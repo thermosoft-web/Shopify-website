@@ -1,0 +1,354 @@
+{%- liquid
+	assign mobile_height = section.settings.mobile_height
+	assign desktop_height = section.settings.desktop_height
+	assign full_width = section.settings.full_width
+	assign map_zoom = section.settings.map_zoom
+	assign map_type = section.settings.map_type
+	assign map_style_select = section.settings.map_style_select
+	assign googlemaps_api_key = section.settings.googlemaps_api_key
+	assign image = section.settings.image
+	assign mobile_image = section.settings.mobile_image
+
+	assign disable_top_spacing = section.settings.disable_top_spacing
+	assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+-%}
+
+<div class="row{% if full_width %} full-width-row-full{% endif %}">
+	<div class="small-12 columns">
+		<google-map class="google-map section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}">
+			<div class="google-map--container {{ mobile_height | escape }} {{ desktop_height | escape }}">
+				<div class="google-map--map" data-map-zoom="{{ map_zoom | escape }}" data-map-type="{{ map_type | escape }}" data-map-style="{{ map_style_select | escape }}">
+					{%- if googlemaps_api_key == blank -%}
+						{%- if image != blank -%}
+							{%- liquid
+								assign small_width = image.src.height | times: '480' | divided_by: image.src.width
+								assign master_width = image.src.height | append: 'x' | append: image.src.width
+								assign width = '1920x' | append: small_width | append: ',' | append: master_width
+								assign class = ''
+								if mobile_image
+									assign class = class | append: ' google-map--map-desktop'
+								endif
+							
+								render 'responsive-image', image: image, sizes: width, class,class
+							-%}
+							{%- if mobile_image -%}
+								{%- liquid
+									assign small_width = mobile_image.src.height | times: '105' | divided_by: mobile_image.src.width
+									assign master_width = mobile_image.src.height | append: 'x' | append: mobile_image.src.width
+									assign width = '420x' | append: small_width | append: ',' | append: master_width
+
+									assign class = ''
+
+									assign class = class | append: ' google-map--map-mobile'
+									render 'responsive-image', image: mobile_image, sizes: width, class: class
+								-%}
+							{%- endif -%}
+						{%- else -%}
+							{{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+						{%- endif -%}
+					{%- endif -%}
+				</div>
+			</div>
+			<div class="google-map--information">
+				{%- for block in section.blocks -%}
+					{% if block.settings.pin_image %}
+						{% assign pin_image = block.settings.pin_image.src | image_url %}
+						{% capture marker_size %}[{{ block.settings.pin_image.width }},{{ block.settings.pin_image.height }}]{% endcapture %}
+					{% else %}
+						{% assign pin_image = 'pin.png' | asset_url %}
+						{% capture marker_size %}[79,120]{% endcapture %}
+					{% endif %}
+					{% capture pin_json %}{"marker_image":{{ pin_image | json }},"marker_size":{{ marker_size }},"retina_marker":{{ block.settings.pin_retina | json }},"latitude":{{ block.settings.pin_lat }},"longitude":{{ block.settings.pin_long }}}{% endcapture %}
+					<input class="thb-location" type="hidden" data-option="{{ pin_json | escape }}" />
+				{%- endfor -%}
+				<div class="select" hidden>
+					<select class="google-map--select">
+						{%- for block in section.blocks -%}
+							{%- liquid
+								capture location_title_default
+								echo "sections.contact.map.location" | t: index: forloop.index
+								endcapture
+							-%}
+							<option value="#{{ section.id }}-{{ block.id }}">{{ block.settings.pin_title | default: location_title_default }}</option>
+						{%- endfor -%}
+					</select>
+					<div class="select-arrow">{%- render 'svg-icons' with 'thb-select' -%}</div>
+				</div>
+				{%- for block in section.blocks -%}
+					{%- liquid
+						capture location_title_default
+						echo "sections.contact.map.location" | t: index: forloop.index
+						endcapture
+					-%}
+					<div class="google-map--location-data{% if forloop.first %} google-map--location-data-active{% endif %}" id="{{ section.id }}-{{ block.id }}">
+						<div class="google-map--location-heading h5">{{ block.settings.pin_title | default: location_title_default }}</div>
+						{% if block.settings.pin_contact != blank %}
+							<div class="google-map--location-contact google-map--location-number">
+								<div class="google-map--location-contact-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+										<path d="M6.82422 1.33691C5.72826 0.432553 4.16213 0.595282 3.38867 1.66699L3.3877 1.66797C3.13526 2.01597 2.85572 2.42044 2.41602 2.99609L1.91797 3.63281C0.982311 4.81586 0.474718 6.28067 0.476564 7.78906C0.478352 9.20432 0.928879 10.58 1.75977 11.7197L1.93067 11.9443C3.51743 13.9132 5.16683 15.8787 7.00586 17.7178C8.8428 19.5547 10.8098 21.2047 12.7773 22.7939C13.9579 23.7351 15.4228 24.2481 16.9326 24.25C18.4424 24.2519 19.9089 23.7419 21.0918 22.8037C22.0776 22.016 22.6477 21.6345 23.1221 21.29C24.1583 20.5371 24.3321 19.0414 23.4854 17.9932H23.4844C22.4817 16.7493 21.34 15.5677 20.2148 14.3799C19.9823 14.14 19.6668 13.9981 19.333 13.9824C18.9992 13.9668 18.672 14.0788 18.418 14.2959L18.417 14.2969C17.8992 14.7385 17.506 15.0583 16.5947 15.9141L16.1836 16.2998L15.6982 16.0117C12.5172 14.1228 10.5662 12.1482 8.70996 9.02637L8.42188 8.54102L8.8086 8.12891C9.66991 7.21207 9.98969 6.81884 10.4346 6.2959L10.4375 6.29199C10.6536 6.04089 10.765 5.71665 10.749 5.38574C10.7331 5.05744 10.5933 4.74713 10.3574 4.51855C9.33836 3.56629 8.32288 2.60698 7.27539 1.71484L6.82422 1.33691Z" stroke="#900000" stroke-width="1.5"></path>
+									</svg>
+								</div>
+								<div class="google-map--location-contact-rte rte">
+									{{ block.settings.pin_contact }}
+								</div>
+							</div>
+						{% endif %}
+						{% if block.settings.pin_email != blank %}
+							<div class="google-map--location-contact google-map--location-mail">
+								<div class="google-map--location-contact-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+										<path d="M21.4785 4.375H8.35352C5.59209 4.375 3.35352 6.61358 3.35352 9.375V20.625C3.35352 23.3864 5.59209 25.625 8.35352 25.625H21.4785C24.2399 25.625 26.4785 23.3864 26.4785 20.625V9.375C26.4785 6.61358 24.2399 4.375 21.4785 4.375Z" stroke="#900000" stroke-width="1.5"></path>
+										<path d="M3.41211 9.48828L12.4184 14.6508C13.1731 15.0887 14.0302 15.3194 14.9027 15.3194C15.7753 15.3194 16.6324 15.0887 17.3871 14.6508L26.4184 9.48828" stroke="#900000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></path>
+									</svg>
+								</div>
+								<div class="google-map--location-contact-rte rte">
+									<p>{{ block.settings.pin_email }}</p>
+								</div>
+							</div>
+						{% endif %}
+						{% if block.settings.pin_address != blank %}
+							<div class="google-map--location-contact google-map--location-address">
+								<div class="google-map--location-contact-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M9.0625 12.5C9.0625 10.9253 9.68806 9.41505 10.8016 8.30155C11.9151 7.18806 13.4253 6.5625 15 6.5625C16.5747 6.5625 18.0849 7.18806 19.1984 8.30155C20.3119 9.41505 20.9375 10.9253 20.9375 12.5C20.9375 14.0747 20.3119 15.5849 19.1984 16.6984C18.0849 17.8119 16.5747 18.4375 15 18.4375C13.4253 18.4375 11.9151 17.8119 10.8016 16.6984C9.68806 15.5849 9.0625 14.0747 9.0625 12.5ZM15 8.4375C13.9226 8.4375 12.8892 8.86551 12.1274 9.62738C11.3655 10.3892 10.9375 11.4226 10.9375 12.5C10.9375 13.5774 11.3655 14.6108 12.1274 15.3726C12.8892 16.1345 13.9226 16.5625 15 16.5625C16.0774 16.5625 17.1108 16.1345 17.8726 15.3726C18.6345 14.6108 19.0625 13.5774 19.0625 12.5C19.0625 11.4226 18.6345 10.3892 17.8726 9.62738C17.1108 8.86551 16.0774 8.4375 15 8.4375Z" fill="#900000"></path>
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M4.40509 11.0713C4.61931 8.47997 5.79986 6.06391 7.71247 4.3025C9.62508 2.54109 12.13 1.56307 14.7301 1.5625H15.2701C17.8702 1.56307 20.3751 2.54109 22.2877 4.3025C24.2003 6.06391 25.3809 8.47997 25.5951 11.0713C25.8334 13.9579 24.9416 16.8243 23.1076 19.0662L17.1163 26.3925C16.8599 26.706 16.5371 26.9587 16.1711 27.1322C15.8051 27.3057 15.4051 27.3957 15.0001 27.3957C14.5951 27.3957 14.1951 27.3057 13.8291 27.1322C13.4631 26.9587 13.1402 26.706 12.8838 26.3925L6.89259 19.0662C5.05864 16.8243 4.1668 13.9579 4.40509 11.0713ZM14.7301 3.4375C12.6009 3.4384 10.5497 4.23956 8.9836 5.68206C7.41746 7.12456 6.4507 9.10302 6.27509 11.225C6.0767 13.6274 6.81885 16.0129 8.34509 17.8787L14.3363 25.2063C14.4169 25.3048 14.5183 25.3843 14.6333 25.4388C14.7484 25.4934 14.8741 25.5217 15.0013 25.5217C15.1286 25.5217 15.2543 25.4934 15.3693 25.4388C15.4844 25.3843 15.5858 25.3048 15.6663 25.2063L21.6576 17.8787C23.1829 16.0125 23.9242 13.627 23.7251 11.225C23.5495 9.10281 22.5825 7.12417 21.0161 5.68164C19.4497 4.2391 17.3983 3.43809 15.2688 3.4375H14.7301Z" fill="#900000"></path>
+									</svg>
+								</div>
+								<div class="google-map--location-contact-rte rte">
+									<p>{{ block.settings.pin_address }}</p>
+								</div>
+							</div>
+						{% endif %}
+						{% if block.settings.pin_desc != blank %}
+							{{ block.settings.pin_desc | newline_to_br }}
+						{% endif %}
+					</div>
+				{%- endfor -%}
+			</div>
+		</google-map>
+	</div>
+</div>
+{%- if googlemaps_api_key != blank -%}
+	<script src='https://maps.google.com/maps/api/js?key={{ section.settings.googlemaps_api_key | escape }}'></script>
+{%- endif -%}
+{{ 'map.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'map.js' | asset_url }}" defer></script>
+{% schema %}
+  {
+    "name": "Map",
+    "settings": [
+			{
+				"type": "text",
+				"id": "googlemaps_api_key",
+				"label": "Google maps API key",
+				"info": "You’ll need to [register a Google Maps API Key](https://documentation.fuelthemes.net/kb/map/) to display the map."
+			},
+			{
+				"type": "image_picker",
+				"id": "image",
+				"label": "Image",
+				"info": "Displayed if the map isn’t loaded"
+			},
+			{
+				"type": "image_picker",
+				"id": "mobile_image",
+				"label": "Mobile image (optional)",
+				"info": "Displayed if the map isn’t loaded"
+			},
+			{
+				"type": "checkbox",
+				"id": "full_width",
+				"label": "Make section full width",
+				"default": false
+			},
+			{
+				"type": "header",
+				"content": "Map"
+			},
+			{
+				"type": "select",
+				"id": "desktop_height",
+				"label": "Desktop height",
+				"options": [
+					{
+						"value": "desktop-height-450",
+						"label": "450px"
+					},
+					{
+						"value": "desktop-height-550",
+						"label": "550px"
+					},
+					{
+						"value": "desktop-height-600",
+						"label": "600px"
+					},
+					{
+						"value": "desktop-height-650",
+						"label": "650px"
+					}
+				],
+				"default": "desktop-height-450"
+			},
+			{
+				"type": "select",
+				"id": "mobile_height",
+				"label": "Mobile height",
+				"options": [
+					{
+						"value": "mobile-height-350",
+						"label": "350px"
+					},
+					{
+						"value": "mobile-height-400",
+						"label": "400px"
+					},
+					{
+						"value": "mobile-height-450",
+						"label": "450px"
+					},
+					{
+						"value": "mobile-height-500",
+						"label": "500px"
+					},
+					{
+						"value": "mobile-height-550",
+						"label": "550px"
+					},
+					{
+						"value": "mobile-height-600",
+						"label": "600px"
+					}
+				],
+				"default": "mobile-height-350"
+			},
+      {
+        "type": "select",
+        "id": "map_type",
+        "label": "Type",
+        "default": "roadmap",
+        "options": [
+          { "value": "roadmap", "label": "RoadMap" },
+          { "value": "satellite", "label": "Satellite" },
+          { "value": "hybrid", "label": "Hybrid" }
+        ]
+      },
+      {
+				"type": "select",
+        "id": "map_style_select",
+        "label": "Style",
+        "options": [
+          { "value": "default", "label": "Default" },
+          { "value": "retro", "label": "Retro" },
+          { "value": "night", "label": "Night" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "map_zoom",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "label": "Zoom",
+        "default": 0,
+        "info": "Leave at 0 for automatic calculation."
+      },
+			{
+	      "type": "header",
+	      "content": "Spacing"
+	    },
+			{
+				"type": "checkbox",
+				"id": "disable_top_spacing",
+				"default": false,
+				"label": "Remove top spacing"
+			},
+			{
+				"type": "checkbox",
+				"id": "disable_bottom_spacing",
+				"default": false,
+				"label": "Remove bottom spacing"
+			}
+    ],
+    "blocks": [
+      {
+        "type": "pin",
+        "name": "Pin",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Pin image"
+          },
+          {
+            "type": "image_picker",
+            "id": "pin_image",
+            "label": "Image",
+            "info": "80 x 108 px .png recommended."
+          },
+          {
+            "type": "checkbox",
+            "id": "pin_retina",
+            "label": "Retina image",
+            "default": true,
+            "info": "The pin will be shown at half size"
+          },
+          {
+            "type": "header",
+            "content": "Marker settings",
+						"info": "You can learn how to get your marker coordinates at [https://support.google.com/maps/answer/18539?hl=en](https://support.google.com/maps/answer/18539)"
+          },
+          {
+            "id": "pin_lat",
+            "type": "text",
+            "label": "Latitude",
+						"default": "33.9787261",
+						"info": "Latitude coordinate for the marker. Example: 41.40338"
+          },
+          {
+            "id": "pin_long",
+            "type": "text",
+            "label": "Longtitude",
+						"default": "-118.4197832",
+						"info": "Longtitude coordinate for the marker. Example: 29.0023211"
+          },
+          {
+            "id": "pin_title",
+            "type": "text",
+            "label": "Title"
+          },
+					{
+            "id": "pin_contact",
+            "type": "richtext",
+            "label": "Contact number"
+          },
+					{
+            "id": "pin_email",
+            "type": "inline_richtext",
+            "label": "Contact Email"
+          },
+					{
+            "id": "pin_address",
+            "type": "inline_richtext",
+            "label": "Contact Address"
+          },
+          {
+            "id": "pin_desc",
+            "type": "textarea",
+            "label": "Description"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Map",
+				"blocks": [
+	        {
+	          "type": "pin"
+	        }
+	      ]
+      }
+    ]
+  }
+
+{% endschema %}

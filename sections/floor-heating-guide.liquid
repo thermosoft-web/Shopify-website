@@ -1,0 +1,166 @@
+{{ 'floor-heating-guide.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign disable_top_spacing = section.settings.disable_top_spacing
+  assign disable_bottom_spacing = section.settings.disable_bottom_spacing
+  assign desktop_spacing_top = section.settings.desktop_spacing_top
+  assign desktop_spacing_bottom = section.settings.desktop_spacing_bottom
+  assign mobile_spacing_top = section.settings.mobile_spacing_top
+  assign mobile_spacing_bottom = section.settings.mobile_spacing_bottom
+%}
+{% style %}
+#shopify-section-{{ section.id }} {
+  --section-spacing-mobile-top: {{ mobile_spacing_top | default: '15' | append: 'px' }};
+  --section-spacing-mobile-bottom: {{ mobile_spacing_bottom | default: '15' | append: 'px' }};
+  --section-spacing-desktop-top: {{ desktop_spacing_top | default: '30' | append: 'px' }};
+  --section-spacing-desktop-bottom: {{ desktop_spacing_bottom | default: '30' | append: 'px' }};
+}
+{% endstyle %}
+
+
+<section class="fhg-section section-spacing {% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %}" style="--fhg-bg: {{ section.settings.background }};">
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="fhg-inner">
+        <div class="fhg-content">  
+          {% if section.settings.title != blank %} <h4 class="fhg-title h4">{{ section.settings.title }}</h4> {% endif %}
+          {% if section.settings.subtext != blank %}<div class="rte">{{ section.settings.subtext }}</div>{% endif %}
+          {% if section.settings.button_link != blank %}
+            <a href="{{ section.settings.button_link }}" class="fhg-btn button accent2" aria-label="{{ section.settings.button_text }}">
+              <span class="fhg-btn-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 14L5 9L6.4 7.55L9 10.15V2H11V10.15L13.6 7.55L15 9L10 14ZM4 18C3.45 18 2.97933 17.8043 2.588 17.413C2.19667 17.0217 2.00067 16.5507 2 16V13H4V16H16V13H18V16C18 16.55 17.8043 17.021 17.413 17.413C17.0217 17.805 16.5507 18.0007 16 18H4Z" fill="black"/></svg></span>
+              <span class="fhg-btn-text">{{ section.settings.button_text }}</span>
+            </a>          
+          {% endif %}
+        </div>
+        <div class="fhg-image-wrap" aria-hidden="true">      
+          {%- if section.settings.guide_image != blank -%}
+            {%- liquid
+              assign image = section.settings.guide_image
+              assign master_width = image.src.width | append: 'x' | append: image.src.height
+              render 'responsive-image', image: image, sizes: master_width, retina: true, alt: section.settings.guide_image.alt
+            -%}
+          {%- else -%}
+            <div class="thb-placeholder">
+              {{ 'image' | placeholder_svg_tag: 'placeholder_svg_tag' }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>  
+</section>
+
+{% schema %}
+{
+  "name": "Floor Heating Guide",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Don't Trust Just Any Indoor-Floor Heating Systems – Insist on ThermoSoft Products"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>ThermoSoft offers the best-performing and most reliable radiant electric heat solutions on the market.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Download FREE Guide"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },    
+    {
+      "type": "image_picker",
+      "id": "guide_image",
+      "label": "Guide book image"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "linear-gradient(180deg, #900000 0%, #900000 75%,  #FBFBFB 75%)"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_top_spacing",
+      "default": false,
+      "label": "Remove top spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_bottom_spacing",
+      "default": false,
+      "label": "Remove bottom spacing"
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing top",
+      "default": 30,
+      "info": "Changes the section top spacing in desktop screens."
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing bottom",
+      "default": 30,
+      "info": "Changes the section bottom spacing in desktop screens."
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_top",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing top",
+      "default": 15,
+      "info": "Changes the section top spacing in mobile screens."
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing bottom",
+      "default": 15,
+      "info": "Changes the section bottom spacing in mobile screens."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Floor Heating Guide"
+    }
+  ]
+}
+{% endschema %}

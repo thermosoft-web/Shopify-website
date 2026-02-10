@@ -1,0 +1,160 @@
+<section class="core-values-section">
+  <div class="row">
+
+    <div class="heading-content">
+    {% if section.settings.heading != blank %}
+      <h2 class="h1">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <p class="core-values-subheading">
+        {{ section.settings.subheading }}
+      </p>
+    {% endif %}
+    </div>
+
+    <div class="core-values-grid">
+      {% for block in section.blocks %}
+        <div class="core-value-card" {{ block.shopify_attributes }}>
+          <p class="core-value-text">
+            {{ block.settings.text }}
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<script>
+function equalizeCoreValueHeights() {
+  const cards = document.querySelectorAll('.core-value-card');
+  if (!cards.length) return;
+
+  // reset height
+  cards.forEach(card => {
+    card.style.height = 'auto';
+  });
+
+  let maxHeight = 0;
+
+  cards.forEach(card => {
+    const h = card.offsetHeight;
+    if (h > maxHeight) maxHeight = h;
+  });
+
+  cards.forEach(card => {
+    card.style.height = maxHeight + 'px';
+  });
+}
+
+// Run after load
+document.addEventListener('DOMContentLoaded', equalizeCoreValueHeights);
+
+// Run on resize
+window.addEventListener('resize', () => {
+  clearTimeout(window._coreValueResizeTimer);
+  window._coreValueResizeTimer = setTimeout(equalizeCoreValueHeights, 150);
+});
+</script>
+
+
+<style>
+.core-values-section {
+  padding: 80px 0;
+}
+
+.heading-content {
+    text-align: center;
+    width: 100%;
+}
+.core-values-subheading {
+    font-size: 20px;
+    margin-bottom: 35px;
+}
+
+
+/* GRID */
+.core-values-grid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* CARD */
+.core-value-card {
+    background: #E2D9C4;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    min-height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(20% - 8px);
+}
+
+.core-value-text {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: .24px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .core-value-card {
+    width: calc(33.33% - 7px);
+  }
+}
+
+@media (max-width: 640px) {
+  .core-value-card {
+    width: calc(50% - 5px);
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Text Box",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Core Values"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "To achieve our mission and keep our promise, we are:"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Core Value",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Value text",
+          "default": "Devoted to customer care and service"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text Box"
+    }
+  ]
+}
+{% endschema %}

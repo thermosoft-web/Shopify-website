@@ -1,0 +1,177 @@
+.thermosoft-difference--transparent-false .thermosoft-difference__container {
+  background-color: var(--color-bg);
+  padding: 40px;
+}
+
+.thermosoft-difference__container {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  align-items: center;
+}
+
+.thermosoft-difference__content {
+  padding: 0 80px;
+}
+
+.thermosoft-difference__subtitle {
+  color: var(--color-subtitle, var(--color-text, var(--color-body, #2c2d2e)));
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: var(--font-body-medium-weight, 500);
+  font-size: calc(var(--font-body-scale) * 18px);
+  line-height: calc(var(--font-body-line-height-scale) * calc(var(--font-body-scale) * 26px));
+}
+
+.thermosoft-difference__title {
+  margin-bottom: 30px;
+  font-weight: var(--font-body-medium-weight, 500);
+  font-variation-settings: normal;
+}
+
+.thermosoft-difference__title span {
+  color: var(--color-heading-secondary, var(--color-heading, #1a1c1d));
+}
+
+.thermosoft-difference__text > *:last-child {
+  margin-bottom: 0;
+}
+
+.thermosoft-difference__graphics {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 56px;
+}
+
+.thermosoft-difference__column {
+  flex: 1 1 50%;
+  border-radius: 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.thermosoft-difference__brand {
+  border-bottom: 10px solid var(--color-border, #dadce0);
+  background: var(--color-bg, var(--bg-body, #f5f5f5));
+  color: var(--color-text, var(--color-body, #2c2d2e));
+  box-shadow: 89px 179px 56px 0 rgba(107, 91, 91, 0.00), 57px 115px 51px 0 rgba(107, 91, 91, 0.02), 32px 65px 43px 0 rgba(107, 91, 91, 0.08), 14px 29px 32px 0 rgba(107, 91, 91, 0.14), 4px 7px 18px 0 rgba(107, 91, 91, 0.16);
+  position: relative;
+  z-index: 1;
+}
+
+.thermosoft-difference__other {
+  padding: 24px 40px;
+}
+
+.thermosoft-difference__brand_header {
+  padding: 24px 40px 10px;
+}
+
+.thermosoft-difference__logo {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto 24px;
+  display: block;
+}
+
+.thermosoft-difference__main-img {
+  width: 100%;
+  height: auto;
+}
+
+.thermosoft-difference__desc {
+  position: relative;
+}
+
+.thermosoft-difference__desc_content {
+  padding: 20px;
+}
+
+.thermosoft-difference__desc_content:has(+ .thermosoft-difference__desc_image) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.thermosoft-difference__desc h6 {
+  font-variation-settings: normal;
+  font-weight: var(--font-body-medium-weight, 500);
+  margin-bottom: 10px;
+}
+
+.thermosoft-difference__desc p {
+  margin-bottom: 0;
+}
+
+.thermosoft-difference__box-img {
+  width: 100%;
+  height: auto;
+}
+
+.thermosoft-difference__other h4 {
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+  .thermosoft-difference--transparent-false {
+    background: var(--color-bg, var(--bg-body, #f5f5f5));
+    margin-bottom: 15px;
+  }
+  .thermosoft-difference__container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .thermosoft-difference--transparent-false .thermosoft-difference__container {
+    padding: 0;
+  }
+  .thermosoft-difference__content {
+    padding: 0 0;
+    order: 2;
+  }
+  .thermosoft-difference__graphics {
+    order: 1;
+    padding: 0 0;
+    max-width: 510px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .thermosoft-difference__desc h6 {
+    font-size: 15px;
+    line-height: 23px;
+  }
+  .thermosoft-difference__desc p {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .thermosoft-difference__column {
+    flex: 1 1 43%;
+  }
+  .thermosoft-difference__brand {
+   flex: 1 1 57%; 
+  }
+  .thermosoft-difference__brand_header {
+    padding: 40px 32px 8px;
+  }
+  .thermosoft-difference__other {
+    padding: 40px 10px 15px;
+  }
+  .thermosoft-difference__desc_content {
+    padding: 15px;
+  }
+  .thermosoft-difference__logo {
+    margin: 0 auto 19px;
+  }
+  .thermosoft-difference__other h4 {
+    font-size: calc(var(--font-heading-scale) * 24px);
+    line-height: calc(var(--font-heading-line-height-scale) * calc(var(--font-heading-scale) * 36px));
+    margin-bottom: 19px;
+  }
+}

@@ -1,0 +1,263 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product-grid": {
+      "type": "bundle-collection-product-grid",
+      "blocks": {
+        "tab_QXTVQV": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Glue Down Installation",
+            "full_width": false,
+            "video_banner": "shopify://shop_images/6313098be30af434eb9ef4423ac6eb13be6d8cbc.png",
+            "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_hosted": "shopify://files/videos/43954d5c-c814566e.mp4",
+            "video_autoplay": false,
+            "aspect_ratio": "16-9"
+          }
+        },
+        "step_pD8tgt": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561.png",
+            "title": "Make sure you have the right amount of material.",
+            "description": "<ul><li>The mats should cover the entire floor space.</li><li>Follow heating mat spacing from walls and studs according to the manual.</li><li>Heating elements should be in areas where you can walk, stand, or want to heat. See your manual for areas to avoid heating.</li><li>Contact support if you have any questions prior to your installation.</li></ul>"
+          }
+        },
+        "step_GgNPqR": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_1.png",
+            "title": "Prepare conduits and electrical boxes for thermostat installation later.",
+            "description": "<ul><li>Complete electrical rough-in.</li><li>This step may be done after cable is laid but is more difficult to do later as location of thermostat may change location of heating system.</li></ul>"
+          }
+        },
+        "step_faB3WX": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_2.png",
+            "title": "Spread adhesive onto subfloor.",
+            "description": "<ul><li>See your WarmStep manual for recommended trowel and approved adhesives.</li><li>For cement subfloors, additional waterproofing may be necessary.</li></ul>"
+          }
+        },
+        "step_YLdXfa": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_3.png",
+            "title": "Lay mats.",
+            "description": "<ul><li>Lay out mats and unfurl from the wall.</li><li>Make sure to unroll mats with lead wires closest to the thermostat.</li><li>Pro tip: Lay flooring over bottom half of mats to keep in place, then roll up once adhesive is spread.</li></ul>"
+          }
+        },
+        "step_TJhEEC": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_4.png",
+            "title": "Position sensors.",
+            "description": "<ul><li>Notch the bottom of the flooring plank to ensure the sensor stays in place between heating elements.</li><li>Highly recommended to install a backup sensor.</li><li>Position sensor evenly between 2 heating cables.</li><li>Do not cross the heating cable.</li></ul>"
+          }
+        },
+        "step_hEeCk6": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_5.png",
+            "title": "Spread approved adhesive on mats.",
+            "description": "<ul><li>Work in sections, covering entire membrane so you can continue installing membrane whether it's wet or dry.</li><li>Make sure not to use a sharp metal trowel which could nick or damage the heating cable.</li></ul>"
+          }
+        },
+        "step_pHgqEX": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Glue Down Installation",
+            "image": "shopify://shop_images/image_8561_6.png",
+            "title": "Lay solid or engineered wood flooring.",
+            "description": "<ul><li>Refer to the flooring manufacturer for suggested adhesive.</li><li>Lay glue in increments, immediately laying down flooring so not to waste adhesive.</li></ul>"
+          }
+        },
+        "tab_xmwzKH": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Nail Down Installation",
+            "full_width": false,
+            "video": "",
+            "video_autoplay": true,
+            "aspect_ratio": "16-9"
+          }
+        },
+        "step_UU99jC": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Nail Down Installation",
+            "image": "shopify://shop_images/step1.jpg",
+            "title": "Make sure you have the right amount of material.",
+            "description": "<ul><li>The mats should cover the entire floor space.</li><li>Follow heating mat spacing from walls and studs according to the manual.</li><li>Heating elements should be in areas where you can walk, stand, or want to heat. See your manual for areas to avoid heating.</li><li>Contact support if you have any questions prior to your installation.</li></ul>"
+          }
+        },
+        "step_wae7ef": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Nail Down Installation",
+            "image": "shopify://shop_images/step2.jpg",
+            "title": "Prepare conduits and electrical boxes for thermostat installation later.",
+            "description": "<ul><li>Complete electrical rough-in</li><li>This step may be done after cable is laid but is more difficult to do later as location of thermostat may change location of heating system.</li></ul>"
+          }
+        },
+        "step_xBcLVP": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Nail Down Installation",
+            "image": "shopify://shop_images/step3.jpg",
+            "title": "Position mats throughout the room.",
+            "description": "<ul><li>It is very important that your mats are positioned perpendicular to the direction of the floorboards.</li></ul>"
+          }
+        },
+        "step_6p6fMz": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Nail Down Installation",
+            "image": "shopify://shop_images/step4.jpg",
+            "title": "Install sensors.",
+            "description": "<ul><li>Notch the bottom of the flooring plank to ensure the sensor stays in place between heating elements.</li><li>Highly recommended to install a backup sensor.</li><li>Position sensor evenly between 2 heating cables.</li><li>Do not cross the heating cable.</li></ul>"
+          }
+        },
+        "step_Tr7wBJ": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Nail Down Installation",
+            "image": "shopify://shop_images/step5.jpg",
+            "title": "Lay flooring. NOTE: When installing boards over the beginning and end of WarmStep, you must glue down the wood flooring as the wiring pattern that allows safe nailing starts 5 inches in to the mat.",
+            "description": ""
+          }
+        },
+        "tab_ndhWhC": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Floating Installation",
+            "full_width": false,
+            "video": "",
+            "video_autoplay": false,
+            "aspect_ratio": "4-3"
+          }
+        },
+        "step_yyeB48": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Floating Installation",
+            "image": "shopify://shop_images/warmstep-system-500x333.jpg",
+            "title": "Make sure you have the right amount of material.",
+            "description": "<ul><li>The mats should cover the entire floor space.</li><li>Follow heating mat spacing from walls and studs according to the manual.</li><li>Heating elements should be in areas where you can walk, stand, or want to heat. See your manual for areas to avoid heating.</li><li>Contact support if you have any questions prior to your installation.</li></ul>"
+          }
+        },
+        "step_PDrX9d": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Floating Installation",
+            "image": "shopify://shop_images/step2.jpg",
+            "title": "Prepare conduits and electrical boxes for thermostat installation later.",
+            "description": "<ul><li>Complete electrical rough-in.</li><li>This step may be done after cable is laid but is more difficult to do later as location of thermostat may change location of heating system.</li></ul>"
+          }
+        },
+        "step_7j3FA9": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Floating Installation",
+            "image": "shopify://shop_images/step3_1.jpg",
+            "title": "Optional to lay underlayment under WarmStep.",
+            "description": "<ul><li>Lay out and stick together using tape or pre-attached adhesive.</li><li>The underlayment shown is Floor & Decor's Sentinel Protect Plus underlayment.</li></ul>"
+          }
+        },
+        "step_aYajtn": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Floating Installation",
+            "image": "shopify://shop_images/step4_1.jpg",
+            "title": "Lay mats.",
+            "description": "<ul><li>Lay out mats and unfurl from the wall.</li><li>Make sure to unroll mats with lead wires closest to the thermostat.</li><li>Pro tip: Lay flooring over bottom half of mats to keep in place, then roll up once adhesive is spread.</li></ul>"
+          }
+        },
+        "step_7mhJzW": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Floating Installation",
+            "image": "shopify://shop_images/step5_1.jpg",
+            "title": "Position sensors.",
+            "description": "<ul><li>Notch the bottom of the flooring plank to ensure the sensor stays in place between heating elements.</li><li>Highly recommended to install a backup sensor.</li><li>Position sensor evenly between 2 heating cables.</li><li>Do not cross the heating cable.</li></ul>"
+          }
+        },
+        "step_VMxL3f": {
+          "type": "step",
+          "settings": {
+            "parent_tab": "Floating Installation",
+            "image": "shopify://shop_images/step6.jpg",
+            "title": "Install floating floors on top.",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_QXTVQV",
+        "step_pD8tgt",
+        "step_GgNPqR",
+        "step_faB3WX",
+        "step_YLdXfa",
+        "step_TJhEEC",
+        "step_hEeCk6",
+        "step_pHgqEX",
+        "tab_xmwzKH",
+        "step_UU99jC",
+        "step_wae7ef",
+        "step_xBcLVP",
+        "step_6p6fMz",
+        "step_Tr7wBJ",
+        "tab_ndhWhC",
+        "step_yyeB48",
+        "step_PDrX9d",
+        "step_7j3FA9",
+        "step_aYajtn",
+        "step_7mhJzW",
+        "step_VMxL3f"
+      ],
+      "settings": {
+        "columns_desktop": 4,
+        "pagination_type": "paginated",
+        "enable_filtering": true,
+        "enable_sorting": false,
+        "show_counts": false,
+        "filter_color_swatches": false,
+        "filters_collapsed": false,
+        "facets_desktop": "sidebar",
+        "box_filter_list": "",
+        "sizing_title": "Sizing: How Much Cable Do I Need?",
+        "show_collection_image": true,
+        "collection_image_ratio": "adapt",
+        "collection_image_width": "standard",
+        "show_collection_description": true,
+        "seo_text_read_more": "Read more",
+        "seo_text_read_less": "Read less",
+        "seo_text_max_height": 150,
+        "seo_text_mob_max_height": 80,
+        "display_description": true,
+        "instalation-heading": "How To Install WarmStep Heating Mats",
+        "instalation-subheading": "<p><strong>This overview does not substitute for a full reading of the Installation Manual.</strong><br/><br/>The below steps will take you from beginning to end simply, but please also refer to the Installation Manual or call us to go over a more detailed installation plan.<br/><br/>WarmStep is designed around enabling nailed or glued hardwood floors as the below instructions address. For floating floors, see our Quick Install Guide for directions!<br/><br/>Before beginning your installation:<br/></p><ul><li>Ensure that you have a structurally sound subfloor.</li><li>Confirm that your mat layout is compatible with your floor installation plans (see steps below).</li><li>Lay out the heating mats throughout the room to confirm that they adequately fit the space before beginning installation.</li></ul>",
+        "instalation-step-heading": "Choose Your Installation Method",
+        "free-size-content": ""
+      }
+    }
+  },
+  "order": [
+    "product-grid"
+  ]
+}

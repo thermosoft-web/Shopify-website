@@ -1,0 +1,628 @@
+{%- liquid
+  assign style = section.settings.style
+  assign sticky_header = section.settings.sticky_header
+  assign full_width = section.settings.full_width
+  assign transparent_header = false
+  assign logo_height_range = section.settings.logo_height_range
+  assign logo_height_range_mobile = section.settings.logo_height_range_mobile
+  assign header_shadow = section.settings.header_shadow
+
+  if template == 'index'
+    assign transparent_header = section.settings.transparent_header
+  endif
+-%}
+<theme-header
+  id="header"
+  class="header {{ style }} {{ header_shadow }}{% if full_width %} header--full-width{%- endif %} transparent--{{ transparent_header }} {% if sticky_header %}header-sticky--active{%- endif -%}"
+>
+  <div class="header--inner">
+    {%- case style -%}
+      {%- when 'style1' -%}
+        {% render 'header-style1', blocks: section.blocks, header_settings: section.settings %}
+      {%- when 'style2' -%}
+        {% render 'header-style2', blocks: section.blocks, header_settings: section.settings %}
+      {%- when 'style3' -%}
+        {% render 'header-style3', blocks: section.blocks, header_settings: section.settings %}
+      {%- when 'style4' -%}
+        {% render 'header-style4', blocks: section.blocks, header_settings: section.settings %}
+      {%- when 'style5' -%}
+        {% render 'header-style5', blocks: section.blocks, header_settings: section.settings %}
+    {%- endcase -%}
+  </div>
+   <mob-full-menu class="mob-block">
+    <div class="contact-left">
+        <span class="phone-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+           <rect x="1.21875" y="1.21875" width="23.5625" height="23.5625" rx="11.7812" stroke="#900000" stroke-width="2.4375"/>
+           <path d="M9.81543 7.02298C9.25762 6.56269 8.47079 6.65184 8.08594 7.18509L8.08496 7.18607C7.94902 7.37347 7.7968 7.59362 7.55762 7.90677L7.28711 8.25345C6.79309 8.87813 6.52446 9.65133 6.52539 10.4478C6.5264 11.2449 6.79757 12.0184 7.29395 12.6421C8.15276 13.7077 9.04359 14.7697 10.0361 15.7622C11.0282 16.7543 12.0915 17.6456 13.1572 18.5064C13.7802 19.0021 14.5525 19.2729 15.3486 19.274C16.1454 19.275 16.9195 19.0061 17.5439 18.5113H17.543C18.08 18.082 18.3922 17.8724 18.6475 17.687C19.1635 17.312 19.2555 16.5632 18.8271 16.0327V16.0318C18.2872 15.3619 17.6718 14.7258 17.0615 14.0816C16.9516 13.9682 16.8023 13.9005 16.6445 13.8931C16.4868 13.8857 16.3319 13.9389 16.2119 14.0415V14.0425C15.9311 14.282 15.7194 14.4537 15.2275 14.9156L14.9551 15.1714L14.6338 14.98C12.8975 13.949 11.8295 12.8685 10.8164 11.1646L10.626 10.8433L10.8818 10.5699C11.3466 10.0751 11.5187 9.86399 11.7598 9.5806L11.7617 9.57767C11.8634 9.45936 11.9157 9.30675 11.9082 9.15091C11.9025 9.03375 11.8639 8.92104 11.7969 8.82669L11.7207 8.7388C11.0906 8.14993 10.4657 7.55908 9.81543 7.02298Z" fill="#900000" stroke="#900000" stroke-width="0.994124"/>
+          </svg>
+          <a href="tel:+1800-308-8057" class="phone-number h6">800.308.8057</a>
+        </span>
+        <li class="contact-hours body-extra-small">8am–10pm CT, 7 days a week</li>
+    </div>
+  </mob-full-menu>
+  {% comment %} <mob-full-menu class="mob-block">
+    <div class="mob-header-search">
+      {%- render 'header-inline-search', header_settings: header_settings -%}
+      <a class="request-quote-btn body-extra-small" href="">Request a quote</a>
+    </div>
+  </mob-full-menu> {% endcomment %}
+  {%- style -%}
+    :root {
+    	--logo-height: {{ logo_height_range | append: 'px' }};
+    	--logo-height-mobile: {{ logo_height_range_mobile | append: 'px' }};
+    }
+    {% unless sticky_header %}
+    .header-section {
+    	position: static !important;
+    }
+    {%- endunless -%}
+  {%- endstyle -%}
+</theme-header>
+{{- 'header.js' | asset_url | script_tag -}}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {% if section.settings.logo %}
+      "logo": {{ section.settings.logo | image_url: width: section.settings.logo.width | prepend: "https:" | json }},
+    {% endif %}
+    {% if section.settings.pro_logo %}
+      "logo": {{ section.settings.pro_logo | image_url: width: section.settings.pro_logo.width | prepend: "https:" | json }},
+    {% endif %}
+    "sameAs": [
+      {{ settings.social_twitter_link | json }},
+      {{ settings.social_facebook_link | json }},
+      {{ settings.social_pinterest_link | json }},
+      {{ settings.social_instagram_link | json }},
+      {{ settings.social_tiktok_link | json }},
+      {{ settings.social_youtube_link | json }},
+      {{ settings.social_vimeo_link | json }},
+      {{ settings.social_linkedin_link | json }},
+      {{ settings.social_wechat_link | json }}
+    ],
+    "url": {{ shop.url | append: page.url | json }}
+  }
+</script>
+{%- if request.page_type == 'index' -%}
+  {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ request.origin | append: page.url | json }}
+    }
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Enable sticky header",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "400 x 68 px .png recommended."
+    },
+    {
+      "type": "image_picker",
+      "id": "pro_logo",
+      "label": "Proffesional Logo image",
+      "info": "400 x 68 px .png recommended."
+    },
+    {
+      "type": "range",
+      "id": "logo_height_range",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "label": "Logo height",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "logo_height_range_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile logo height",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Desktop logo position",
+      "default": "style5",
+      "options": [
+        { "value": "style1", "label": "Logo left, menu center" },
+        { "value": "style2", "label": "Logo left, menu left" },
+        { "value": "style3", "label": "Logo center, menu left" },
+        { "value": "style4", "label": "Logo center, menu below" },
+        { "value": "style5", "label": "Logo left, menu below" }
+      ],
+      "info": "Position is always center for mobile."
+    },
+    {
+      "type": "select",
+      "id": "header_shadow",
+      "label": "Sticky header shadow",
+      "default": "header--shadow-small",
+      "options": [
+        { "value": "header--shadow-none", "label": "None" },
+        { "value": "header--shadow-small", "label": "Small" },
+        { "value": "header--shadow-medium", "label": "Medium" },
+        { "value": "header--shadow-large", "label": "Large" }
+      ]
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu",
+      "info": "Learn how to set up [mega menus](https://documentation.fuelthemes.net/kb/how-do-i-set-up-mega-menus-for-reformation-theme/)."
+    },
+    {
+      "type": "select",
+      "id": "cart_icon",
+      "label": "Cart icon",
+      "options": [
+        {
+          "value": "cart",
+          "label": "Cart"
+        },
+        {
+          "value": "bag",
+          "label": "Bag"
+        }
+      ],
+      "default": "cart"
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "minimized_search",
+      "label": "Enable minimized search on desktop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Transparent header"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_header",
+      "label": "Enable on homepage",
+      "default": true,
+      "info": "Ensure that you have a Slideshow, Video background, Image with text overlay section as the first section on your homepage."
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_light",
+      "label": "Logo image",
+      "info": "Displayed when transparent header is enabled. Uses the dimensions set on your main logo."
+    },
+    {
+      "type": "header",
+      "content": "Mobile menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_links",
+      "label": "Show social links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_switcher",
+      "label": "Enable language switcher",
+      "default": false,
+      "info": "To add a language, go to your [language settings](/admin/settings/languages)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_switcher",
+      "label": "Enable currency switcher",
+      "default": true,
+      "info": "To add a country/region, go to your [payment settings](/admin/settings/payments)."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+		{
+			"type": "mobile_secondary_menu",
+			"name": "Mobile secondary menu",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "link_list",
+					"id": "menu",
+					"label": "Secondary menu",
+					"info": "Secondary menu is shown under the main menu."
+				}
+			]
+		},
+    {
+      "type": "secondary_nav",
+      "name": "Secondary navigation",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "main-menu",
+          "label": "Menu",
+          "info": "Shows a maximum of four menu items separately to the main menu. This menu does not support dropdowns."
+        }
+      ]
+    },
+    {
+      "type": "megamenu",
+      "name": "Mega menu",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Link position in main menu",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Item 1"
+            },
+            {
+              "value": "2",
+              "label": "Item 2"
+            },
+            {
+              "value": "3",
+              "label": "Item 3"
+            },
+            {
+              "value": "4",
+              "label": "Item 4"
+            },
+            {
+              "value": "5",
+              "label": "Item 5"
+            },
+            {
+              "value": "6",
+              "label": "Item 6"
+            },
+            {
+              "value": "7",
+              "label": "Item 7"
+            },
+            {
+              "value": "8",
+              "label": "Item 8"
+            },
+            {
+              "value": "9",
+              "label": "Item 9"
+            },
+            {
+              "value": "10",
+              "label": "Item 10"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Columns"
+        },
+        {
+          "type": "checkbox",
+          "id": "limit_columns",
+          "label": "Limit columns",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "max_columns",
+          "label": "Maximum columns",
+          "default": "4",
+          "options": [
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            },
+            {
+              "value": "7",
+              "label": "7"
+            }
+          ],
+          "info": "Maximum amount of columns including the added promotions. In effect when the above checkbox is selected."
+        },
+        {
+          "type": "header",
+          "content": "Promotion 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_1_image",
+          "label": "Image",
+          "info": "360 x 420 px .jpg recommended."
+        },
+        {
+          "type": "text",
+          "id": "promo_1_heading",
+          "default": "Promotion heading",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "promo_1_content",
+          "label": "Promotion content"
+        },
+        {
+          "type": "url",
+          "id": "promo_1_link",
+          "label": "Promotion link"
+        },
+        {
+          "type": "header",
+          "content": "Promotion 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_2_image",
+          "label": "Image",
+          "info": "360 x 420 px .jpg recommended."
+        },
+        {
+          "type": "text",
+          "id": "promo_2_heading",
+          "default": "Promotion heading",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "promo_2_content",
+          "label": "Promotion content"
+        },
+        {
+          "type": "url",
+          "id": "promo_2_link",
+          "label": "Promotion link"
+        },
+        {
+          "type": "header",
+          "content": "Promotion 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_3_image",
+          "label": "Image",
+          "info": "360 x 420 px .jpg recommended."
+        },
+        {
+          "type": "text",
+          "id": "promo_3_heading",
+          "default": "Promotion heading",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "promo_3_content",
+          "label": "Promotion content"
+        },
+        {
+          "type": "url",
+          "id": "promo_3_link",
+          "label": "Promotion link"
+        },
+        {
+          "type": "header",
+          "content": "Promotion 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_4_image",
+          "label": "Image",
+          "info": "360 x 420 px .jpg recommended."
+        },
+        {
+          "type": "text",
+          "id": "promo_4_heading",
+          "default": "Promotion heading",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "promo_4_content",
+          "label": "Promotion content"
+        },
+        {
+          "type": "url",
+          "id": "promo_4_link",
+          "label": "Promotion link"
+        }
+      ]
+    },
+    {
+      "type": "megamenu_sidebar",
+      "name": "Mega menu sidebar",
+      "settings": [
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Link position in main menu",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Item 1"
+            },
+            {
+              "value": "2",
+              "label": "Item 2"
+            },
+            {
+              "value": "3",
+              "label": "Item 3"
+            },
+            {
+              "value": "4",
+              "label": "Item 4"
+            },
+            {
+              "value": "5",
+              "label": "Item 5"
+            },
+            {
+              "value": "6",
+              "label": "Item 6"
+            },
+            {
+              "value": "7",
+              "label": "Item 7"
+            },
+            {
+              "value": "8",
+              "label": "Item 8"
+            },
+            {
+              "value": "9",
+              "label": "Item 9"
+            },
+            {
+              "value": "10",
+              "label": "Item 10"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Content links"
+        },
+        {
+          "type": "checkbox",
+          "id": "content_collection_image",
+          "label": "Show collection images",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "content_product_image",
+          "label": "Show product images",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "menu_badge",
+      "name": "Menu badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "badge_position",
+          "label": "Badge position in main menu",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Item 1"
+            },
+            {
+              "value": "2",
+              "label": "Item 2"
+            },
+            {
+              "value": "3",
+              "label": "Item 3"
+            },
+            {
+              "value": "4",
+              "label": "Item 4"
+            },
+            {
+              "value": "5",
+              "label": "Item 5"
+            },
+            {
+              "value": "6",
+              "label": "Item 6"
+            },
+            {
+              "value": "7",
+              "label": "Item 7"
+            },
+            {
+              "value": "8",
+              "label": "Item 8"
+            },
+            {
+              "value": "9",
+              "label": "Item 9"
+            },
+            {
+              "value": "10",
+              "label": "Item 10"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "color_bg",
+          "label": "Background",
+          "default": "#D3ECE2"
+        },
+        {
+          "type": "color",
+          "id": "color_text",
+          "label": "Text",
+          "default": "#272422"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

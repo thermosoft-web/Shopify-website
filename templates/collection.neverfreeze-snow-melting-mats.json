@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "snow-melting-systems": {
+      "type": "snow-melting-systems",
+      "settings": {
+        "columns_desktop": 4,
+        "pagination_type": "paginated",
+        "enable_filtering": true,
+        "enable_sorting": false,
+        "show_counts": false,
+        "filter_color_swatches": false,
+        "filters_collapsed": false,
+        "facets_desktop": "sidebar",
+        "box_filter_list": "",
+        "show_collection_image": true,
+        "collection_image_ratio": "adapt",
+        "collection_image_width": "standard",
+        "show_collection_description": true,
+        "seo_text_read_more": "Read more",
+        "seo_text_read_less": "Read less",
+        "seo_text_max_height": 150,
+        "display_description": true,
+        "step_title_1": "Driveway & Walkway Heating Mats (240V)",
+        "step_title_2": "Snow Melt Controllers & Sensors",
+        "step_title_3": "",
+        "step_title_4": "",
+        "tab-title-1": "Basic",
+        "tab-title-2": "Standard",
+        "tab-title-3": "Premium",
+        "free_size-img": "shopify://shop_images/image_12147.png",
+        "free-size-content": "<p><strong>Measure Your Area<br/></strong>Start by measuring the total square footage of the space you plan to heat. Exclude areas under fixed furniture or appliances — only measure the open floor space where heat is needed.</p><p><strong>Choose the Cable Type</strong>:<br/>Select the right heating system for your project</p><ul><li>Heating Cables: Ideal for irregular spaces or custom layouts.</li><li>Heating Mats: Best for standard-shaped rooms and faster installation.<br/></li></ul><p><strong>Match Cable Length to Coverage<br/></strong>Refer to ThermoSoft’s coverage chart to match your measured area with the correct cable length. Always choose a slightly smaller cable rather than a longer one — cables cannot be cut or shortened.</p>"
+      }
+    }
+  },
+  "order": [
+    "snow-melting-systems"
+  ]
+}

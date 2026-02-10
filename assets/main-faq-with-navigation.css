@@ -1,0 +1,30 @@
+.main-faq-with-navigation--menu button {transition: all 0.25s cubic-bezier(0.104, 0.204, 0.492, 1); }
+.main-faq-with-navigation--inner {padding: 0 15px;max-width: var(--grid-width-row, 1380px);margin-left: auto;margin-right: auto; }
+.main-faq-with-navigation {display: block; }
+.main-faq-with-navigation--inner {display: grid;gap: 30px; }
+.main-faq-with-navigation--menu button {font-size: calc(var(--font-body-scale) * 18px);line-height: calc(var(--font-body-line-height-scale) * calc(var(--font-body-scale) * 26px));font-family: inherit;margin-bottom: 15px;opacity: 0.6;font-weight: var(--font-body-medium-weight, 500);text-align: left;color: rgba(var(--color-grey-700), 1); }
+.main-faq-with-navigation--menu button:last-child {margin-bottom: 0;}
+.main-faq-with-navigation--menu button:hover,
+.main-faq-with-navigation--menu button.active {color: var(--color-accent);opacity: 1; }
+.main-faq-with-navigation--menu > div {display: flex;flex-direction: column;justify-content: flex-start; }
+.main-faq-with-navigation--content .thb-placeholder {width: 120px;height: 120px; }
+.main-faq-with-navigation--page {margin-bottom: 30px; }
+.main-faq-with-navigation--page:last-child {margin-bottom: 0;}
+.main-faq-with-navigation--page .rte  {color: var(--color-text, var(--color-body, #2c2d2e));}
+.main-faq-with-navigation--page .rte ul {list-style: square;}
+.main-faq-with-navigation--page .rte > *:last-child {margin-bottom: 0;}
+.main-faq-with-navigation--page .rte h1:not(:first-child),
+.main-faq-with-navigation--page .rte h2:not(:first-child),
+.main-faq-with-navigation--page .rte h3:not(:first-child),
+.main-faq-with-navigation--page .rte h4:not(:first-child),
+.main-faq-with-navigation--page .rte h5:not(:first-child),
+.main-faq-with-navigation--page .rte h6:not(:first-child) {margin-top: 30px;}
+@media only screen and (min-width: 768px) {
+  .main-faq-with-navigation--inner {padding: 0 50px; }
+}
+@media only screen and (min-width: 1068px) {
+  .main-faq-with-navigation--inner {gap: 60px;grid-template-columns: 370px 1fr; } 
+  .main-faq-with-navigation--menu > div {position: sticky;left: 0;top: 20px; }
+  .header-sticky--active .main-faq-with-navigation--menu > div {top: calc(var(--header-height, 0px) + 20px); } 
+  .main-faq-with-navigation--page {margin-bottom: 50px; } 
+}

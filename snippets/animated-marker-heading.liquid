@@ -1,0 +1,14 @@
+{%- if style == "style5" -%}
+  {%- capture span_start_one -%}
+  <span class="animated-marker style--{{ style }}" style="--marker-color: {{ color | default: '#FD6262' }}">
+  {%- endcapture -%}
+  {{ heading | replace_first: '|', span_start_one | replace: '|', '</span>' | replace: '®', '<span class="reg">®</span>' }}
+{%- else -%}
+  {%- capture marker -%}
+  {%- render 'svg-markers' with style -%}|
+  {%- endcapture -%}
+  {%- capture span_start -%}
+  <span class="animated-marker" style="--marker-color: {{ color | default: '#FD6262' }}">
+  {%- endcapture -%}
+  {{ heading | replace_first: '|', span_start | replace: '|', marker | replace: '|', '</span>' | replace: '®', '<span class="reg">®</span>' }}
+{%- endif -%}

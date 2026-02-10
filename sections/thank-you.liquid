@@ -1,0 +1,215 @@
+<!-- sections/thank-you-hero.liquid -->
+<section class="thank-you-hero section--thank-you">
+  <div class="row">
+    <div class="ty-inner" style="--ty-bg: {{ section.settings.bg_color }}; --ty-text: {{ section.settings.text_color }};">
+        <h2 id="thank-you-heading-{{ section.id }}" class="ty-heading">
+        {{ section.settings.heading }}
+        </h2>
+
+        {% if section.settings.subtext != blank %}
+        <div class="ty-subtext">
+            {{ section.settings.subtext }}
+        </div>
+        {% endif %}
+
+        <div class="ty-buttons">
+        {% for block in section.blocks %}
+            {% if block.type == 'button' %}
+            <a
+                href="{{ block.settings.link }}"
+                class="ty-button {% if block.settings.style == 'primary' %}ty-button--primary{% else %}ty-button--secondary{% endif %}"
+                {% if block.settings.open_in_new_window %}target="_blank" rel="noopener noreferrer"{% endif %}
+            >
+                {{ block.settings.label }}
+            </a>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+    .ty-inner {
+        background: var(--ty-bg);
+        color: var(--ty-text);
+        width: 100%;
+        text-align: center;
+        padding: 70px 0;
+        border-radius: 16px;
+    }
+    .ty-button--primary {
+      background: {{ section.settings.primary_btn_bg }};
+      color: {{ section.settings.primary_btn_text }};
+    }
+
+    .ty-button--secondary {
+      background: {{ section.settings.secondary_btn_bg }};
+      color: {{ section.settings.secondary_btn_text }};
+    }
+    .section--thank-you {
+        padding: 55px 0;
+    }  
+    .ty-heading {
+        font-variation-settings: normal;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }  
+    .ty-subtext {
+        margin-bottom: 24px;
+    }
+    .ty-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        align-items: center;
+    }
+    .ty-button {
+        padding: 13px 30px;
+        font-weight: 500;
+    }
+    .ty-button:hover {
+        color: #FFF;
+    }
+
+    @media screen and (max-width: 767px) {
+        .section--thank-you {
+            padding: 50px 0;
+        }
+        .ty-inner {
+            padding: 25px;
+        }
+        .ty-buttons {
+            gap: 8px;
+            flex-direction: column;
+        }
+        .ty-button {
+            width: 100%;
+        }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Thank you hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Thanks for Reaching Out"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext / description",
+      "default": "We've received your information and a ThermoSoft team member will follow up shortly."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#efeae2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_bg",
+      "label": "Primary button background",
+      "default": "#7a0b0b"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_text",
+      "label": "Primary button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_bg",
+      "label": "Secondary button background",
+      "default": "#2b2a29"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_text",
+      "label": "Secondary button text color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Button label",
+          "default": "Shop Indoor-Floor Heating"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link",
+          "default": "/collections/all"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_window",
+          "label": "Open in new window",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    {
+      "name": "Thank you hero - 2 buttons",
+      "category": "Sections",
+      "blocks": [
+        {
+          "type": "button",
+          "settings": {
+            "label": "Shop Indoor-Floor Heating",
+            "link": "/collections/indoor",
+            "style": "primary"
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "label": "Shop Outdoor–Snow Melting",
+            "link": "/collections/outdoor",
+            "style": "secondary"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

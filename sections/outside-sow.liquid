@@ -1,0 +1,1447 @@
+{{ 'template-header.css' | asset_url | stylesheet_tag }}
+{{- 'facets.css' | asset_url | stylesheet_tag -}}
+{{- 'tabbed-content.css' | asset_url | stylesheet_tag -}}
+{{- 'video.css' | asset_url | stylesheet_tag -}}
+{{- 'product.css' | asset_url | stylesheet_tag -}}
+<script src="{{ 'tabbed-content.js' | asset_url }}" defer="defer"></script>
+
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+{%- liquid
+	assign show_collection_image = section.settings.show_collection_image
+	assign show_collection_description = section.settings.show_collection_description
+  assign heading = collection.title
+  if show_collection_description
+    assign description = collection.description
+  endif
+  assign collection_image_ratio = section.settings.collection_image_ratio
+  assign collection_image_width = section.settings.collection_image_width
+
+  assign seo_text_max_height = section.settings.seo_text_max_height
+  assign seo_text_read_more = section.settings.seo_text_read_more
+  assign seo_text_read_less = section.settings.seo_text_read_less
+
+	assign enable_filtering = section.settings.enable_filtering
+	assign enable_sorting = section.settings.enable_sorting
+	assign show_counts = section.settings.show_counts
+	assign filter_color_swatches = section.settings.filter_color_swatches
+	assign filters_collapsed = section.settings.filters_collapsed
+	assign pagination_type = section.settings.pagination_type
+	assign facets_desktop = section.settings.facets_desktop
+	assign box_filter_list = section.settings.box_filter_list
+
+	unless enable_filtering
+		assign facets_desktop = 'drawer'
+	endunless
+-%}
+{{- 'breadcrumbs.css' | asset_url | stylesheet_tag -}}
+{{- 'bundle-collection-page.css' | asset_url | stylesheet_tag -}}
+
+
+<div class="bundle-collection-page-wrapp thb-product-detail">
+  <div class="bundle-collection-left">
+    <div class="template-header bundle-collection-header">
+      <div class="template-header--content bundle-collection-header-wrapp">
+        {% render 'breadcrumbs' %}
+        <div class="save_text">
+          {% if collection.metafields.custom.save_text_heading.value != blank %} <p>{{ collection.metafields.custom.save_text_heading.value }}</p> {% endif %}
+        </div>
+        <div class="bundle-header--content">
+          <h1 class="template-header--title h5">{{ heading | replace: '®', '<span class="reg">®</span>' }}</h1>
+          {%- if description != blank and description != '' -%}
+              <max-height class="max-height max-height--no-background collection-banner--description" data-max="{{ seo_text_max_height }}" style="--max-height: {{ seo_text_max_height | append: 'px'}};">
+                <div class="max-height--inner">
+                  <div class="max-height--inner-content body-regular rte">
+                    {{ description }}
+                  </div>
+                </div>
+                <button class="max-height--toggle"><span class="text-button text-button--read-more">{{ seo_text_read_more }}</span><span class="text-button text-button--read-less">{{ seo_text_read_less }}</span></button>
+              </max-height>
+              <link rel="stylesheet" href="{{ 'max-height.css' | asset_url }}" media="print" onload="this.media='all'">
+              <script src="{{ 'max-height.js' | asset_url }}" defer="defer"></script>
+          {%- endif -%}
+        </div>
+        {%- liquid
+          assign image = collection.featured_image
+          case collection_image_ratio
+            when 'adapt'
+              assign image_sizes = '345x0,600x0'
+            when 'square'
+              assign image_sizes = '345x345,600x600'
+            when 'landscape'
+              assign image_sizes = '345x215,600x375'
+            when 'portrait'
+              assign image_sizes = '345x430,600x750'
+          endcase
+        -%}
+        {% assign gallery_images = collection.metafields.custom.bundle_collection_image_gallery.value %}
+        {% if gallery_images and gallery_images.size > 0 %}
+          <div class="bundle-content--images">
+            <div class="product-gallery-container thumbnails-bottom" id="MediaGallery-{{ section.id }}">
+              <div class="product-image-container">
+                <scroll-shadow>
+                  <div id="Product-Thumbnails" class="product-thumbnail-container" data-hide-variants="false">
+                    {% for image in gallery_images %}
+                      {%- render 'product-thumbnail',
+                        media: image,
+                        forloop: forloop,
+                        media_aspect_ratio: "adapt"
+                      -%}
+                    {% endfor %}
+                  </div>
+                </scroll-shadow>
+                <product-slider 
+                  id="Product-Slider"
+                  class="product-images static-dots product-images--fullwidth-mobile-true product-images--prevnext-mobile-true"
+                  data-captions="true"
+                  data-hide-variants="false">
+
+                  {% for image in gallery_images %}
+                    {% assign image_index = forloop.index %}
+                    {% assign priority = false %}
+                    {% if forloop.first %}
+                      {% assign priority = 'high' %}
+                    {% endif %}
+
+                    {%- render 'product-media',
+                      media: image,
+                      section: section,
+                      sizes: sizes,
+                      media_aspect_ratio: "adapt",
+                      priority: priority
+                    -%}
+                  {% endfor %}
+
+                  {% comment %} {% if gallery_images.size > 1 %}
+                    {%- render 'slideshow-arrows' -%}
+                  {% endif %} {% endcomment %}
+                </product-slider>
+                
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+        {% if collection.metafields.custom.trust_badges.value != blank %}
+          <div class="trust-badges-wrapper">
+            <div class="trust-badges-inner">
+
+              {% for badge in collection.metafields.custom.trust_badges.value %}
+                {% if badge.image != blank %}
+                  <div class="trust-badge-item">
+                    <img
+                      src="{{ badge.image | image_url: width: 80 }}"
+                      alt="{{ badge.image.alt | escape }}"
+                      loading="lazy"
+                    >
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+            </div>
+          </div>
+        {% endif %}
+        <div class="bundle-content--tabs">
+          <tabbed-content class="tabbed-content tabs-left body-regular" selected-index="0">
+            {% assign bundle_more_info_tab = false %}
+            {% assign bundle_faq_tab = false %}
+            {% assign bundle_docs_tab = false %}
+            
+            {%  if collection.metafields.custom.bundle_more_info_tab != blank %}
+              {% assign bundle_more_info_tab = true %}
+            {% endif %}
+            {%  if collection.metafields.custom.bundle_docs_tab != blank and bundle_more_info_tab == false %}
+              {% assign bundle_docs_tab = true %}
+            {% endif %}
+            {%  if collection.metafields.custom.bundle_faq_tab != blank and bundle_more_info_tab == false and bundle_docs_tab == false %}
+              {% assign bundle_faq_tab = true %}
+            {% endif %}
+            <scroll-shadow class="tabbed-content--scroll">
+              <div class="tabbed-content--tabs un-tab-content-wrapp tabs-left">
+                {%- if collection.metafields.custom.bundle_more_info_tab != blank -%}
+                  <button class="tabbed-btn body-small {% if bundle_more_info_tab %} active{%- endif -%}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                      <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                    </svg>
+                    <span>More info</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                      <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                    </svg>
+                  </button>
+                {%- endif -%}
+                <button class="tabbed-btn body-small instalation-popup-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                  </svg>
+                  <span>Installation</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                  </svg>
+                </button>
+                {%- if collection.metafields.custom.bundle_docs_tab != blank -%}
+                  <button class="tabbed-btn body-small {% if bundle_docs_tab %} active{%- endif -%}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                      <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                    </svg>
+                    <span>Docs</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                      <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                    </svg>
+                  </button>
+                {%- endif -%}
+                {%- if collection.metafields.custom.bundle_faq_tab != blank -%}
+                  <button class="tabbed-btn body-small {% if bundle_faq_tab %} active{%- endif -%}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                      <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                    </svg>
+                    <span>FAQ</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                      <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                    </svg>
+                  </button>
+                {%- endif -%}
+              </div>
+            </scroll-shadow>
+            {%- if collection.metafields.custom.bundle_more_info_tab != blank -%}
+            <div class="tabbed-content--content text-left {% if bundle_more_info_tab %} active{%- endif -%}" style="--columns:">
+              {{ collection.metafields.custom.bundle_more_info_tab | metafield_tag }}
+            </div>
+            {%- endif -%}
+            <div class="tabbed-content--content text-left" style="--columns:">
+            </div>
+            {%- if collection.metafields.custom.bundle_docs_tab != blank -%}
+              <div class="tabbed-content--content text-left {% if bundle_docs_tab %} active{%- endif -%}" style="--columns:">
+                {% for docs in collection.metafields.custom.bundle_docs_tab.value %}
+                  <p>
+                    <a href="{{ docs.doc_link.value.url }}" title="{{ docs.doc_link.value.text }}" target="_blank">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                        <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                      </svg>
+                      <span>{{ docs.doc_title }}</span>
+                    </a>
+                  </p>
+                {% endfor %}
+              </div>
+            {%- endif -%}
+            {%- if collection.metafields.custom.bundle_faq_tab != blank -%}
+            <div class="tabbed-content--content text-left {% if bundle_faq_tab %} active{%- endif -%}" style="--columns:">
+              {% for faqs in collection.metafields.custom.bundle_faq_tab.value %}
+                <collapsible-row class="accordion" {{ block.shopify_attributes }}>
+                  <details id="Details-{{ forloop.index }}-{{ section.id }}" {% if forloop.first %}open{% endif %}>
+                    <summary>
+                      {{ faqs.faq_title }}
+                      <span>{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span>
+                    </summary>
+                    <div class="collapsible__content accordion__content rte" id="Accordion-{{ forloop.index }}-{{ section.id }}">
+                      {{ faqs.faq_description | metafield_tag }}
+                    </div>
+                  </details>
+                </collapsible-row>
+              {% endfor %}
+            </div>
+            {%- endif -%}
+          </tabbed-content>
+        </div>
+      </div>
+    </div>
+    <modal-opener class="product-popup-modal__opener no-js-hidden PopupModal-instalation-tab" data-modal="#PopupModal-instalation-tab">
+      <button id="ProductPopup-instalation-tab" class="body-small product-popup-modal__button" type="button" aria-haspopup="dialog">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+          <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+        </svg>
+        <span>Installation</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+          <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+        </svg>
+      </button>
+    </modal-opener>
+    <modal-dialog id="PopupModal-instalation-tab" class="product-popup-modal">
+      <div role="dialog" aria-label="Instalation tab" aria-modal="true" class="product-popup-modal__content instalation-tabmodal__content" tabindex="-1">
+        <div class="product-popup-modal__content-header">
+          <button id="ModalClose-instalation" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>
+        </div>
+        <scroll-shadow>
+          <div class="product-popup-modal__content-info">
+            <h2>{{ collection.metafields.custom.installation_title_and_content.value.title }}</h2>
+            <div>{{ collection.metafields.custom.installation_title_and_content.value.content | metafield_tag }}</div>
+            <h2>{{ collection.metafields.custom.installation_title_and_content.value.steps_heading }}</h2>
+            <tabbed-content selected-index="0">
+              <scroll-shadow class="tabbed-content--scroll">
+                <div class="tabbed-content--tabs  un-tab-content-wrapp tabs-left">
+                  {% for i in (1..3) %}
+                    {% capture tab_title %}tab_title_{{ i }}{% endcapture %}
+                    {% if collection.metafields.custom.installation_title_and_content.value[tab_title] != blank %}                    
+                      <button class="tabbed-btn body-small {% if forloop.first %}active{% endif %}" data-tab="{{ collection.metafields.custom.installation_title_and_content.value[tab_title] | handle }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                          <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                        </svg>
+                        <span>{{ collection.metafields.custom.installation_title_and_content.value[tab_title] }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                          <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                        </svg>
+                      </button>
+                    {% endif %}
+                  {% endfor %}                    
+                </div>
+              </scroll-shadow>
+              {% for i in (1..3) %}
+                {% capture tab_video %}tab_{{ i }}_video{% endcapture %}
+                {% capture tab_video_banner %}tab_{{ i }}_video_banner{% endcapture %}
+                {% capture installation_tab %}installation_tab_{{ i }}{% endcapture %}
+                <div class="tabbed-content--content {% if forloop.first %}active{% endif %}" data-tab-content="{{ collection.metafields.custom.installation_title_and_content.value[tab_title] | handle }}">
+                  {%- liquid                                        
+                    assign video_hosted = collection.metafields.custom.installation_title_and_content.value[tab_video].value
+                    assign video_autoplay = false
+                    assign aspect_ratio = "16-9"
+                  -%}                  
+                  {% if collection.metafields.custom.installation_title_and_content.value[tab_video] != blank %}
+                    <div class="tabbed-section--video-wrapp">
+                      <div class="video-section--container video-aspect--{{ aspect_ratio }}">
+                        {%- if video_hosted != blank -%}
+                          {%- liquid
+                            assign sizes = '1280x'                            
+                          -%}
+                          {% if collection.metafields.custom.installation_title_and_content.value[tab_video_banner] != blank %}
+                            <div class="video-banner-image">
+                              {%- liquid
+                                assign image = collection.metafields.custom.installation_title_and_content.value[tab_video_banner].value
+                                assign width = image.src.width | append: 'x' | append: image.src.height
+                              -%}
+                              {%- render 'responsive-image', image: image, sizes: width, class: 'video-banner-images'-%}
+                            </div>
+                          {% endif %}                          
+                          {{ video_hosted | video_tag: autoplay: video_autoplay, loop: true, controls: true, muted: video_autoplay, image_size: sizes }}                                                
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  {% endif %}
+                  <div class="installation-steps">
+                    {% for installation in collection.metafields.custom[installation_tab].value %}                      
+                      <div class="step-card">
+                        {% if installation.image != blank %}
+                          <div class="step-image">
+                            {%- liquid
+                              assign image = installation.image.value
+                              assign width = image.src.width | append: 'x' | append: image.src.height
+                            -%}
+                            {%- render 'responsive-image', image: image, sizes: width, class: 'step-images'-%}
+                            <span class="step-number">{{ forloop.index }}</span>
+                          </div>
+                        {% endif %}
+                        <div class="step-content">
+                          <div class="step-head body-regular">{{ installation.title }}</div>
+                          <div class="rte body-small">{{ installation.content | metafield_tag }}</div>
+                        </div>
+                      </div>                      
+                    {% endfor %}  
+                  </div>
+                </div>  
+              {% endfor %}                
+            </tabbed-content>
+            {%- if collection.metafields.custom.bundle_docs_tab != blank -%}
+            <div class="modal__content_docs">
+              {% for docs in collection.metafields.custom.bundle_docs_tab.value %}
+                <p>
+                  <a href="{{ docs.doc_link.value.url }}" title="{{ docs.doc_link.value.text }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>{{ docs.doc_title }}</span>
+                  </a>
+                </p>
+              {% endfor %}
+            </div>
+            {%- endif -%}
+          </div>
+        </scroll-shadow>
+      </div>
+    </modal-dialog>
+    <script src="{{ 'modal-dialog.js' | asset_url }}" defer="defer"></script>
+  </div>   
+  <div class="bundle-collection-right">
+    <div class="bundle-collection-right-wrapp">
+      
+      <div class="bundle-content--tabs">
+        <tabbed-content class="tabbed-content tabs-left body-regular" selected-index="0">
+          {% assign bundle_more_info_tab = false %}
+          {% assign bundle_faq_tab = false %}
+          {% assign bundle_docs_tab = false %}
+          
+          {%  if collection.metafields.custom.bundle_more_info_tab != blank %}
+            {% assign bundle_more_info_tab = true %}
+          {% endif %}
+          {%  if collection.metafields.custom.bundle_docs_tab != blank and bundle_more_info_tab == false %}
+            {% assign bundle_docs_tab = true %}
+          {% endif %}
+          {%  if collection.metafields.custom.bundle_faq_tab != blank and bundle_more_info_tab == false and bundle_docs_tab == false %}
+            {% assign bundle_faq_tab = true %}
+          {% endif %}
+          <scroll-shadow class="tabbed-content--scroll">
+            <div class="tabbed-content--tabs un-tab-content-wrapp tabs-left">
+              <button class="tabbed-btn body-small active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                  <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                </svg>
+                <span>Shop</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                  <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                </svg>
+              </button>
+              {%- if collection.metafields.custom.bundle_more_info_tab != blank -%}
+                <button class="tabbed-btn body-small">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                  </svg>
+                  <span>More info</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                  </svg>
+                </button>
+              {%- endif -%}
+              <button class="tabbed-btn body-small instalation-popup-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                  <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                </svg>
+                <span>Installation</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                  <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                </svg>
+              </button>
+              {%- if collection.metafields.custom.bundle_docs_tab != blank -%}
+                <button class="tabbed-btn body-small">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                  </svg>
+                  <span>Docs</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                  </svg>
+                </button>
+              {%- endif -%}
+              {%- if collection.metafields.custom.bundle_faq_tab != blank -%}
+                <button class="tabbed-btn body-small">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M18 0H17.0993C12.8406 0 9.32627 3.32851 9.02555 7.57652C8.39801 16.4411 7.17289 30.17 5.5 32.1775C3 35.1775 0 36 0 36H18V0Z" fill="currentColor"></path>
+                  </svg>
+                  <span>FAQ</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="36" viewBox="0 0 18 36" fill="none">
+                    <path d="M0 0H0.900711C5.15936 0 8.67373 3.32851 8.97445 7.57652C9.60199 16.4411 10.8271 30.17 12.5 32.1775C15 35.1775 18 36 18 36H0V0Z" fill="currentColor"></path>
+                  </svg>
+                </button>
+              {%- endif -%}
+            </div>
+          </scroll-shadow>
+          <div class="tabbed-content--content text-left active" style="--columns:">
+            <div class="call-steps-nav">              
+              {% assign step_count = 0 %}
+              {% for i in (1..4) %}
+                {% if template.suffix == "neverfreeze-heated-rubber-mats" and forloop.index == 2 %}
+                    {% continue %}
+                  {% endif %}  
+                {% assign step_count = step_count | plus: 1 %}
+                {% capture step_title %}step_title_{{ i }}{% endcapture %}
+                {% if section.settings[step_title] != blank %}
+                  <div class="call-step-item {% if forloop.first %} active {% endif %}" data-step="{{ section.settings[step_title] | handle }}">
+                    <span class="step-number">{{ step_count }}</span>
+                    <span class="step-title">{{ section.settings[step_title] }}</span>  
+                  </div>    
+                {% endif %}
+              {% endfor %}                
+            </div>
+            <div class="call-step-content call-step-mb-40" data-cont="{{ section.settings.step_title_1 | handle }}">
+               {%- for filter in collection.filters limit: 1 -%}{%- endfor -%}{%- comment -%} This is just to get rid of the "this theme does not support filters" message in the shopify admin {%- endcomment -%}
+                {% comment %} {%- render 'facets-mobile', results: collection, enable_filtering: enable_filtering, enable_sorting: enable_sorting, show_counts: show_counts, filter_color_swatches: filter_color_swatches, filters_collapsed: filters_collapsed, box_filter_list: box_filter_list -%} {% endcomment %}
+                {%- paginate collection.products by 25 -%}
+                  <div class="collection-container">
+                    <div id="ProductGridContainer">
+                      <div class="sidebar-container facets--{{ facets_desktop }} results--{{ collection.products.size }}">
+                        {% assign heating_film_content = collection.metafields.custom.bundle_heating_film_content | metafield_tag %}
+                        {{ heating_film_content }}
+                        {%- if facets_desktop == 'sidebar' -%}
+                          {%- render 'facets-filter-bundle', results: collection, enable_filtering: enable_filtering, enable_sorting: enable_sorting, show_counts: show_counts, filter_color_swatches: filter_color_swatches, filters_collapsed: filters_collapsed, box_filter_list: box_filter_list, paginate: paginate -%}
+                        {%- endif -%}
+                        <div>
+                        {%- render 'facets-bar-bundle', results: collection, enable_filtering: enable_filtering, enable_sorting: enable_sorting, facets_desktop: facets_desktop, filter_color_swatches: filter_color_swatches, paginate: paginate, section: section -%}
+                          <ul class="products collection products-grid-item {% if collection.products.size == 0 %} collection--empty{%- endif -%}">
+                            {%- if collection.products.size == 0 -%}
+                              <div class="collection-empty">
+                                {% render 'svg-icons' with 'thb-no-products' %}
+                                <p>
+                                  {{ 'sections.collection_template.empty' | t }}<br>
+                                  {%- if collection.terms -%}
+                                  {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url }}
+                                  {%- endif -%}
+                                </p>
+                              </div>
+                            {%- else -%}
+                              <table class="product-table">
+                                <thead>
+                                  <tr>
+                                    {% comment %} <th></th> {% endcomment %}
+                                    <th>Cable Power</th>
+                                    {% comment %} <th>
+                                      <div class="cable_power_table_title">
+                                        <span>Cable Power Maximum length per Single Circuit  </span>
+                                        <modal-opener class="cable_power_maximum" data-modal="#cable_power_maximum"><button class="cable_power_maximum_btn" type="button" aria-haspopup="dialog">
+                                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="248" fill="#a00404"></circle><path fill="#fff" d="M256 118 c23.2 0 42 18.8 42 42 s-18.8 42-42 42 s-42-18.8-42-42 s18.8-42 42-42zm56 254 c0 6.6-5.4 12-12 12 h-88 c-6.6 0-12-5.4-12-12 v-24 c0-6.6 5.4-12 12-12 h12 v-64 h-12 c-6.6 0-12-5.4-12-12 v-24 c0-6.6 5.4-12 12-12 h64 c6.6 0 12 5.4 12 12 v100 h12 c6.6 0 12 5.4 12 12 v24z"></path> </svg>
+                                        </button></modal-opener>
+                                      </div>
+                                    </th> {% endcomment %}
+                                    <th>Price per Ft.</th>
+                                    <th class="actions-column">Length(ft.)</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="product-grid" data-id="{{ section.id }}">
+                                  {%- for product in collection.products -%}
+                                    <tr class="product-row column" data-product-id="{{ product.id }}">
+                                      {% comment %} <td class="product-item">
+                                        <div class="product-item-content">
+                                        {%- liquid 
+                                          assign featured_media = product.featured_media
+                                          if featured_media.media_type != 'image'
+                                            assign featured_media = featured_media.preview_image
+                                          endif
+                                        -%}
+                                        {%- if featured_media -%}
+                                          {%- render 'responsive-image', class: 'product-primary-image', image: featured_media, sizes: sizes -%}
+                                        {%- else -%}
+                                          <div class="thb-placeholder">
+                                            {% comment %} <svg xmlns="http://www.w3.org/2000/svg" width="42" height="38" viewBox="0 0 42 38" fill="none"> <g clip-path="url(#clip0_10734_9903)"> <path d="M36.3684 18.1842C36.3449 22.9997 34.4215 27.6113 31.0164 31.0164C27.6113 34.4215 22.9997 36.3449 18.1842 36.3684C13.3687 36.3449 8.75712 34.4215 5.352 31.0164C1.94688 27.6113 0.0235039 22.9997 0 18.1842C0.0235039 13.3687 1.94688 8.75712 5.352 5.352C8.75712 1.94688 13.3687 0.0235039 18.1842 0C22.9997 0.0235039 27.6113 1.94688 31.0164 5.352C34.4215 8.75712 36.3449 13.3687 36.3684 18.1842Z" fill="white"/> <path d="M36.3684 18.1842C36.3449 22.9997 34.4215 27.6113 31.0164 31.0164C27.6113 34.4215 22.9997 36.3449 18.1842 36.3684C13.3687 36.3449 8.75712 34.4215 5.352 31.0164C1.94688 27.6113 0.0235039 22.9997 0 18.1842C0.0235039 13.3687 1.94688 8.75712 5.352 5.352C8.75712 1.94688 13.3687 0.0235039 18.1842 0C22.9997 0.0235039 27.6113 1.94688 31.0164 5.352C34.4215 8.75712 36.3449 13.3687 36.3684 18.1842Z" fill="url(#paint0_radial_10734_9903)"/> <mask id="mask0_10734_9903" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="-1" y="0" width="38" height="37"> <path d="M36.4652 18.0467V18.4043C36.4417 23.2642 34.5011 27.9185 31.0652 31.3557C27.6294 34.7929 22.9758 36.7352 18.1159 36.7605C15.6784 36.7489 13.2674 36.2543 11.0221 35.3054C8.77692 34.3564 6.74206 32.9718 5.03517 31.2317C3.32828 29.4915 1.98322 27.4303 1.07773 25.1672C0.172247 22.9041 -0.275707 20.484 -0.240234 18.0467C-0.125676 13.2474 1.85615 8.68199 5.28396 5.32096C8.71177 1.95993 13.3153 0.0683077 18.1159 0.0481873C22.9153 0.0700931 27.5171 1.96251 30.9434 5.32335C34.3698 8.68419 36.3506 13.2486 36.4652 18.0467Z" fill="white"/> </mask> <g mask="url(#mask0_10734_9903)"> <path d="M27.0491 2.0358C27.0491 2.0358 18.3146 2.42094 14.8828 7.20083C11.6985 11.6368 14.3463 16.6162 14.5595 19.2159C14.7796 21.8087 14.9928 29.2777 6.98047 32.9572C6.98047 32.9572 10.88 31.9806 14.9928 26.4648C19.1056 20.9421 11.9667 12.4209 16.4027 7.31087C20.4604 2.62039 27.0491 2.0358 27.0491 2.0358ZM30.9556 3.30126C30.9556 3.30126 22.3105 3.66577 18.9405 8.4938C15.9832 12.7235 18.3972 17.9091 18.6173 20.502C18.8373 23.1017 18.5072 31.0246 10.5018 34.7041C10.5018 34.7041 14.9378 33.2736 19.0505 27.7578C23.1633 22.2351 16.1345 13.7964 20.4604 8.60384C21.7695 7.06668 23.3719 5.80598 25.1739 4.8955C26.976 3.98502 28.9415 3.44304 30.9556 3.30126ZM35.0408 4.7593C35.0408 4.7593 26.4164 5.13757 23.0326 9.95184C20.0065 14.2572 22.4549 19.3741 22.7094 21.9669C23.0739 25.777 22.4205 32.3726 14.4151 36.0521C14.4151 36.0521 19.023 34.7385 23.1427 29.2158C27.2486 23.7 20.2197 15.2544 24.5457 10.0619C25.8548 8.52539 27.4574 7.26558 29.2595 6.35624C31.0616 5.44691 33.0271 4.90633 35.0408 4.76618M39.1673 6.72628C39.1673 6.72628 30.6392 5.97662 27.2004 10.7565C24.0711 15.1169 26.774 20.6395 26.9941 23.2324C27.2004 25.8321 26.8772 32.9022 18.8648 36.5748C18.8648 36.5748 23.067 35.4125 27.1867 29.8967C31.2926 24.374 24.415 16.0866 28.7135 10.8666C32.5855 6.16232 39.1673 6.72628 39.1673 6.72628ZM41.5057 8.41815C41.5057 8.41815 33.6034 8.50068 30.591 12.5034C27.9776 15.9834 30.708 22.5102 30.8111 24.7248C30.8937 26.5267 31.4714 30.5982 24.4494 35.722C23.5553 36.4647 28.3765 34.5665 31.265 29.3534C34.4425 23.6313 28.3008 16.8431 32.1454 12.5653C35.9968 8.28748 41.5126 8.41815 41.5126 8.41815" fill="white"/> </g> </g> <defs> <radialGradient id="paint0_radial_10734_9903" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(6.54741 10.2819) scale(29.0489)"> <stop stop-color="white"/> <stop offset="0.01" stop-color="white"/> <stop offset="0.37" stop-color="#CB171E"/> <stop offset="0.39" stop-color="#CB171E"/> <stop offset="0.47" stop-color="#CB171E"/> <stop offset="0.92" stop-color="#59080A"/> <stop offset="1" stop-color="#231F20"/> </radialGradient> <clipPath id="clip0_10734_9903"> <rect width="41.953" height="37.1387" fill="white"/> </clipPath> </defs> </svg> {% endcomment %}
+                                          </div>
+                                        {%- endif -%}
+                                        <div class="product-title">
+                                            <quick-view class="product-title-quick-view" data-product-handle="{{ product.handle }}" tabindex="-1">
+                                              <a href="{{ product.url }}">{{ product.selected_or_first_available_variant.sku }}</a>
+                                            </quick-view>
+                                          </div>
+                                        </div>
+                                      </td> {% endcomment %}
+                                       <td class="product-size">
+                                        <div class="product-size-hw-ft">
+                                            {% if template.suffix == 'neverfreeze-snow-melting-cable' or template.suffix == 'neverfreeze-snow-melting-mats' %}
+                                              {% if collection.handle == 'thermotile-cable' or collection.handle == 'thermotile-cable-and-schluter-ditra-heat-membrane' or collection.handle == 'thermotile-cable-and-prodeso-heat-membrane' or collection.handle == 'thermotile-cable-and-prova-flex-heat-membrane' or collection.handle == 'thermoslab-cable' or collection.handle == 'neverfreeze-self-regulating-roof-gutter-cable' or collection.handle == 'neverfreeze-snow-melting-cable' or collection.handle == 'neverfreeze-pipe-tracing-cable' %}
+                                                {% if product.metafields.custom.heated_length != blank %}<span class="product-size-hw">{{ product.metafields.custom.heated_length }}'</span>{% endif %}
+                                              {% else %}
+                                                {% if product.metafields.custom.recommend_coverage != blank %}<span class="product-size-hw">{{ product.metafields.custom.recommend_coverage }} ft²</span>{% endif %}
+                                                {% if product.metafields.custom.heated_width != blank or product.metafields.custom.heated_length != blank %}<span class="product-size-ft">{{ product.metafields.custom.heated_width }}' X {{ product.metafields.custom.heated_length }}'</span>{% endif %}
+                                              {% endif %}   
+                                            {% else %}
+                                              
+                                            {% if product.variants.size > 1 %}                                            
+                                              <select class="variant-size-select" data-product-id="{{ product.id }}">
+                                                {% assign shown_options = '' %}
+                                                {% for variant in product.variants %}
+                                                    {% unless shown_options contains variant.option1 %}
+                                                  <option
+                                                    value="{{ variant.id }}"
+                                                    {% if variant.id == product.selected_or_first_available_variant.id %}selected{% endif %}
+                                                    data-price="{{ variant.price }}"
+                                                    data-compare="{{ variant.compare_at_price }}"
+                                                    data-quantity="{{ variant.inventory_quantity }}"
+                                                    data-available="{{ variant.available }}"
+                                                  >
+                                                    {{ variant.option1 }}
+                                                  </option>
+                                                   {% assign shown_options = shown_options | append: variant.option1 | append: ',' %}
+                                                  {% endunless %}
+                                                {% endfor %}
+                                              </select>
+
+                                            {% elsif product.metafields.custom.product_size_hw != blank %}  
+                                                {{ product.metafields.custom.product_size_hw }}
+                                            {% else %}    
+                                              {{ product.metafields.custom.cable_power }}
+                                            {% endif %} 
+                                          {% endif %}
+
+                                          {% comment %} <span class="product-size-ft">{{ product.metafields.custom.product_size_ft }}</span>  {% endcomment %}
+                                        </div>
+                                      </td> 
+                                      {% comment %} <td class="product-power">
+                                        <div class="product-size-hw-ft">
+                                          {% comment %} <select class="variant-size-select" data-product-id="{{ product.id }}">
+                                            {% assign shown_options = '' %}
+                                              {% for variant in product.variants %}
+                                                  {% unless shown_options contains variant.option2 %}
+                                                <option
+                                                  value="{{ variant.id }}"
+                                                  {% if variant.id == product.selected_or_first_available_variant.id %}selected{% endif %}
+                                                  data-price="{{ variant.price }}"
+                                                  data-compare="{{ variant.compare_at_price }}"
+                                                  data-quantity="{{ variant.inventory_quantity }}"
+                                                  data-available="{{ variant.available }}"
+                                                >
+                                                  {{ variant.option2 }}
+                                                </option>
+                                                  {% assign shown_options = shown_options | append: variant.option2 | append: ',' %}
+                                                {% endunless %}
+                                              {% endfor %}
+                                          </select> {% endcomment %}
+                                          {{ product.metafields.custom.cable_power_maximum_length_per_single_circuit }}
+                                        </div>
+                                      </td>                                       {% endcomment %}
+                                     <td class="product-price"
+                                            data-regular-price
+                                            data-compare-price>
+                                        <span class="price--regular" id="ProductPrice">
+                                            {{ product.selected_or_first_available_variant.price | money }}
+                                        </span>
+
+                                        <span class="price--compare" id="ComparePrice" style="display:none;">
+                                            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                                        </span>
+
+                                        </td>
+
+                                      <td class="product-actions">
+                                        {%- assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id -%}
+                                        {% assign selected_variant = product.selected_or_first_available_variant %}
+                                          {% assign is_out_of_stock = false %}
+                                          {% if selected_variant.inventory_management == 'shopify' %}
+                                              {% if selected_variant.inventory_quantity <= 0 and selected_variant.inventory_policy == 'deny' %}
+                                                  {% assign is_out_of_stock = true %}
+                                              {% endif %}
+                                          {% elsif selected_variant.inventory_management == 'null' %}
+                                              {% assign is_out_of_stock = true %}
+                                          {% endif %}
+                                          <div class="quantity-selector-wrapper">
+                                            <quantity-selector class="quantity">
+                                              <button class="minus" type="button" aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}">
+                                                {% render 'svg-icons' with 'minus' %}
+                                              </button>
+                                              <input
+                                                type="number"
+                                                id="Quantity-{{ section.id }}"
+                                                name="quantity"
+                                                class="qty quantity__input"
+                                                
+                                                data-min="0"
+                                                min="0"
+                                                {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                                                  data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                                                  max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                                                {% else %}  
+                                                  max="1000"
+                                                {% endif %}
+                                                step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                                                form="{{ product_form_id }}"
+                                                aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}"
+                                                data-discount-base-price="{{ product.selected_or_first_available_variant.price }}"
+                                              >
+                                              <button class="plus {% if is_out_of_stock %}disabled{%endif %}" type="button" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}">
+                                                {% render 'svg-icons' with 'plus' %}
+                                              </button>
+                                            </quantity-selector>
+                                            <span>Ft.</span>
+                                          </div>
+                                       {% if is_out_of_stock %}
+                                          <button class="button accent quick-add-btn quick-add-button" disabled type="button">Sold out</button> 
+                                          {%else %}
+                                            <input type="hidden" class="wc_variant_id" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                                            <button class="button accent quick-add-btn quick-add-button" disabled disabled="disabled" type="button">Add to cart</button> 
+                                        {%endif %} 
+                                      </td>
+                                      {% comment %} <td class="max-text-notice">Max. length is 1000 ft. Need more - order additional quantities</td>  {% endcomment %}
+                                    </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            {%- endif -%}
+                            <li class="loading-overlay">
+                              <div class="loading-overlay--sticky">
+                                {% render 'svg-icons' with 'thb-loading' %}
+                              </div>
+                            </li>
+                            {% render 'pagination', paginate: paginate, pagination_type: pagination_type, id: section.id %} 
+
+                            {% if collection.metafields.custom.bundle_heating_film_other_parts.value != blank %}<p class="other-parts-text">Choose Other Components:</p>{% endif %}
+                            <div class="products collection row other-parts medium-up-4 small-up-2">
+                              {% for film_other_parts in collection.metafields.custom.bundle_heating_film_other_parts.value %}
+                                <li class="column">
+                                  {%- render 'bundle-product-card', product_card_product: film_other_parts, compare_show: collection.metafields.custom.compare_hide_show -%}
+                                </li>
+                              {% endfor %}
+                             </div>
+                          </ul>
+                        
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {%- endpaginate -%}
+            </div>
+            {% unless template.suffix == "neverfreeze-heated-rubber-mats" %}                          
+              {% if collection.metafields.custom.thermostats_programmable != blank or collection.metafields.custom.thermostats_manual !=blank or collection.metafields.custom.bundle_thermostat_other_parts != blank or collection.metafields.custom.tab_3_products != blank  %}              
+                <div class="call-steps-nav call-steps-tab">
+                  {% for i in (1..4) %}
+                    {% capture step_title %}step_title_{{ i }}{% endcapture %}
+                    {% if section.settings[step_title] != blank %}
+                      <div class="call-step-item  {% if forloop.index == 1 or forloop.index == 2 %}active{% endif %} {% if forloop.index == 1 %}disable{% endif %}" data-step="{{ section.settings[step_title] | handle }}">
+                        <span class="step-number">
+                          {% if forloop.index == 1 %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M5.59509 11L0 5.78586L1.39877 4.48233L5.59509 8.39293L14.6012 0L16 1.30353L5.59509 11Z" fill="white"/></svg>
+                          {% else %}
+                            {{ forloop.index }}
+                          {% endif %}                        
+                        </span>
+                        <span class="step-title">{{ section.settings[step_title] }}</span>  
+                      </div>    
+                    {% endif %}
+                  {% endfor %}              
+                </div>            
+                <div class="call-step-content call-step-mb-40" data-cont="{{ section.settings.step_title_2 | handle }}">
+                  <span class="step-title mb-15 body-large">{{ section.settings.step_title_2 }}</span>
+                  {% assign thermostats_content = collection.metafields.custom.bundle_thermostats_content | metafield_tag %}
+                  {{ thermostats_content }}
+                  <div class="facets">
+                    {% if collection.metafields.custom.thermostats_programmable.value != blank or collection.metafields.custom.thermostats_manual.value !=blank %}
+                  <div class="thb-filter-title">
+                      Choose Setting
+                    {% if collection.id == 309512699957 or collection.id == 309164900405 %}
+                      <p>Not Sure Which is Best? 
+                        <a href="https://thermosoftonline.myshopify.com/pages/contact">
+                          Contact Us for Help
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M6.66666 0C10.3485 0 13.3333 2.98475 13.3333 6.66666C13.3333 10.3485 10.3486 13.3333 6.66666 13.3333C2.98478 13.3333 0 10.3486 0 6.66666C0 2.98475 2.98478 0 6.66666 0ZM6.66666 8.83334C6.20638 8.83334 5.83328 9.20641 5.83328 9.66666C5.83328 10.1269 6.20641 10.5 6.66663 10.5C7.12684 10.5 7.49997 10.1269 7.49997 9.66666C7.49997 9.20641 7.12684 8.83334 6.66663 8.83334M6.55538 2.91672C5.90647 2.91672 5.36106 3.0935 4.91981 3.44609C4.39694 3.86847 4.13572 4.49222 4.13572 5.31791H5.55328V5.30841C5.55328 4.99337 5.61963 4.73497 5.75203 4.53341C5.93469 4.26247 6.231 4.12684 6.64062 4.12684C6.89272 4.12684 7.10728 4.19303 7.28344 4.32516C7.50388 4.50822 7.61447 4.78531 7.61447 5.15716C7.61447 5.39037 7.55747 5.59822 7.44416 5.78109C7.34963 5.94491 7.19841 6.10547 6.99016 6.26313C6.54909 6.56559 6.26228 6.865 6.13016 7.16134C6.01669 7.40709 5.95969 7.79781 5.95969 8.33334H7.29297C7.29297 7.98034 7.33988 7.71584 7.43484 7.53928C7.51034 7.39434 7.66806 7.24006 7.90756 7.07609C8.32366 6.76719 8.61959 6.48034 8.79619 6.21566C9.01034 5.90066 9.11769 5.53188 9.11769 5.1095C9.11769 4.23419 8.76169 3.61331 8.04909 3.24763C7.62081 3.02709 7.12291 2.91666 6.55541 2.91666" fill="#900000"/>
+                        </svg>
+                        </a>
+                      </p>
+                    {% else %}  
+                      {% unless collection.id == 308785741877 or collection.id == 308786298933 or collection.id == 309267988533 or collection.id == 309266415669 or collection.id == 308786364469 or collection.id == 308786331701 or collection.id == 309267136565 or collection.id == 308786102325 or collection.id == 310534733877 or collection.id == 310474702901 %}
+                        <a href="">
+                        What’s best for my space
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M6.66666 0C10.3485 0 13.3333 2.98475 13.3333 6.66666C13.3333 10.3485 10.3486 13.3333 6.66666 13.3333C2.98478 13.3333 0 10.3486 0 6.66666C0 2.98475 2.98478 0 6.66666 0ZM6.66666 8.83334C6.20638 8.83334 5.83328 9.20641 5.83328 9.66666C5.83328 10.1269 6.20641 10.5 6.66663 10.5C7.12684 10.5 7.49997 10.1269 7.49997 9.66666C7.49997 9.20641 7.12684 8.83334 6.66663 8.83334M6.55538 2.91672C5.90647 2.91672 5.36106 3.0935 4.91981 3.44609C4.39694 3.86847 4.13572 4.49222 4.13572 5.31791H5.55328V5.30841C5.55328 4.99337 5.61963 4.73497 5.75203 4.53341C5.93469 4.26247 6.231 4.12684 6.64062 4.12684C6.89272 4.12684 7.10728 4.19303 7.28344 4.32516C7.50388 4.50822 7.61447 4.78531 7.61447 5.15716C7.61447 5.39037 7.55747 5.59822 7.44416 5.78109C7.34963 5.94491 7.19841 6.10547 6.99016 6.26313C6.54909 6.56559 6.26228 6.865 6.13016 7.16134C6.01669 7.40709 5.95969 7.79781 5.95969 8.33334H7.29297C7.29297 7.98034 7.33988 7.71584 7.43484 7.53928C7.51034 7.39434 7.66806 7.24006 7.90756 7.07609C8.32366 6.76719 8.61959 6.48034 8.79619 6.21566C9.01034 5.90066 9.11769 5.53188 9.11769 5.1095C9.11769 4.23419 8.76169 3.61331 8.04909 3.24763C7.62081 3.02709 7.12291 2.91666 6.55541 2.91666" fill="#900000"/>
+                        </svg>
+                      </a> 
+                    {% endunless %}
+                  {% endif %}
+                  </div>
+                  {% endif %}  
+                  <div class="setting-main-parts">
+                    {% if collection.metafields.custom.thermostats_programmable.value != blank or collection.metafields.custom.thermostats_manual.value !=blank %}
+                      <div class="thermostats_tab">
+                        <p id="tab-program" class="thermostats_tab-btn">{{ section.settings.tab-title-1 }}</p>
+                        <p id="tab-manual" class="thermostats_tab-btn">{{ section.settings.tab-title-2 }}</p>
+                        <p id="tab-product-3" class="thermostats_tab-btn">{{ section.settings.tab-title-3 }}</p>
+                      </div>
+                    {% endif %}   
+                    <div class="thermostats_programmable products collection row medium-up-4 small-up-2">
+                      {% for thermostats_programmable in collection.metafields.custom.thermostats_programmable.value %}
+                        <li class="column">{%- render 'bundle-product-card', product_card_product: thermostats_programmable, compare_show: collection.metafields.custom.compare_hide_show -%}</li>
+                      {% endfor %}
+                    </div>
+                    <div class="thermostats_manual products collection row medium-up-4 small-up-2">
+                      {% for thermostats_manual in collection.metafields.custom.thermostats_manual.value %}
+                        <li class="column">
+                          {%- render 'bundle-product-card', product_card_product: thermostats_manual, compare_show: collection.metafields.custom.compare_hide_show -%}
+                        </li>
+                      {% endfor %}
+                    </div>
+                    <div class="thermostats_product-3 products collection row medium-up-4 small-up-2">
+                      {% for thermostats_tab in collection.metafields.custom.tab_3_products.value %}
+                        <li class="column">
+                          {%- render 'bundle-product-card', product_card_product: thermostats_tab, compare_show: collection.metafields.custom.compare_hide_show -%}
+                        </li>
+                      {% endfor %}
+                    </div>
+                    </div>
+                  </div>
+                  {% if collection.metafields.custom.bundle_thermostat_other_parts.value != blank %}
+                    <p class="other-parts-text">Choose Other Components:</p>
+                    <div class="products collection row other-parts medium-up-4 small-up-2">
+                      {% for thermostat_other_parts in collection.metafields.custom.bundle_thermostat_other_parts.value %}
+                        <li class="column">
+                          {%- render 'bundle-product-card', product_card_product: thermostat_other_parts, compare_show: collection.metafields.custom.compare_hide_show -%}
+                        </li>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endunless %}
+
+            {% if collection.metafields.custom.bundle_accessories_products != blank %}                
+              <div class="call-steps-nav call-steps-tab">
+                {% assign step_count = 0 %}
+                {% for i in (1..4) %}
+                  {% if template.suffix == "neverfreeze-heated-rubber-mats" and forloop.index == 2 %}
+                    {% continue %}
+                  {% endif %}  
+                  {% assign step_count = step_count | plus: 1 %}
+                  {% capture step_title %}step_title_{{ i }}{% endcapture %}
+                  {% if section.settings[step_title] != blank %}
+                    <div class="call-step-item {% unless forloop.last %} active {% endunless %} {% if forloop.index == 1 or forloop.index == 2 %}disable{% endif %}" data-step="{{ section.settings[step_title] | handle }}">
+                      <span class="step-number">
+                        {% if forloop.index == 1 or forloop.index == 2 %}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M5.59509 11L0 5.78586L1.39877 4.48233L5.59509 8.39293L14.6012 0L16 1.30353L5.59509 11Z" fill="white"/></svg>
+                        {% else %}
+                          {{ step_count }}
+                        {% endif %}                        
+                      </span>
+                      <span class="step-title">{{ section.settings[step_title] }}</span>  
+                    </div>    
+                  {% endif %}
+                {% endfor %}              
+              </div>
+              <div class="call-step-content call-step-mb-40" data-cont="{{ section.settings.step_title_3 | handle }}">
+                <span class="step-title mb-40 body-large">{{ section.settings.step_title_3 }}</span>
+                <div class="products collection row other-parts medium-up-4 small-up-2">                  
+                  {% for accessories_products in collection.metafields.custom.bundle_accessories_products.value %}                    
+                    <li class="column">
+                      {%- render 'bundle-product-card', product_card_product: accessories_products, compare_show: collection.metafields.custom.compare_hide_show -%}
+                    </li>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+            {% if collection.metafields.custom.bundle_kits_products %}
+              <div class="call-steps-nav call-steps-tab">
+                {% for i in (1..4) %}
+                  {% capture step_title %}step_title_{{ i }}{% endcapture %}
+                  {% if section.settings[step_title] != blank %}
+                    <div class="call-step-item  active {% if forloop.index == 1 or forloop.index == 2 or forloop.index == 3 %}disable{% endif %}" data-step="{{ section.settings[step_title] | handle }}">
+                      <span class="step-number">
+                        {% if forloop.index == 1 or forloop.index == 2 or forloop.index == 3 %}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M5.59509 11L0 5.78586L1.39877 4.48233L5.59509 8.39293L14.6012 0L16 1.30353L5.59509 11Z" fill="white"/></svg>
+                        {% else %}
+                          {{ forloop.index }}
+                        {% endif %}                        
+                      </span>
+                      <span class="step-title">{{ section.settings[step_title] }}</span>  
+                    </div>    
+                  {% endif %}
+                {% endfor %}              
+              </div>
+              <div class="call-step-content kits-step call-step-mb-40" data-cont="{{ section.settings.step_title_4 | handle }}">
+                <span class="step-title mb-40 body-large">{{ section.settings.step_title_4 }}</span>
+                <div class="products collection row other-parts medium-up-4 small-up-2">
+                  {% for kits_products in collection.metafields.custom.bundle_kits_products.value %}
+                    <li class="column">
+                      {%- render 'bundle-product-card', product_card_product: kits_products, compare_show: collection.metafields.custom.compare_hide_show -%}
+                    </li>
+                  {% endfor %}
+                </div>
+              </div>
+            .{% endif %}
+            <div class="call-step-content last-step">
+              <p class="body-large">This is the last step</p>
+              <a class="see_cart">See your cart</a>
+            </div>
+          </div>
+          {%- if collection.metafields.custom.bundle_more_info_tab != blank -%}
+          <div class="tabbed-content--content text-left" style="--columns:">
+            {{ collection.metafields.custom.bundle_more_info_tab | metafield_tag }}
+          </div>
+          {%- endif -%}
+          <div class="tabbed-content--content text-left" style="--columns:">
+          </div>
+          {%- if collection.metafields.custom.bundle_docs_tab != blank -%}
+            <div class="tabbed-content--content text-left" style="--columns:">
+              {% for docs in collection.metafields.custom.bundle_docs_tab.value %}
+                <p>
+                  <a href="{{ docs.doc_link.value.url }}" class="doc_text" title="{{ docs.doc_link.value.text }}" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M5.50972 9.78662C5.38705 9.78662 5.30439 9.79862 5.26172 9.81062V10.596C5.31239 10.608 5.37572 10.6113 5.46305 10.6113C5.78239 10.6113 5.97905 10.45 5.97905 10.1773C5.97905 9.93329 5.80972 9.78662 5.50972 9.78662ZM7.83439 9.79462C7.70105 9.79462 7.61439 9.80662 7.56305 9.81862V11.5586C7.61439 11.5706 7.69705 11.5706 7.77172 11.5706C8.31639 11.5746 8.67105 11.2746 8.67105 10.64C8.67505 10.0866 8.35172 9.79462 7.83439 9.79462Z" fill="#900000"/>
+                      <path d="M9.33463 1.33337H4.0013C3.64768 1.33337 3.30854 1.47385 3.05849 1.7239C2.80844 1.97395 2.66797 2.31309 2.66797 2.66671V13.3334C2.66797 13.687 2.80844 14.0261 3.05849 14.2762C3.30854 14.5262 3.64768 14.6667 4.0013 14.6667H12.0013C12.3549 14.6667 12.6941 14.5262 12.9441 14.2762C13.1942 14.0261 13.3346 13.687 13.3346 13.3334V5.33337L9.33463 1.33337ZM6.3333 10.7934C6.1273 10.9867 5.8233 11.0734 5.4693 11.0734C5.40065 11.0747 5.332 11.0707 5.26397 11.0614V12.012H4.66797V9.38804C4.93695 9.34804 5.20872 9.32976 5.48064 9.33337C5.85197 9.33337 6.11597 9.40404 6.29397 9.54604C6.4633 9.68071 6.57797 9.90137 6.57797 10.1614C6.5773 10.4227 6.49064 10.6434 6.3333 10.7934ZM8.8713 11.6967C8.5913 11.9294 8.1653 12.04 7.64464 12.04C7.33264 12.04 7.11197 12.02 6.96197 12V9.38871C7.23105 9.34957 7.50273 9.33107 7.77463 9.33337C8.2793 9.33337 8.6073 9.42404 8.8633 9.61737C9.13997 9.82271 9.3133 10.15 9.3133 10.62C9.3133 11.1287 9.1273 11.48 8.8713 11.6967ZM11.3346 9.84671H10.3133V10.454H11.268V10.9434H10.3133V12.0127H9.7093V9.35337H11.3346V9.84671ZM9.33463 6.00004H8.66797V2.66671L12.0013 6.00004H9.33463Z" fill="#900000"/>
+                    </svg>
+                    <span>{{ docs.doc_title }}</span>
+                  </a>
+                </p>
+              {% endfor %}
+            </div>
+          {%- endif -%}
+          {%- if collection.metafields.custom.bundle_faq_tab != blank -%}
+          <div class="tabbed-content--content faq-tabed text-left" style="--columns:">
+            {% for faqs in collection.metafields.custom.bundle_faq_tab.value %}
+              <collapsible-row class="accordion" {{ block.shopify_attributes }}>
+                <details id="Details-{{ forloop.index }}-{{ section.id }}" {% if forloop.first %}open{% endif %}>
+                  <summary>
+                    {{ faqs.faq_title }}
+                    <span>{%- render 'svg-icons' with 'thb-collapsible-arrow' -%}</span>
+                  </summary>
+                  <div class="collapsible__content accordion__content rte" id="Accordion-{{ forloop.index }}-{{ section.id }}">
+                    {{ faqs.faq_description | metafield_tag }}
+                  </div>
+                </details>
+              </collapsible-row>
+            {% endfor %}
+          </div>
+          {%- endif -%}
+        </tabbed-content>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal-dialog id="cable_power_maximum" class="product-popup-modal">
+  <div role="dialog" aria-label="Cable Power Maximum length per Single Circuit" aria-modal="true" class="product-popup-modal__content" tabindex="-1">
+    <button id="ModalClose-desktop-{{ section.id }}" type="button" class="product-popup-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">{% render 'svg-icons' with 'close' %}</button>			
+    <div class="product-popup-modal__content-info cable_power_maximum-popup-modal__content-info">
+      Cable Power Maximum length per Single Circuit
+    </div>
+</div>	
+</modal-dialog>
+
+{%- if enable_filtering or enable_sorting -%}
+{%- if enable_filtering  -%}
+{{ 'nouislider.js' | asset_url | script_tag }}
+{%- endif -%}
+<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+
+<script>
+const MAX_QTY = 1000;
+const ALERT_TEXT =
+  'Max. length is 1000 ft. Need more? Please contact us.';
+
+/* ===============================
+   PLUS / MINUS CLICK
+================================ */
+document.addEventListener('click', function (e) {
+  const plusBtn = e.target.closest('.plus');
+  const minusBtn = e.target.closest('.minus');
+  if (!plusBtn && !minusBtn) return;
+
+  const row = e.target.closest('tr');
+  const input = row?.querySelector('.quantity__input');
+  const notice = row?.querySelector('.max-text-notice');
+  if (!input) return;
+
+  let currentQty = parseInt(input.value || 0, 10);
+
+  /* 👉 qty already 1000 & PLUS clicked */
+  if (plusBtn && currentQty >= MAX_QTY) {
+    alert(ALERT_TEXT);
+    input.value = MAX_QTY;
+    notice && notice.classList.add('active');
+    return;
+  }
+
+  /* allow theme to update qty */
+  setTimeout(() => {
+    let updatedQty = parseInt(input.value || 0, 10);
+
+    if (updatedQty > MAX_QTY) {
+      input.value = MAX_QTY;
+    }
+
+    if (updatedQty >= MAX_QTY) {
+      notice && notice.classList.add('active');
+    } else {
+      notice && notice.classList.remove('active');
+    }
+  }, 0);
+});
+
+/* ===============================
+   MANUAL INPUT
+================================ */
+document.addEventListener('input', function (e) {
+  if (!e.target.classList.contains('quantity__input')) return;
+
+  const input = e.target;
+  const row = input.closest('tr');
+  const notice = row?.querySelector('.max-text-notice');
+
+  let value = parseInt(input.value || 0, 10);
+
+  if (value > MAX_QTY) {
+    alert(ALERT_TEXT);
+    input.value = MAX_QTY;
+    notice && notice.classList.add('active');
+    return;
+  }
+
+  if (value === MAX_QTY) {
+    notice && notice.classList.add('active');
+  } else {
+    notice && notice.classList.remove('active');
+  }
+
+  if (value < 0) input.value = 0;
+});
+
+
+
+/* ===============================
+   INIT ON PAGE LOAD
+================================ */
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.variant-size-select').forEach(select => {
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+});
+
+
+
+
+{% comment %} === filter first button triger click ===  {% endcomment %}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  function triggerFirstVoltage() {
+    const ul = document.querySelector(".template-collection-outside-sow .thb-filter-content ul");
+    if (!ul) return false;
+
+    const firstLi = ul.querySelector("li");
+    if (!firstLi) return false;
+
+    // try input (checkbox / radio)
+    const input = firstLi.querySelector("input");
+    if (input && !input.checked) {
+      input.click();
+      return true;
+    }
+
+    // fallback: label
+    const label = firstLi.querySelector("label");
+    if (label) {
+      label.click();
+      return true;
+    }
+
+    return false;
+  }
+
+  let attempts = 0;
+  const interval = setInterval(() => {
+    attempts++;
+    if (triggerFirstVoltage() || attempts > 30) {
+      clearInterval(interval);
+    }
+  }, 300);
+
+});
+
+
+
+/* ===============================
+   VARIANT CHANGE – PRICE UPDATE
+================================ */
+document.addEventListener("change", function (e) {
+  if (!e.target.classList.contains("variant-size-select")) return;
+
+  const select = e.target;
+  const option = select.options[select.selectedIndex];
+  const row = select.closest("tr");
+  if (!row || !option) return;
+
+  const price = Number(option.dataset.price);
+  const compare = Number(option.dataset.compare);
+
+  const formatMoney = (cents) =>
+    (cents / 100).toLocaleString("en-IN", {
+      style: "currency",
+      currency: Shopify.currency.active || "INR",
+      minimumFractionDigits: 2
+    });
+
+  const qtyInput = row.querySelector(".quantity__input");
+  if (qtyInput) {
+    qtyInput.dataset.discountBasePrice = price;
+  }
+
+  const priceCell = row.querySelector(".product-price");
+  if (!priceCell || !price) return;
+
+  if (compare && compare > price) {
+    priceCell.innerHTML = `
+      <span class="price--regular">${formatMoney(price)}</span>
+      <span class="price--compare">${formatMoney(compare)}</span>
+    `;
+  } else {
+    priceCell.innerHTML = `
+      <span class="price--regular">${formatMoney(price)}</span>
+    `;
+  }
+
+  document.dispatchEvent(new Event("variant:changed"));
+});
+
+
+/* ===============================
+   QTY DISCOUNT INITIALIZER
+================================ */
+function initQtyDiscount() {
+  document.querySelectorAll(".quantity.buttons_added").forEach(function (selector) {
+
+    // ⛔ prevent double binding
+    if (selector.dataset.discountInit === "true") return;
+    selector.dataset.discountInit = "true";
+
+    const input = selector.querySelector(".quantity__input");
+    const minusBtn = selector.querySelector(".minus");
+    const plusBtn = selector.querySelector(".plus");
+    const row = selector.closest("tr");
+
+    if (!input || !row) return;
+
+    function getDiscountPercent(qty) {
+      if (qty >= 1000) return 15;
+      if (qty >= 500) return 10;
+      if (qty >= 250) return 5;
+      return 0;
+    }
+
+    function updatePrice() {
+      const qty = parseInt(input.value) || 0;
+
+      const priceElement = row.querySelector(".product-price .price--regular");
+      if (!priceElement) return;
+
+      const basePrice =
+        (parseFloat(input.dataset.discountBasePrice) || 0) / 100;
+
+      let finalPrice = basePrice;
+      const discountPercent = getDiscountPercent(qty);
+
+      if (discountPercent > 0) {
+        finalPrice = basePrice - (basePrice * discountPercent / 100);
+      }
+
+      priceElement.textContent =
+        (Shopify.currency?.active === "INR" ? "₹" : "$") +
+        finalPrice.toFixed(2);
+    }
+
+    input.addEventListener("input", updatePrice);
+    input.addEventListener("change", updatePrice);
+    minusBtn?.addEventListener("click", () => setTimeout(updatePrice, 10));
+    plusBtn?.addEventListener("click", () => setTimeout(updatePrice, 10));
+
+    document.addEventListener("variant:changed", updatePrice);
+  });
+}
+
+
+/* ===============================
+   INITIAL LOAD
+================================ */
+document.addEventListener("DOMContentLoaded", initQtyDiscount);
+
+
+/* ===============================
+   120V / 240V FILTER FIX (FINAL)
+================================ */
+document.addEventListener("change", function (e) {
+  if (
+    e.target.matches(
+      'input[type="radio"][name="filter.p.m.custom.rated_voltage"]'
+    )
+  ) {
+    setTimeout(initQtyDiscount, 400);
+  }
+});
+
+/* ===============================
+   SHOPIFY AJAX RENDER FIX
+   (Direct URL with filter)
+================================ */
+const discountObserver = new MutationObserver(() => {
+  if (document.querySelector(".quantity.buttons_added")) {
+    initQtyDiscount();
+  }
+});
+
+discountObserver.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+{%- endif -%}
+{% render 'compare-drawer' %}
+{% schema %}
+  {
+    "name": "Outside SOw",
+    "class": "section-template-header",
+    "settings": [
+			{
+        "type": "range",
+        "id": "columns_desktop",
+        "min": 2,
+        "max": 5,
+        "step": 1,
+        "label": "Number of columns on desktop",
+        "default": 3
+      },
+			{
+	      "type": "select",
+	      "id": "pagination_type",
+	      "options": [
+	        {
+	          "value": "paginated",
+	          "label": "Paginated"
+	        },
+	        {
+	          "value": "loadmore",
+	          "label": "Click to load"
+	        },
+	        {
+	          "value": "infinite",
+	          "label": "Infinite"
+	        }
+	      ],
+	      "default": "paginated",
+	      "label": "Pagination",
+	      "info": "Choose how additional pages of products are navigated."
+	    },
+	    {
+	      "type": "header",
+	      "content": "Filtering and sorting"
+	    },
+	    {
+	      "type": "checkbox",
+	      "id": "enable_filtering",
+	      "default": true,
+	      "label": "Enable filtering",
+	      "info": "Customize [filters](/admin/menus)"
+	    },
+	    {
+	      "type": "checkbox",
+	      "id": "enable_sorting",
+	      "default": true,
+	      "label": "Enable sorting"
+	    },
+			{
+	      "type": "checkbox",
+	      "id": "show_counts",
+	      "default": true,
+	      "label": "Show filter values count"
+	    },
+			{
+				"type": "checkbox",
+				"id": "filter_color_swatches",
+				"default": true,
+				"label": "Show color swatches"
+			},
+			{
+	      "type": "checkbox",
+	      "id": "filters_collapsed",
+	      "default": false,
+	      "label": "Collapse filters by default"
+	    },
+			{
+	      "type": "select",
+	      "id": "facets_desktop",
+	      "options": [
+	        {
+	          "value": "sidebar",
+	          "label": "Sidebar"
+	        },
+	        {
+	          "value": "drawer",
+	          "label": "Drawer"
+	        }
+	      ],
+	      "default": "sidebar",
+	      "label": "Desktop position",
+	      "info": "Position of filters on desktop"
+	    },
+      {
+	      "type": "header",
+	      "content": "Volume Discounts Content"
+	    },
+      {
+        "type": "text",
+        "id": "volume_discounts_note",
+        "label": "Volume Discounts Note"
+      },
+      {
+        "type": "text",
+        "id": "volume_discounts_message",
+        "label": "Volume Discounts Message"
+      },
+	    {
+	      "type": "header",
+	      "content": "Filter boxes",
+				"info": "Show some filter options as boxes instead of checkboxes. Recommended only for very short filter labels."
+	    },
+			{
+				"type": "textarea",
+				"id": "box_filter_list",
+        "placeholder": "Size: 4",
+				"label": "Product options to box",
+				"info": "Follow the format: <Filter name>: <Columns>. Example: Size: 2. Each filter name should be in a new line. Enter the name of the option as it appears in the admin area."
+			},
+      {
+				"type": "header",
+				"content": "Sizing Content"
+			},
+      {
+        "type": "text",
+        "id": "sizing_title",
+        "label": "Sizing Title",
+        "default": "Sizing: How Much Cable Do I Need?"
+      },
+      {
+				"type": "header",
+				"content": "Bundle Collection page",
+				"info": "These settings are only used on collection pages."
+			},
+			{
+	      "type": "checkbox",
+	      "id": "show_collection_image",
+	      "default": false,
+	      "label": "Show collection image"
+	    },
+			{
+				"type": "select",
+				"id": "collection_image_ratio",
+				"options": [
+					{
+						"value": "adapt",
+						"label": "Adapt to image"
+					},
+					{
+						"value": "square",
+						"label": "Square"
+					},
+					{
+						"value": "portrait",
+						"label": "Portrait"
+					},
+					{
+						"value": "landscape",
+						"label": "Landscape"
+					}
+				],
+				"default": "adapt",
+				"label": "Collection image ratio"
+			},
+			{
+        "type": "select",
+        "id": "collection_image_width",
+        "label": "Collection image width",
+        "options": [
+					{
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "wide",
+            "label": "Wide"
+          }
+        ],
+        "default": "standard"
+      },
+			{
+				"type": "header",
+				"content": "Description"
+			},
+			{
+	      "type": "checkbox",
+	      "id": "show_collection_description",
+	      "default": true,
+	      "label": "Show collection description"
+	    },
+			{
+				"type": "text",
+				"id": "seo_text_read_more",
+				"default": "Read more",
+				"label": "Read more label",
+				"info": "Button will be shown when the content exceeds the max height"
+			},
+			{
+				"type": "text",
+				"id": "seo_text_read_less",
+				"default": "Read less",
+				"label": "Read less label",
+				"info": "Button will be shown when the content exceeds the max height"
+			},
+			{
+				"type": "range",
+				"id": "seo_text_max_height",
+				"min": 100,
+				"max": 1000,
+				"step": 50,
+				"label": "Max height",
+				"default": 150,
+				"info": "Displays a read more button after the text height exceeds a certain height."
+			},
+			{
+        "type": "header",
+        "content": "Pages"
+      },
+			{
+	      "type": "checkbox",
+	      "id": "display_description",
+	      "label": "Show description text",
+	      "default": true,
+				"info": "Displays the page SEO description text under page title. [Learn more](https://help.shopify.com/en/manual/online-store/themes/theme-structure/pages#edit-the-search-engine-listing-for-a-webpage)"
+	    },
+      {
+        "type": "header",
+        "content": "Step Title"
+      },
+      {
+        "type": "text",
+        "id": "step_title_1",
+        "label": "Step Title 1"
+      },      
+      {
+        "type": "text",
+        "id": "step_title_2",
+        "label": "Step Title 2"
+      },      
+      {
+        "type": "text",
+        "id": "step_title_3",
+        "label": "Step Title 3"
+      },      
+      {
+        "type": "text",
+        "id": "step_title_4",
+        "label": "Step Title 4"
+      },
+      {
+        "type": "header",
+        "content": "Step 2 Tab Title"
+      },      
+      {
+        "type": "text",
+        "id": "tab-title-1",
+        "label": "Tab Title 1"
+      },
+      {
+        "type": "text",
+        "id": "tab-title-2",
+        "label": "Tab Title 2"
+      },
+      {
+        "type": "text",
+        "id": "tab-title-3",
+        "label": "Tab Title 3"
+      },
+      {
+            "type": "image_picker",
+            "id": "free_size-img",
+            "label": "Free Size Image",
+            "info": "Image Size 520*360"
+          },
+          {
+            "type": "richtext",
+            "id": "free-size-content",
+            "label": "Free Size Content"
+          }
+    ]
+  }
+{% endschema %}
