@@ -56,7 +56,7 @@
           </h3>
         </div>
       {%- endif -%}
-			{% form 'contact', class: form_class %}
+			{% comment %} {% form 'contact', class: form_class %}
 				{% if form.posted_successfully? %}
 				<div class="form-notification success">
 					{% render 'svg-icons' with 'thb-success' %} {{ 'sections.contact.form.post_success' | t }}
@@ -173,7 +173,7 @@
             </div>
           {%- endif -%}
 				</div>
-			{% endform %}
+			{% endform %} {% endcomment %}
 		</div>
 		
 	</div>
